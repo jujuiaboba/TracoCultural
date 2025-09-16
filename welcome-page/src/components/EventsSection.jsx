@@ -16,7 +16,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'SP',
       type: 'Show',
       date: 'Hoje',
-      image: 'https://picsum.photos/260/160?random=1'
+      image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=240&h=140&fit=crop'
     },
     {
       id: 2,
@@ -24,7 +24,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'RJ',
       type: 'Exposição',
       date: 'Daqui 3 dias',
-      image: 'https://picsum.photos/260/160?random=2'
+      image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=240&h=140&fit=crop'
     },
     {
       id: 3,
@@ -32,7 +32,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'MG',
       type: 'Teatro',
       date: '15/12/2024',
-      image: 'https://picsum.photos/260/160?random=3'
+      image: 'https://images.unsplash.com/photo-1507924538820-ede94a04019d?w=240&h=140&fit=crop'
     },
     {
       id: 4,
@@ -40,7 +40,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'RS',
       type: 'Workshop',
       date: 'Fim de semana',
-      image: 'https://picsum.photos/260/160?random=4'
+      image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=240&h=140&fit=crop'
     },
     {
       id: 5,
@@ -48,7 +48,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'PR',
       type: 'Cinema',
       date: 'Daqui 7 dias',
-      image: 'https://picsum.photos/260/160?random=5'
+      image: 'https://images.unsplash.com/photo-1489599904472-84978f312f2e?w=240&h=140&fit=crop'
     },
     {
       id: 6,
@@ -56,7 +56,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'SC',
       type: 'Festival',
       date: '20/12/2024',
-      image: 'https://picsum.photos/260/160?random=6'
+      image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=240&h=140&fit=crop'
     }
   ]
 
