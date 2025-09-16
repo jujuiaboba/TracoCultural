@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AnimatedWaves from './AnimatedWaves'
 import './AuthPages.css'
 
-const LoginPage = ({ onBack, onRegister }) => {
+const LoginPage = ({ onBack, onRegister, onLogin }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -20,6 +20,8 @@ const LoginPage = ({ onBack, onRegister }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('Login:', formData)
+    // Simular login bem-sucedido
+    onLogin()
   }
 
   return (

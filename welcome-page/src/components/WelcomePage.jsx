@@ -3,15 +3,23 @@ import AnimatedWaves from './AnimatedWaves'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
 import CreatorRegisterPage from './CreatorRegisterPage'
+import HomePage from './HomePage'
 import './WelcomePage.css'
 
 const WelcomePage = () => {
   const [currentPage, setCurrentPage] = useState('welcome')
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
+  // Se estiver logado, mostrar HomePage
+  if (isLoggedIn) {
+    return <HomePage onLogout={() => setIsLoggedIn(false)} />
+  }
+  
   if (currentPage === 'login') {
     return <LoginPage 
       onBack={() => setCurrentPage('welcome')} 
       onRegister={() => setCurrentPage('register')}
+      onLogin={() => setIsLoggedIn(true)}
     />
   }
   
