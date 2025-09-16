@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import AnimatedWaves from './AnimatedWaves'
+import LoginPage from './LoginPage'
+import RegisterPage from './RegisterPage'
+import CreatorRegisterPage from './CreatorRegisterPage'
 import './WelcomePage.css'
 
 const WelcomePage = () => {
+  const [currentPage, setCurrentPage] = useState('welcome')
+
+  if (currentPage === 'login') {
+    return <LoginPage onBack={() => setCurrentPage('welcome')} />
+  }
+  
+  if (currentPage === 'register') {
+    return <RegisterPage onBack={() => setCurrentPage('welcome')} />
+  }
+  
+  if (currentPage === 'creator-register') {
+    return <CreatorRegisterPage onBack={() => setCurrentPage('welcome')} />
+  }
+
   return (
     <main className="welcome-container">
       {/* Fundo com gradiente e ondas animadas cobrindo tela inteira */}
@@ -20,12 +37,14 @@ const WelcomePage = () => {
         <nav className="action-buttons">
           <button 
             className="btn btn-primary"
+            onClick={() => setCurrentPage('login')}
             aria-label="Entrar ou cadastrar-se na plataforma"
           >
             Entrar ou Cadastrar-se
           </button>
           <button 
             className="btn btn-secondary"
+            onClick={() => setCurrentPage('creator-register')}
             aria-label="Cadastrar-se como criador de eventos"
           >
             Cadastrar como criador de eventos

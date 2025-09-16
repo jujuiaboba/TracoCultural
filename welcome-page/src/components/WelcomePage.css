@@ -90,11 +90,12 @@
 
 /* Título principal grande e destacado */
 .main-title {
-  font-size: 3.5rem;
+  font-size: 4.5rem;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 2.5rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 /* Container dos botões de ação */
@@ -106,31 +107,31 @@
 
 /* Estilos base dos botões arredondados */
 .btn {
-  padding: 1rem 2rem;
+  padding: 1.2rem 2.5rem;
   border: none;
   border-radius: 28px;
   font-family: inherit;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   text-align: center;
-  min-height: 56px;
+  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Botão primário com gradiente escuro */
+/* Botão primário com gradiente mais claro */
 .btn-primary {
-  background: linear-gradient(135deg, #2C1810 0%, #1A0F0A 100%);
+  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
   color: white;
 }
 
-/* Botão secundário com gradiente mais claro */
+/* Botão secundário com gradiente harmonioso */
 .btn-secondary {
-  background: linear-gradient(135deg, #4A2C20 0%, #2C1810 100%);
+  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
   color: white;
 }
 
@@ -141,11 +142,11 @@
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #3D2318 0%, #251612 100%);
+  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
 }
 
 .btn-secondary:hover {
-  background: linear-gradient(135deg, #5A3428 0%, #3D2318 100%);
+  background: linear-gradient(135deg, #B8897A 0%, #A67C6A 100%);
 }
 
 /* Foco de teclado visível para acessibilidade */
@@ -199,4 +200,26 @@
     font-size: 0.85rem;
     padding: 0.75rem 1.25rem;
   }
+}
+
+/* Link secundário para cadastro de usuário */
+.secondary-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.secondary-link .link-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.secondary-link .link-btn:hover {
+  color: white;
 }

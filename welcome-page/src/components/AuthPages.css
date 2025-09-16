@@ -1,0 +1,238 @@
+/* Estilos para páginas de autenticação */
+
+/* Container principal das páginas de auth */
+.auth-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Poppins', 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Conteúdo centralizado */
+.auth-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 450px;
+  padding: 2rem;
+}
+
+/* Caixa maior para criador de eventos */
+.creator-form .auth-content {
+  max-width: 550px;
+}
+
+/* Formulário principal */
+.auth-form {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Cabeçalho do formulário */
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #3C2321;
+  margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+  color: #6B453E;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+/* Grupos de formulário */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #3C2321;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Inputs */
+.form-group input {
+  width: 100%;
+  padding: 0.875rem 1rem;
+  border: 2px solid #E5D5D0;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #8E5E56;
+  box-shadow: 0 0 0 3px rgba(142, 94, 86, 0.1);
+}
+
+.form-group input::placeholder {
+  color: #A67C6A;
+}
+
+/* Grupo de checkbox */
+.checkbox-group {
+  margin: 1rem 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.5rem;
+  transform: scale(1.2);
+}
+
+/* Mensagens de erro */
+.error {
+  display: block;
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Botão principal */
+.auth-btn {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+}
+
+.auth-btn.primary {
+  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(142, 94, 86, 0.3);
+}
+
+.auth-btn.primary:hover {
+  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(142, 94, 86, 0.4);
+}
+
+.auth-btn:focus {
+  outline: 3px solid rgba(142, 94, 86, 0.3);
+  outline-offset: 2px;
+}
+
+/* Links de navegação */
+.auth-links {
+  text-align: center;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #E5D5D0;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: #8E5E56;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.link-btn:hover {
+  color: #6B453E;
+  text-decoration: underline;
+}
+
+.link-btn.underline {
+  text-decoration: underline;
+}
+
+/* Link de registro na página de login */
+.register-link {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.register-link span {
+  color: #6B453E;
+  font-size: 0.9rem;
+}
+
+/* Layout em grid para inputs do criador */
+.creator-form .form-group {
+  margin-bottom: 1.2rem;
+}
+
+.creator-form .auth-form {
+  padding: 2.5rem 3rem;
+}
+
+@media (max-width: 768px) {
+  .creator-form .auth-content {
+    max-width: 90%;
+  }
+  
+  .creator-form .auth-form {
+    padding: 2rem 1.5rem;
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .auth-content {
+    max-width: 90%;
+    padding: 1rem;
+  }
+  
+  .auth-form {
+    padding: 2rem 1.5rem;
+  }
+  
+  .auth-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .form-group input {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-form {
+    padding: 1.5rem 1rem;
+  }
+  
+  .auth-header h1 {
+    font-size: 1.6rem;
+  }
+}
