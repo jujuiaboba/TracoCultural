@@ -9,7 +9,10 @@ const WelcomePage = () => {
   const [currentPage, setCurrentPage] = useState('welcome')
 
   if (currentPage === 'login') {
-    return <LoginPage onBack={() => setCurrentPage('welcome')} />
+    return <LoginPage 
+      onBack={() => setCurrentPage('welcome')} 
+      onRegister={() => setCurrentPage('register')}
+    />
   }
   
   if (currentPage === 'register') {

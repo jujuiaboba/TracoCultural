@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AnimatedWaves from './AnimatedWaves'
 import './AuthPages.css'
 
-const LoginPage = ({ onBack }) => {
+const LoginPage = ({ onBack, onRegister }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -87,7 +87,7 @@ const LoginPage = ({ onBack }) => {
             </button>
             <div className="register-link">
               <span>Não tem uma conta? </span>
-              <button className="link-btn underline">Crie uma aqui!</button>
+              <button onClick={onRegister} className="link-btn underline">Crie uma aqui!</button>
             </div>
           </div>
         </div>

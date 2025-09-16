@@ -49,7 +49,7 @@ const RegisterPage = ({ onBack }) => {
   }
 
   return (
-    <main className="auth-container">
+    <main className="auth-container user-form">
       <div className="background-gradient">
         <AnimatedWaves />
       </div>
