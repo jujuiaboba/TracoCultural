@@ -37,7 +37,7 @@ const Navbar = ({ onLogout }) => {
           aria-label="Configurações"
           title="Configurações"
         >
-          ⚙️
+          <i className="bi bi-gear"></i>
         </button>
         <button 
           className="nav-icon-btn" 
@@ -45,7 +45,7 @@ const Navbar = ({ onLogout }) => {
           aria-label="Alterar tema"
           title="Alterar tema"
         >
-          {isDarkMode ? '☀️' : '🌙'}
+          <i className={`bi ${isDarkMode ? 'bi-sun' : 'bi-moon'}`}></i>
         </button>
         <button 
           className="nav-icon-btn" 
@@ -53,7 +53,7 @@ const Navbar = ({ onLogout }) => {
           aria-label="Logout"
           title="Sair"
         >
-          🚪
+          <i className="bi bi-box-arrow-right"></i>
         </button>
       </div>
     </nav>

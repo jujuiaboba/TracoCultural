@@ -103,6 +103,11 @@
   justify-content: center;
   font-size: 1.1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+.nav-icon-btn i {
+  font-size: 1.1rem;
 }
 
 .nav-icon-btn:hover {
@@ -115,38 +120,41 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
 }
 
 .search-container {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   width: 100%;
-  max-width: 500px;
+  max-width: 800px;
 }
 
 .search-bar {
-  width: 400px;
-  max-width: 90%;
+  width: 70%;
+  max-width: 700px;
   position: relative;
   display: flex;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 25px;
+  border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: 48px;
 }
 
 .search-input {
   flex: 1;
   border: none;
-  padding: 0.8rem 1.2rem;
+  padding: 0 1rem;
   font-size: 1rem;
   font-family: inherit;
   background: transparent;
   outline: none;
+  height: 48px;
+  color: #3C2321;
 }
 
 .search-input::placeholder {
@@ -156,11 +164,15 @@
 .search-btn {
   background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
   border: none;
-  padding: 0.8rem 1.2rem;
+  padding: 0 1rem;
   color: white;
   cursor: pointer;
-  font-size: 1.1rem;
+  font-size: 1rem;
   transition: all 0.3s ease;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-btn:hover {
@@ -170,8 +182,8 @@
 .filter-btn {
   background: linear-gradient(135deg, #A67C6A 0%, #6B453E 100%);
   border: none;
-  padding: 0.8rem 1rem;
-  border-radius: 25px;
+  padding: 0 1rem;
+  border-radius: 6px;
   font-family: inherit;
   font-weight: 500;
   color: white;
@@ -179,6 +191,10 @@
   transition: all 0.3s ease;
   white-space: nowrap;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .filter-btn:hover {
@@ -303,9 +319,9 @@
 /* Container de eventos - Carrossel */
 .events-container.carousel {
   display: flex;
-  gap: 1rem;
+  gap: 16px;
   overflow-x: auto;
-  padding: 1rem 0;
+  padding: 1rem 16px;
   scroll-behavior: smooth;
 }
 
@@ -326,9 +342,9 @@
 /* Container de eventos - Grid (agora carrossel) */
 .events-container.grid {
   display: flex;
-  gap: 1rem;
+  gap: 16px;
   overflow-x: auto;
-  padding: 1rem 0;
+  padding: 1rem 16px;
   scroll-behavior: smooth;
 }
 
@@ -349,12 +365,12 @@
 /* === CARDS DE EVENTOS === */
 .event-card {
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
+  border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-  width: 240px;
-  height: 280px;
+  width: 300px;
+  height: 380px;
   backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
@@ -367,7 +383,7 @@
 
 .event-image {
   width: 100%;
-  height: 140px;
+  height: 180px;
   overflow: hidden;
 }
 
@@ -429,6 +445,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #8E5E56;
+}
+
+.favorite-btn.favorited {
+  color: #e74c3c;
+}
+
+.favorite-btn i {
+  font-size: 1.3rem;
 }
 
 .favorite-btn:hover {
@@ -449,6 +474,14 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   flex: 1;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.info-btn i {
+  font-size: 0.8rem;
 }
 
 .info-btn:hover {

@@ -41,7 +41,7 @@ const EventCard = ({ event }) => {
             aria-label={isFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
             title={isFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
           >
-            {isFavorited ? '❤️' : '🤍'}
+            <i className={`bi ${isFavorited ? 'bi-heart-fill' : 'bi-heart'}`}></i>
           </button>
           <button 
             className="info-btn"
@@ -49,7 +49,7 @@ const EventCard = ({ event }) => {
             aria-label="Ver informações do evento"
             title="Ver informações"
           >
-            🔎 Ver mais
+            <i className="bi bi-search"></i> Ver mais
           </button>
         </div>
       </div>

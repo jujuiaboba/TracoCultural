@@ -26,7 +26,7 @@ const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters }) => 
             className="search-input"
           />
           <button className="search-btn" aria-label="Buscar">
-            🔍
+            <i className="bi bi-search"></i>
           </button>
         </div>
         
@@ -36,7 +36,8 @@ const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters }) => 
           onClick={() => setShowFilters(!showFilters)}
           aria-label="Abrir filtros"
         >
-          🔧 Filtros
+          <i className="bi bi-sliders"></i>
+          Filtros
         </button>
       </div>
       
