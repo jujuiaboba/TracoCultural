@@ -10,42 +10,32 @@ const Navbar = ({ onLogout }) => {
 
   return (
     <nav className="navbar">
-      {/* Logo e navegação principal */}
-      <div className="navbar-left">
-        <div className="navbar-logo">
-          <img src="/src/assets/TRAÇO.png" alt="TracoCultural" className="logo-image" />
-        </div>
-        
-        {/* Botões de navegação */}
-        <div className="navbar-nav">
-          <button className="nav-btn active" aria-label="Página inicial">
-            Início
-          </button>
-          <button className="nav-btn" aria-label="Eventos favoritados">
-            Eventos Favoritados
-          </button>
-          <button className="nav-btn" aria-label="Meu perfil">
-            Meu Perfil
-          </button>
-        </div>
+      <div className="navbar-logo">
+        <img src="/src/assets/TRAÇO.png" alt="TracoCultural" className="logo-image" />
       </div>
       
-      {/* Ícones de ação */}
-      <div className="navbar-right">
+      <div className="navbar-right">        <button 
+          className="nav-icon-btn" 
+          aria-label="Eventos Favoritos"
+          title="Eventos Favoritos"
+        >
+          <i className="bi bi-heart"></i>
+          <span>Eventos Favoritos</span>
+        </button>
+        <button 
+          className="nav-icon-btn" 
+          aria-label="Meu Perfil"
+          title="Meu Perfil"
+        >
+          <i className="bi bi-person"></i>
+          <span>Meu Perfil</span>
+        </button>
         <button 
           className="nav-icon-btn" 
           aria-label="Configurações"
           title="Configurações"
         >
           <i className="bi bi-gear"></i>
-        </button>
-        <button 
-          className="nav-icon-btn" 
-          onClick={toggleTheme}
-          aria-label="Alterar tema"
-          title="Alterar tema"
-        >
-          <i className={`bi ${isDarkMode ? 'bi-sun' : 'bi-moon'}`}></i>
         </button>
         <button 
           className="nav-icon-btn" 

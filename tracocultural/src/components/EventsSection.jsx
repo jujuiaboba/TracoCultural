@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import EventCard from './EventCard'
 
 const EventsSection = ({ title, selectedState, setSelectedState, showLocationIcon, layout, onEventClick }) => {
@@ -87,7 +87,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       </div>
       
       {/* Lista de eventos */}
-      <div className={`events-container ${layout}`}>
+      <div className="events-container">
         {mockEvents.map(event => (
           <EventCard key={event.id} event={event} onEventClick={onEventClick} />
         ))}
@@ -121,5 +121,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
     </section>
   )
 }
+
+
 
 export default EventsSection
