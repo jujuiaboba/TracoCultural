@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import EventCard from './EventCard'
 
-const EventsSection = ({ title, selectedState, setSelectedState, showLocationIcon, layout }) => {
+const EventsSection = ({ title, selectedState, setSelectedState, showLocationIcon, layout, onEventClick }) => {
   const [showStateModal, setShowStateModal] = useState(false)
   
   const states = [
-    'SP', 'RJ', 'MG', 'RS', 'PR', 'SC', 'BA', 'GO', 'DF', 'PE', 'CE', 'MA'
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS',
+    'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC',
+    'SP', 'SE', 'TO'
   ]
 
   // Eventos fictícios para demonstração
@@ -87,7 +89,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       {/* Lista de eventos */}
       <div className={`events-container ${layout}`}>
         {mockEvents.map(event => (
-          <EventCard key={event.id} event={event} />
+          <EventCard key={event.id} event={event} onEventClick={onEventClick} />
         ))}
       </div>
       

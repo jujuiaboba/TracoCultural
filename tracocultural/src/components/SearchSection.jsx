@@ -4,7 +4,11 @@ const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters }) => 
   const [showFilters, setShowFilters] = useState(false)
 
   const eventTypes = ['Show', 'Exposição', 'Teatro', 'Cinema', 'Festival', 'Workshop']
-  const states = ['SP', 'RJ', 'MG', 'RS', 'PR', 'SC', 'BA', 'GO', 'DF']
+  const states = [
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS',
+    'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC',
+    'SP', 'SE', 'TO'
+  ]
   const dateOptions = ['Hoje', 'Fim de semana', 'Esta semana', 'Este mês']
 
   const handleApplyFilters = () => {
@@ -41,10 +45,10 @@ const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters }) => 
         </button>
       </div>
       
-      {/* Dropdown de filtros */}
+      {/* Modal de filtros */}
       {showFilters && (
-        <div className="filters-dropdown">
-          <div className="filters-content">
+        <div className="filters-dropdown" onClick={() => setShowFilters(false)}>
+          <div className="filters-content" onClick={(e) => e.stopPropagation()}>
             <div className="filter-group">
               <label>Tipo de evento</label>
               <select 
@@ -86,6 +90,13 @@ const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters }) => 
             
             <button className="apply-filters-btn" onClick={handleApplyFilters}>
               Aplicar filtros
+            </button>
+            
+            <button 
+              className="close-modal-btn"
+              onClick={() => setShowFilters(false)}
+            >
+              Fechar
             </button>
           </div>
         </div>

@@ -13,7 +13,7 @@ const Navbar = ({ onLogout }) => {
       {/* Logo e navegação principal */}
       <div className="navbar-left">
         <div className="navbar-logo">
-          <img src="/TRAÇO.png" alt="TracoCultural" className="logo-image" />
+          <img src="/src/assets/TRAÇO.png" alt="TracoCultural" className="logo-image" />
         </div>
         
         {/* Botões de navegação */}

@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, onEventClick }) => {
   const [isFavorited, setIsFavorited] = useState(false)
 
   const handleFavorite = () => {
     setIsFavorited(!isFavorited)
-    // Implementar lógica de favoritos
     console.log(`Evento ${event.title} ${isFavorited ? 'removido dos' : 'adicionado aos'} favoritos`)
   }
 
   const handleViewInfo = () => {
-    // Implementar navegação para detalhes do evento
-    console.log('Ver informações do evento:', event.title)
+    onEventClick?.(event)
   }
 
   return (

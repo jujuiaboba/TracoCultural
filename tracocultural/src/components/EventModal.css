@@ -1,0 +1,634 @@
+/* Variáveis CSS para design tokens */
+:root {
+  --brand-1: #8E5E56;
+  --brand-2: #3C2321;
+  --accent: #E3B7AF;
+  --panel-bg: #F6F1EE;
+  --overlay: rgba(0,0,0,0.45);
+  --rounded-lg: 12px;
+  --rounded-xl: 20px;
+}
+
+/* === MODAL PRINCIPAL === */
+
+/* Overlay com fundo desfocado e ondas */
+.event-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(142, 94, 86, 0.8) 0%, rgba(60, 35, 33, 0.8) 100%);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  padding: 2rem;
+  animation: modalFadeIn 320ms ease-out;
+}
+
+/* Ondas no fundo do modal */
+.event-modal-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml,<svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg"><path d="M-100,200 C300,320 900,80 1300,200 C1300,300 1300,400 -100,400 Z" fill="rgba(255,255,255,0.08)"/><path d="M-100,180 C400,280 800,100 1300,180 C1300,300 1300,400 -100,400 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.4;
+  z-index: -1;
+  animation: waveFloat 30s ease-in-out infinite;
+}
+
+/* Container do modal */
+.event-modal-content {
+  background: #F6F1EE;
+  border-radius: 16px;
+  max-width: 1100px;
+  width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  animation: modalSlideIn 320ms ease-out;
+  position: relative;
+}
+
+/* === CABEÇALHO DO MODAL === */
+.modal-header {
+  padding: 1.5rem 2rem 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.action-btn {
+  background: #F6F1EE;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8E5E56;
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.close-btn {
+  background: #F6F1EE;
+  color: #c0392b;
+}
+
+.close-btn:hover {
+  background: #F0E6E1;
+}
+
+/* Menu de compartilhamento */
+.share-container {
+  position: relative;
+}
+
+.share-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: var(--rounded-lg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem;
+  min-width: 160px;
+  z-index: 10;
+  margin-top: 0.5rem;
+}
+
+.share-menu button {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #3C2321;
+  font-weight: 500;
+}
+
+.share-menu button:hover {
+  background: #F5F5F5;
+}
+
+/* === CORPO DO MODAL === */
+.modal-body {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 2rem;
+  padding: 0 2rem 2rem;
+}
+
+/* === SEÇÃO DA GALERIA === */
+.gallery-section {
+  position: relative;
+}
+
+/* === SEÇÃO DE INFORMAÇÕES === */
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.event-header h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #3C2321;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+
+.organizer-link {
+  color: #6B453E;
+  text-decoration: none;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.organizer-link:hover {
+  text-decoration: underline;
+}
+
+.event-meta {
+  color: #6B453E;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Detalhes do evento */
+.event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.detail-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.detail-item i {
+  color: var(--brand-1);
+  font-size: 1.2rem;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
+}
+
+.detail-item strong {
+  color: var(--brand-2);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.detail-item p {
+  margin: 0;
+  color: #6B453E;
+  line-height: 1.4;
+}
+
+.address {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.map-btn {
+  background: none;
+  border: none;
+  color: var(--brand-1);
+  font-size: 0.85rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.map-btn:hover {
+  color: var(--brand-2);
+  text-decoration: underline;
+}
+
+/* Ações principais */
+.primary-actions {
+  margin-top: auto;
+}
+
+.tickets-btn {
+  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
+  border: none;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 56px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tickets-btn:hover {
+  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(142, 94, 86, 0.3);
+}
+
+/* === INFORMAÇÕES DETALHADAS === */
+.detailed-info {
+  padding: 2rem;
+  border-top: 1px solid #E5D5D0;
+}
+
+.detailed-info h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3C2321;
+  margin-bottom: 1rem;
+}
+
+.description {
+  line-height: 1.6;
+  color: #3C2321;
+  font-size: 1rem;
+  text-align: left;
+}
+
+.description p {
+  margin-bottom: 1rem;
+}
+
+.description a {
+  color: var(--brand-1);
+  text-decoration: underline;
+}
+
+.policies {
+  margin-top: 2rem;
+}
+
+.policies h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--brand-2);
+  margin-bottom: 0.75rem;
+}
+
+.policies ul {
+  list-style: none;
+  padding: 0;
+}
+
+.policies li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #E5D5D0;
+  color: #6B453E;
+  font-size: 0.9rem;
+}
+
+.policies li:last-child {
+  border-bottom: none;
+}
+
+/* === GALERIA DE IMAGENS === */
+.image-gallery {
+  width: 100%;
+}
+
+.main-image-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1rem;
+  aspect-ratio: 4/3;
+}
+
+.main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.main-image:hover {
+  transform: scale(1.02);
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prev-btn {
+  left: 1rem;
+}
+
+.next-btn {
+  right: 1rem;
+}
+
+.image-counter {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+}
+
+/* Thumbnails */
+.thumbnails-container {
+  overflow-x: auto;
+  padding: 0.5rem 0;
+}
+
+.thumbnails {
+  display: flex;
+  gap: 0.5rem;
+  min-width: min-content;
+}
+
+.thumbnail {
+  background: none;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  width: 80px;
+  height: 60px;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+  border-color: var(--brand-1);
+  transform: scale(1.05);
+}
+
+/* === LIGHTBOX === */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4000;
+  animation: fadeIn 200ms ease-out;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightbox-image {
+  max-width: 100%;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -50px;
+  right: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.2s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background 0.2s ease;
+}
+
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.lightbox-nav.prev {
+  left: -70px;
+}
+
+.lightbox-nav.next {
+  right: -70px;
+}
+
+/* === ANIMAÇÕES === */
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes waveFloat {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* === RESPONSIVIDADE === */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .event-modal-content {
+    width: 95vw;
+  }
+  
+  .modal-body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .event-header h1 {
+    font-size: 1.875rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .event-modal-overlay {
+    padding: 1rem;
+  }
+  
+  .event-modal-content {
+    width: 96vw;
+    max-height: 96vh;
+  }
+  
+  .modal-header {
+    padding: 1rem 1.5rem 0;
+  }
+  
+  .modal-body {
+    padding: 0 1.5rem;
+  }
+  
+  .detailed-info {
+    padding: 1.5rem;
+  }
+  
+  .event-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .tickets-btn {
+    padding: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .lightbox-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+  
+  .lightbox-nav.prev {
+    left: 10px;
+  }
+  
+  .lightbox-nav.next {
+    right: 10px;
+  }
+}
+
+/* Suporte para reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .event-modal-overlay,
+  .event-modal-content,
+  .lightbox-overlay {
+    animation: none;
+  }
+  
+  .main-image,
+  .nav-btn,
+  .thumbnail,
+  .action-btn,
+  .tickets-btn {
+    transition: none;
+  }
+  
+  .waveFloat {
+    animation: none;
+  }
+}
