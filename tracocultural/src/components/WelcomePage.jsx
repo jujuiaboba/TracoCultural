@@ -41,6 +41,7 @@ const WelcomePage = () => {
       {/* Conteúdo principal centralizado */}
       <div className="content">
         <header>
+          <img src="/src/assets/TRAÇO.png" alt="TracoCultural" className="welcome-logo" />
           <h1 className="main-title">Para onde vamos hoje?</h1>
         </header>
         
@@ -56,9 +57,9 @@ const WelcomePage = () => {
           <button 
             className="btn btn-secondary"
             onClick={() => setCurrentPage('creator-register')}
-            aria-label="Cadastrar-se como criador de eventos"
+            aria-label="Cadastrar-se como Criador"
           >
-            Cadastrar como criador de eventos
+            Cadastrar como Criador
           </button>
         </nav>
       </div>

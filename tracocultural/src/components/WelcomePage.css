@@ -88,10 +88,22 @@
   max-width: 600px;
 }
 
+/* Logo da página de boas-vindas */
+.welcome-logo {
+  height: 80px;
+  width: auto;
+  margin-bottom: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.7;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
 /* Título principal grande e destacado */
 .main-title {
-  font-size: 4.5rem;
-  font-weight: 700;
+  font-size: 5.5rem;
+  font-weight: 800;
   line-height: 1.2;
   margin-bottom: 2.5rem;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -131,14 +143,14 @@
 
 /* Botão secundário com gradiente harmonioso */
 .btn-secondary {
-  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
+  background: linear-gradient(135deg, #6B453E 0%, #8E5E56 100%);
   color: white;
 }
 
 /* Animações de hover para os botões */
 .btn:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 25px rgba(156, 97, 57, 0.3);
 }
 
 .btn-primary:hover {
@@ -170,6 +182,11 @@
     padding: 1.5rem;
   }
   
+  .welcome-logo {
+    height: 80px;
+    margin-bottom: 1.5rem;
+  }
+  
   .main-title {
     font-size: 2.5rem;
     margin-bottom: 2rem;
@@ -188,6 +205,11 @@
 
 /* Responsividade para mobile pequeno */
 @media (max-width: 480px) {
+  .welcome-logo {
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+  
   .main-title {
     font-size: 2rem;
   }
