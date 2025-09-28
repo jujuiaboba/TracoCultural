@@ -6,7 +6,7 @@ import AnimatedWaves from './AnimatedWaves'
 import EventModal from './EventModal'
 import './HomePage.css'
 
-const HomePage = ({ onLogout }) => {
+const HomePage = ({ onLogout, onProfileClick }) => {
   const [selectedState, setSelectedState] = useState('SP')
   const [searchQuery, setSearchQuery] = useState('')
   const [filters, setFilters] = useState({
@@ -39,7 +39,7 @@ const HomePage = ({ onLogout }) => {
       </div>
       
       {/* Navbar fixa no topo */}
-      <Navbar onLogout={onLogout} />
+      <Navbar onLogout={onLogout} onProfileClick={onProfileClick} />
       
       {/* Conteúdo principal */}
       <main className="home-content">

@@ -219,20 +219,43 @@ const EventModal = ({ event, isOpen, onClose }) => {
                     <strong>Local</strong>
                     <p>{event.location.name}</p>
                     <p className="address">{event.location.address}</p>
-                    <button 
-                      className="map-btn"
-                      onClick={handleMapView}
-                      aria-label="Ver localização no mapa"
-                    >
-                      <i className="bi bi-map"></i> Ver no mapa
-                    </button>
+                    
+                    {/* Ações próximas ao local */}
+                    <div className="location-actions">
+                      <button 
+                        className="map-btn-small"
+                        onClick={handleMapView}
+                        aria-label="Ver localização no mapa"
+                      >
+                        <i className="bi bi-map"></i> Ver no mapa
+                      </button>
+                      
+                      {event.tickets?.available && (
+                        <button 
+                          className="tickets-btn-small"
+                          onClick={handleTickets}
+                          aria-label="Comprar ingressos"
+                        >
+                          <i className="bi bi-ticket-perforated"></i>
+                          Comprar Ingressos
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Ações principais */}
-            <div className="primary-actions">
+            {/* Ações principais - removidas */}
+            <div className="primary-actions" style={{display: 'none'}}>
+              <button 
+                className="map-btn"
+                onClick={handleMapView}
+                aria-label="Ver localização no mapa"
+              >
+                <i className="bi bi-map"></i> Ver no mapa
+              </button>
+              
               {event.tickets?.available && (
                 <button 
                   className="tickets-btn"

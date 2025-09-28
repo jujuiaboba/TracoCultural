@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Navbar = ({ onLogout }) => {
+const Navbar = ({ onLogout, onProfileClick }) => {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
   const toggleTheme = () => {
@@ -24,6 +24,7 @@ const Navbar = ({ onLogout }) => {
         </button>
         <button 
           className="nav-icon-btn" 
+          onClick={onProfileClick}
           aria-label="Meu Perfil"
           title="Meu Perfil"
         >
