@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import AnimatedWaves from './AnimatedWaves'
+import Navbar from './Navbar'
 import './UserProfile.css'
 
 const availableIcons = [
@@ -18,12 +19,18 @@ const availableColors = [
   '#27ae60', '#2980b9'
 ]
 
-const UserProfile = ({ onBack }) => {
+const UserProfile = ({ onBack, onLogout }) => {
   const [icon, setIcon] = useState('person-arms-up')
-  const [color, setColor] = useState('#3498db')
+  const [color, setColor] = useState('#936253')
   const [editing, setEditing] = useState(false)
+  const [editProfile, setEditProfile] = useState(false)
   const [tempIcon, setTempIcon] = useState(icon)
   const [tempColor, setTempColor] = useState(color)
+  const [editData, setEditData] = useState({
+    name: 'Flora Silva',
+    username: 'florinha',
+    location: 'MG, Brasil'
+  })
 
   const handleEditClick = () => {
     setTempIcon(icon)
@@ -31,10 +38,19 @@ const UserProfile = ({ onBack }) => {
     setEditing(true)
   }
 
+  const handleEditProfile = () => {
+    setEditProfile(true)
+  }
+
   const handleSave = () => {
     setIcon(tempIcon)
     setColor(tempColor)
     setEditing(false)
+  }
+
+  const handleEditSave = (e) => {
+    e.preventDefault()
+    setEditProfile(false)
   }
 
   const handleCancel = () => {
@@ -45,58 +61,92 @@ const UserProfile = ({ onBack }) => {
 
   return (
     <div className="user-profile">
+      <Navbar onLogout={onLogout} onProfileClick={onBack} />
       {/* Fundo animado com ondas */}
       <div className="profile-background">
         <AnimatedWaves />
       </div>
       
       <div className="profile-container">
-        {/* Botão voltar */}
-        <button className="back-btn" onClick={onBack}>
-          <i className="bi bi-arrow-left"></i>
-          Voltar
-        </button>
-        {/* Card do perfil */}
-      <div className="profile-card">
-        {/* Avatar */}
-        <div 
-          className="avatar"
-          style={{ backgroundColor: color }}
-        >
-          <i className={`bi bi-${icon}`}></i>
-        </div>
+        {/* Layout principal empilhado */}
+        <div className="main-layout">
+          {/* Linha 1 - Card de Perfil (destaque) */}
+          <div className="profile-card">
+            {/* Avatar com botão de edição */}
+            <div className="avatar-container">
+              <div 
+                className="avatar"
+                style={{ backgroundColor: color }}
+                onClick={handleEditClick}
+              >
+                <i className={`bi bi-${icon}`}></i>
+              </div>
+              <button 
+                className="edit-avatar-btn"
+                onClick={handleEditClick}
+              >
+                <i className="bi bi-pencil"></i>
+              </button>
+            </div>
 
-        {/* Informações do usuário */}
-        <div className="user-info">
-          <h2 className="display-name">Flora Silva</h2>
-          <p className="username">@florinha</p>
-          <p className="location">MG, Brasil</p>
+            {/* Informações do usuário */}
+            <div className="user-info">
+              <h2 className="display-name">{editData.name}</h2>
+              <p className="username">@{editData.username}</p>
+              <p className="location">{editData.location}</p>
 
-          {/* Botões */}
-          <div className="profile-actions">
-            <button className="btn-primary">
-              Ver Perfil
-            </button>
-            <button 
-              className="btn-secondary"
-              onClick={handleEditClick}
-            >
-              Editar Perfil
-            </button>
+              {/* Estatísticas */}
+              <div className="user-stats">
+                <div className="stat">
+                  <span className="stat-number">24</span>
+                  <span className="stat-label">Favoritos</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-number">8</span>
+                  <span className="stat-label">Feedbacks</span>
+                </div>
+              </div>
+
+              {/* Botões */}
+              <div className="profile-actions">
+                <button 
+                  className="btn-secondary"
+                  onClick={handleEditProfile}
+                >
+                  Editar Perfil
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-        {/* Navegação */}
-        <div className="navigation-section">
-          <button className="nav-btn">
-            <i className="bi bi-heart-fill"></i>
-            Eventos Favoritados
-          </button>
-          <button className="nav-btn">
-            <i className="bi bi-chat-fill"></i>
-            Meus Feedbacks
-          </button>
+          {/* Linha 2 - Cards de Ações lado a lado */}
+          <div className="actions-row">
+            {/* Card Favoritos */}
+            <div className="action-card">
+              <div className="action-icon">
+                <i className="bi bi-heart-fill"></i>
+              </div>
+              <h4 className="action-title">Meus Favoritos</h4>
+              <p className="action-description">Gerenciar lista de favoritos</p>
+              <button className="action-btn">
+                <i className="bi bi-eye"></i>
+                Ver
+              </button>
+            </div>
+            
+            {/* Card Avaliações */}
+            <div className="action-card">
+              <div className="action-icon">
+                <i className="bi bi-chat-fill"></i>
+              </div>
+              <h4 className="action-title">Minhas Avaliações</h4>
+              <p className="action-description">Ver e editar reviews</p>
+              <button className="action-btn">
+                <i className="bi bi-eye"></i>
+                Ver
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -160,6 +210,64 @@ const UserProfile = ({ onBack }) => {
                 Salvar Alterações
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal de edição de perfil */}
+      {editProfile && (
+        <div className="modal-overlay" onClick={() => setEditProfile(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h3 className="modal-title">Editar Perfil</h3>
+
+            <form onSubmit={handleEditSave}>
+              <div className="form-group">
+                <label>Nome</label>
+                <input
+                  type="text"
+                  value={editData.name}
+                  onChange={(e) => setEditData({...editData, name: e.target.value})}
+                  className="form-input"
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Nome de usuário</label>
+                <input
+                  type="text"
+                  value={editData.username}
+                  onChange={(e) => setEditData({...editData, username: e.target.value})}
+                  className="form-input"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Localização</label>
+                <input
+                  type="text"
+                  value={editData.location}
+                  onChange={(e) => setEditData({...editData, location: e.target.value})}
+                  className="form-input"
+                />
+              </div>
+
+              <div className="modal-actions">
+                <button 
+                  type="button"
+                  className="btn-cancel"
+                  onClick={() => setEditProfile(false)}
+                >
+                  Cancelar
+                </button>
+                <button 
+                  type="submit"
+                  className="btn-save"
+                >
+                  Salvar Alterações
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

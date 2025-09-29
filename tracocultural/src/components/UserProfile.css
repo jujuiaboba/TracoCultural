@@ -1,10 +1,25 @@
-/* === PERFIL DE USUÁRIO === */
+/* === PERFIL DE USUÁRIO (ajuste centralizado, versão final) === */
 .user-profile {
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  box-sizing: border-box;
+  padding-top: 80px;
 }
 
+.user-profile .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+/* Fundo - mantém como overlay fixo */
 .profile-background {
   position: fixed;
   top: 0;
@@ -15,197 +30,270 @@
   z-index: -1;
 }
 
+/* Container principal - FORÇAR CENTRALIZAÇÃO ABSOLUTA */
 .profile-container {
-  max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 80px);
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+/* Layout principal: CENTRALIZAÇÃO TOTAL */
+.main-layout {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  padding: 2rem;
-  min-height: 100vh;
-  position: relative;
-  z-index: 1;
-}
-
-/* Botão voltar */
-.back-btn {
-  background: transparent;
-  border: none;
-  color: #8E5E56;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  padding: 0.5rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
 }
 
-.back-btn:hover {
-  background: rgba(142, 94, 86, 0.1);
-  color: #6B453E;
-}
-
-/* Card do perfil */
+/* Profile card: tornar "mais achatado" reduzindo padding vertical e gaps */
 .profile-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   border-radius: 20px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 1.2rem 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  gap: 1.2rem;
+  width: 100%;
+  max-width: 800px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-sizing: border-box;
 }
 
-@media (min-width: 640px) {
+@media (max-width: 900px) {
   .profile-card {
-    flex-direction: row;
-    align-items: flex-start;
-    text-align: left;
+    flex-direction: column;
+    text-align: center;
+    padding: 1.2rem;
   }
 }
 
-/* Avatar */
+/* Avatar: leve redução para ajustar proporção com card achatado */
+.avatar-container {
+  position: relative;
+  flex-shrink: 0;
+}
+
 .avatar {
-  width: 120px;
-  height: 120px;
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 3rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  flex-shrink: 0;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
-/* Informações do usuário */
+.avatar:hover {
+  transform: scale(1.04);
+}
+
+.edit-avatar-btn {
+  position: absolute;
+  bottom: -6px;
+  right: -6px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.edit-avatar-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Informações do usuário: reduzir espaçamento entre linhas */
 .user-info {
   flex: 1;
-  text-align: center;
-}
-
-@media (min-width: 640px) {
-  .user-info {
-    text-align: left;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
 .display-name {
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #3C2321;
-  margin-bottom: 0.5rem;
+  margin: 0;
 }
 
 .username {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: #8E5E56;
-  margin-bottom: 0.25rem;
+  margin: 0;
 }
 
 .location {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #6B453E;
-  margin-bottom: 1.5rem;
+  margin: 0 0 0.4rem 0;
 }
 
-/* Botões do perfil */
-.profile-actions {
+/* Estatísticas: menos espaçamento vertical */
+.user-stats {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  gap: 2rem;
+  margin: 0.4rem 0;
+  padding: 0.4rem 0;
+  border-top: 1px solid #E5D5D0;
+  border-bottom: 1px solid #E5D5D0;
 }
 
-@media (min-width: 640px) {
-  .profile-actions {
-    flex-direction: row;
-    gap: 1rem;
-  }
+.stat {
+  text-align: center;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
-  border: none;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+.stat-number {
+  display: block;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #8E5E56;
 }
 
-.btn-primary:hover {
-  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(142, 94, 86, 0.3);
+.stat-label {
+  font-size: 0.78rem;
+  color: #6B453E;
+}
+
+/* Profile actions: manter apenas Editar Perfil (botão secundário) */
+.profile-actions {
+  margin-top: 0.4rem;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .btn-secondary {
   background: transparent;
   border: 2px solid #A67C6A;
   color: #A67C6A;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 500;
+  padding: 0.6rem 1.1rem;
+  border-radius: 10px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
-  background: rgba(166, 124, 106, 0.1);
+  background: rgba(166, 124, 106, 0.06);
   border-color: #8E5E56;
   color: #8E5E56;
 }
 
-/* Seção de navegação */
-.navigation-section {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+/* Linha de ações: CENTRALIZAÇÃO FORÇADA */
+.actions-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
-@media (min-width: 640px) {
-  .navigation-section {
-    grid-template-columns: 1fr 1fr;
+/* Responsividade: em telas pequenas, empilha em 1 coluna */
+@media (max-width: 768px) {
+  .actions-row {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 400px;
   }
 }
 
-.nav-btn {
-  background: rgba(246, 241, 238, 0.8);
-  border: 1px solid #E5D5D0;
-  color: #6B453E;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* Ação card: DIMENSÕES FIXAS E CENTRALIZADAS */
+.action-card {
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 16px;
+  padding: 1.2rem;
+  text-align: center;
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 180px;
+  width: 280px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.action-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.action-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(142, 94, 86, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-}
-
-.nav-btn:hover {
-  background: rgba(166, 124, 106, 0.1);
-  border-color: #A67C6A;
+  margin: 0 auto 1rem;
+  font-size: 1.4rem;
   color: #8E5E56;
+}
+
+.action-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #3C2321;
+  margin: 0 0 0.5rem 0;
+}
+
+.action-description {
+  font-size: 0.9rem;
+  color: #6B453E;
+  margin: 0 0 1rem 0;
+  flex: 1;
+}
+
+/* Botão "Ver" ajustado: mais baixo/achatado, centrado (legível) */
+.action-btn {
+  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
+  border: none;
+  color: white;
+  padding: 0 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  height: 32px;
+  align-self: center;
+  min-width: 80px;
+}
+
+.action-btn:hover {
+  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.nav-btn i {
-  font-size: 1.1rem;
-}
-
-/* === MODAL DE EDIÇÃO === */
+/* === MODAL === */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -239,21 +327,18 @@
   text-align: center;
 }
 
-/* Preview do avatar */
 .avatar-preview {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin: 0 auto 2rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* Seções do modal */
 .section {
   margin-bottom: 2rem;
 }
@@ -265,7 +350,6 @@
   margin-bottom: 1rem;
 }
 
-/* Grid de ícones */
 .icons-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -301,7 +385,6 @@
   color: #8E5E56;
 }
 
-/* Grid de cores */
 .colors-grid {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -326,7 +409,6 @@
   transform: scale(1.1);
 }
 
-/* Ações do modal */
 .modal-actions {
   display: flex;
   justify-content: flex-end;
@@ -367,40 +449,32 @@
   box-shadow: 0 6px 20px rgba(142, 94, 86, 0.3);
 }
 
-/* Responsividade */
-@media (max-width: 640px) {
-  .user-profile {
-    padding: 1rem;
-  }
-  
-  .profile-card {
-    padding: 1.5rem;
-  }
-  
-  .avatar {
-    width: 100px;
-    height: 100px;
-    font-size: 2.5rem;
-  }
-  
-  .display-name {
-    font-size: 1.75rem;
-  }
-  
-  .modal-content {
-    padding: 1.5rem;
-  }
-  
-  .icons-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-  
-  .colors-grid {
-    grid-template-columns: repeat(6, 1fr);
-  }
-  
-  .color-option {
-    width: 35px;
-    height: 35px;
-  }
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #3C2321;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #E5D5D0;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1rem;
+  background: white;
+  color: #3C2321;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #8E5E56;
 }
