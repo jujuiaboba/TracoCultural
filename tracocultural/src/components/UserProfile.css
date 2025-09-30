@@ -1,14 +1,15 @@
-/* === PERFIL DE USUÁRIO (ajuste centralizado, versão final) === */
+/* === PERFIL DE USUÁRIO === */
 .user-profile {
+  margin: 0;
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
+  align-items: flex-end;
   background: transparent;
-  box-sizing: border-box;
-  padding-top: 80px;
+  font-family: 'Poppins', sans-serif;
+  padding: 80px 10rem 2rem 0;
+  gap: 2rem;
 }
 
 .user-profile .navbar {
@@ -30,69 +31,37 @@
   z-index: -1;
 }
 
-/* Container principal - FORÇAR CENTRALIZAÇÃO ABSOLUTA */
-.profile-container {
-  width: 100%;
-  max-width: 900px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 80px);
-  padding: 0 2rem;
-  box-sizing: border-box;
-}
-
-/* Layout principal: CENTRALIZAÇÃO TOTAL */
-.main-layout {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: 800px;
-}
-
-/* Profile card: tornar "mais achatado" reduzindo padding vertical e gaps */
+/* Profile card: centralizado */
 .profile-card {
   background: rgba(255, 255, 255, 0.97);
-  border-radius: 20px;
-  padding: 1.2rem 2rem;
+  border-radius: 24px;
+  padding: 3rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1.2rem;
-  width: 100%;
-  max-width: 800px;
+  align-items: flex-start;
+  gap: 3rem;
+  width: 750px;
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-sizing: border-box;
+  margin-left: 370px;
 }
 
-@media (max-width: 900px) {
-  .profile-card {
-    flex-direction: column;
-    text-align: center;
-    padding: 1.2rem;
-  }
-}
-
-/* Avatar: leve redução para ajustar proporção com card achatado */
+/* Avatar */
 .avatar-container {
   position: relative;
   flex-shrink: 0;
 }
 
 .avatar {
-  width: 84px;
-  height: 84px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 2rem;
+  font-size: 4rem;
   cursor: pointer;
   transition: transform 0.2s ease;
 }
@@ -103,13 +72,13 @@
 
 .edit-avatar-btn {
   position: absolute;
-  bottom: -6px;
-  right: -6px;
-  width: 30px;
-  height: 30px;
+  bottom: -10px;
+  right: -10px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
-  border: 2px solid white;
+  border: 3px solid rgba(255, 255, 255, 0.97);
   color: white;
   cursor: pointer;
   display: flex;
@@ -117,45 +86,50 @@
   justify-content: center;
   font-size: 0.8rem;
   transition: all 0.3s ease;
+  line-height: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .edit-avatar-btn:hover {
   transform: scale(1.1);
+  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Informações do usuário: reduzir espaçamento entre linhas */
+/* Informações do usuário */
 .user-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.5rem;
 }
 
 .display-name {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 900;
   color: #3C2321;
   margin: 0;
+  line-height: 0.7;
 }
 
 .username {
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   color: #8E5E56;
   margin: 0;
 }
 
 .location {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: #6B453E;
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.5rem 0;
 }
 
-/* Estatísticas: menos espaçamento vertical */
+/* Estatísticas */
 .user-stats {
   display: flex;
   gap: 2rem;
-  margin: 0.4rem 0;
-  padding: 0.4rem 0;
+  margin: 0.5rem 0;
+  padding: 1rem 0;
   border-top: 1px solid #E5D5D0;
   border-bottom: 1px solid #E5D5D0;
 }
@@ -166,19 +140,19 @@
 
 .stat-number {
   display: block;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #8E5E56;
 }
 
 .stat-label {
-  font-size: 0.78rem;
+  font-size: 1rem;
   color: #6B453E;
 }
 
-/* Profile actions: manter apenas Editar Perfil (botão secundário) */
+/* Profile actions */
 .profile-actions {
-  margin-top: 0.4rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: flex-start;
 }
@@ -187,9 +161,10 @@
   background: transparent;
   border: 2px solid #A67C6A;
   color: #A67C6A;
-  padding: 0.6rem 1.1rem;
-  border-radius: 10px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -200,40 +175,29 @@
   color: #8E5E56;
 }
 
-/* Linha de ações: CENTRALIZAÇÃO FORÇADA */
+/* Actions row */
 .actions-row {
   display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  width: 100%;
-  flex-wrap: wrap;
+  gap: 12rem;
+  width: 750px;
+  margin-left: 370px;
 }
 
-/* Responsividade: em telas pequenas, empilha em 1 coluna */
-@media (max-width: 768px) {
-  .actions-row {
-    grid-template-columns: 1fr;
-    width: 100%;
-    max-width: 400px;
-  }
-}
-
-/* Ação card: DIMENSÕES FIXAS E CENTRALIZADAS */
+/* Action cards */
 .action-card {
   background: rgba(255, 255, 255, 0.97);
-  border-radius: 16px;
-  padding: 1.2rem;
+  border-radius: 20px;
+  padding: 0.7rem;
   text-align: center;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 180px;
+  min-height: 140px;
   width: 280px;
-  flex-shrink: 0;
-  box-sizing: border-box;
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.18);
+  box-sizing: border-box;
 }
 
 .action-card:hover {
@@ -255,226 +219,36 @@
 }
 
 .action-title {
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   font-weight: 700;
   color: #3C2321;
   margin: 0 0 0.5rem 0;
 }
 
 .action-description {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #6B453E;
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.5rem 0;
   flex: 1;
 }
 
-/* Botão "Ver" ajustado: mais baixo/achatado, centrado (legível) */
 .action-btn {
   background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
   border: none;
   color: white;
-  padding: 0 1rem;
-  border-radius: 8px;
-  font-weight: 600;
+  padding: 1rem 3rem;
+  border-radius: 12px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
+  transition: all 0.3s ease;
+  display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
   font-size: 0.9rem;
-  height: 32px;
-  align-self: center;
-  min-width: 80px;
 }
 
 .action-btn:hover {
   background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
   transform: translateY(-2px);
-}
-
-/* === MODAL === */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(142, 94, 86, 0.8) 0%, rgba(60, 35, 33, 0.8) 100%);
-  backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3000;
-  padding: 1rem;
-}
-
-.modal-content {
-  background: white;
-  border-radius: 20px;
-  padding: 2rem;
-  max-width: 500px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #3C2321;
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-
-.avatar-preview {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 2rem;
-  margin: 0 auto 2rem;
-}
-
-.section {
-  margin-bottom: 2rem;
-}
-
-.section h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #3C2321;
-  margin-bottom: 1rem;
-}
-
-.icons-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 0.5rem;
-  max-height: 200px;
-  overflow-y: auto;
-  padding: 0.5rem;
-  border: 1px solid #E5D5D0;
-  border-radius: 8px;
-}
-
-.icon-option {
-  background: #F6F1EE;
-  border: 2px solid transparent;
-  padding: 0.75rem;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6B453E;
-  font-size: 1.2rem;
-}
-
-.icon-option:hover {
-  background: #E5D5D0;
-}
-
-.icon-option.selected {
-  border-color: #8E5E56;
-  background: rgba(142, 94, 86, 0.1);
-  color: #8E5E56;
-}
-
-.colors-grid {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 0.5rem;
-}
-
-.color-option {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 3px solid transparent;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.color-option:hover {
-  transform: scale(1.1);
-}
-
-.color-option.selected {
-  border-color: #3C2321;
-  transform: scale(1.1);
-}
-
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 1rem;
-  margin-top: 2rem;
-}
-
-.btn-cancel {
-  background: transparent;
-  border: 1px solid #95a5a6;
-  color: #6B453E;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-cancel:hover {
-  background: #F5F5F5;
-}
-
-.btn-save {
-  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
-  border: none;
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.btn-save:hover {
-  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(142, 94, 86, 0.3);
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #3C2321;
-  margin-bottom: 0.5rem;
-}
-
-.form-input {
-  width: 100%;
-  padding: 0.75rem;
-  border: 2px solid #E5D5D0;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 1rem;
-  background: white;
-  color: #3C2321;
-  transition: border-color 0.3s ease;
-  box-sizing: border-box;
-}
-
-.form-input:focus {
-  outline: none;
-  border-color: #8E5E56;
 }
