@@ -37,6 +37,27 @@ const UserProfile = ({ onBack, onLogout }) => {
     setEditProfile(true)
   }
 
+  const handleSaveProfile = () => {
+    // Aqui você salvaria os dados
+    setEditProfile(false)
+  }
+
+  const handleCancelEdit = () => {
+    setEditProfile(false)
+  }
+
+  const handleInputChange = (field, value) => {
+    setEditData(prev => ({ ...prev, [field]: value }))
+  }
+
+  const handleIconSelect = (selectedIcon) => {
+    setIcon(selectedIcon)
+  }
+
+  const handleColorSelect = (selectedColor) => {
+    setColor(selectedColor)
+  }
+
   return (
     <div className="user-profile">
       <Navbar onLogout={onLogout} onProfileClick={onBack} />
@@ -70,7 +91,7 @@ const UserProfile = ({ onBack, onLogout }) => {
         <div className="user-info">
           {/* Nome, username e localização */}
           <h2 className="display-name">{editData.name}</h2>
-          <p className="username">@{editData.username}</p>
+
           <p className="location">{editData.location}</p>
 
           {/* --- SUBSEÇÃO: ESTATÍSTICAS --- */}
@@ -95,47 +116,94 @@ const UserProfile = ({ onBack, onLogout }) => {
             </button>
           </div>
         </div>
-      </div>
 
-      {/* ========== CARDS 2 E 3: AÇÕES SECUNDÁRIAS ========== */}
-      <div className="actions-row">
-        
-        {/* ========== CARD 2: FAVORITOS ========== */}
+        {/* ========== CARD FAVORITOS ========== */}
         <div className="action-card">
-          {/* Ícone do card */}
           <div className="action-icon">
             <i className="bi bi-heart-fill"></i>
           </div>
-          {/* Título e descrição */}
           <h4 className="action-title">Meus Favoritos</h4>
           <p className="action-description">Gerenciar lista de favoritos</p>
-          {/* Botão de ação */}
           <button className="action-btn">
             <i className="bi bi-eye"></i>
             Ver
           </button>
         </div>
-        {/* ========== FIM CARD 2: FAVORITOS ========== */}
-        
-        {/* ========== CARD 3: AVALIAÇÕES ========== */}
-        <div className="action-card">
-          {/* Ícone do card */}
-          <div className="action-icon">
-            <i className="bi bi-chat-fill"></i>
-          </div>
-          {/* Título e descrição */}
-          <h4 className="action-title">Minhas Avaliações</h4>
-          <p className="action-description">Ver e editar reviews</p>
-          {/* Botão de ação */}
-          <button className="action-btn">
-            <i className="bi bi-eye"></i>
-            Ver
-          </button>
-        </div>
-        {/* ========== FIM CARD 3: AVALIAÇÕES ========== */}
-        
       </div>
-      {/* ========== FIM CARDS 2 E 3: AÇÕES SECUNDÁRIAS ========== */}
+
+      {/* ========== MODAL DE EDIÇÃO ========== */}
+      {editProfile && (
+        <div className="edit-modal-overlay" onClick={handleCancelEdit}>
+          <div className="edit-modal" onClick={(e) => e.stopPropagation()}>
+            <h3>Editar Perfil</h3>
+            
+            {/* === SEÇÃO AVATAR === */}
+            <div className="avatar-section">
+              <label>Avatar</label>
+              <div 
+                className="avatar-preview"
+                style={{ backgroundColor: color }}
+              >
+                <i className={`bi bi-${icon}`}></i>
+              </div>
+              
+              <label>Escolha um ícone:</label>
+              <div className="icons-grid">
+                {availableIcons.map(iconName => (
+                  <button
+                    key={iconName}
+                    className={`icon-option ${icon === iconName ? 'selected' : ''}`}
+                    onClick={() => handleIconSelect(iconName)}
+                  >
+                    <i className={`bi bi-${iconName}`}></i>
+                  </button>
+                ))}
+              </div>
+              
+              <label>Escolha uma cor:</label>
+              <div className="colors-grid">
+                {availableColors.map(colorOption => (
+                  <button
+                    key={colorOption}
+                    className={`color-option ${color === colorOption ? 'selected' : ''}`}
+                    style={{ backgroundColor: colorOption }}
+                    onClick={() => handleColorSelect(colorOption)}
+                  />
+                ))}
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <label>Nome Completo</label>
+              <input
+                type="text"
+                value={editData.name}
+                onChange={(e) => handleInputChange('name', e.target.value)}
+                placeholder="Digite seu nome completo"
+              />
+            </div>
+            
+            <div className="form-group">
+              <label>Localização</label>
+              <input
+                type="text"
+                value={editData.location}
+                onChange={(e) => handleInputChange('location', e.target.value)}
+                placeholder="Digite sua localização"
+              />
+            </div>
+            
+            <div className="modal-actions">
+              <button className="btn-cancel" onClick={handleCancelEdit}>
+                Cancelar
+              </button>
+              <button className="btn-save" onClick={handleSaveProfile}>
+                Salvar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   )
