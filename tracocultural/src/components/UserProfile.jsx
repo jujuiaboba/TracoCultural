@@ -14,7 +14,7 @@ const availableIcons = [
 ]
 
 const availableColors = [
-  '#936253', '#b5638fff', '#AF897A', '#e74c3c', '#3498db', '#2ecc71', '#f39c12',
+  '#936253', '#f8b6c4ff', '#AF897A', '#e74c3c', '#3498db', '#2ecc71', '#f39c12',
   '#9b59b6', '#1abc9c', '#34495e', '#e67e22', '#95a5a6', '#f1c40f', '#8e44ad',
   '#27ae60', '#2980b9'
 ]
@@ -23,6 +23,9 @@ const UserProfile = ({ onBack, onLogout }) => {
   const [icon, setIcon] = useState('person-arms-up')
   const [color, setColor] = useState('#936253')
   const [editProfile, setEditProfile] = useState(false)
+  const [showIconModal, setShowIconModal] = useState(false)
+  const [selectedIcon, setSelectedIcon] = useState('person-arms-up')
+  const [selectedColor, setSelectedColor] = useState('#936253')
   const [editData, setEditData] = useState({
     name: 'Flora Silva',
     username: 'florinha',
@@ -30,7 +33,15 @@ const UserProfile = ({ onBack, onLogout }) => {
   })
 
   const handleEditClick = () => {
-    // Função para editar avatar
+    setSelectedIcon(icon)
+    setSelectedColor(color)
+    setShowIconModal(true)
+  }
+
+  const handleIconSave = () => {
+    setIcon(selectedIcon)
+    setColor(selectedColor)
+    setShowIconModal(false)
   }
 
   const handleEditProfile = () => {
@@ -201,6 +212,59 @@ const UserProfile = ({ onBack, onLogout }) => {
                 Salvar
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========== MODAL DE ÍCONE ========== */}
+      {showIconModal && (
+        <div className="icon-modal-overlay" onClick={() => setShowIconModal(false)}>
+          <div className="icon-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="icon-modal-close" onClick={() => setShowIconModal(false)}>
+              ✕
+            </button>
+            
+            <h2>Escolher Ícone do Perfil</h2>
+            
+            <div className="icon-preview-section">
+              <div className="icon-preview" style={{ backgroundColor: selectedColor }}>
+                <i className={`bi bi-${selectedIcon}`}></i>
+              </div>
+              <p className="icon-preview-text">Preview do seu ícone</p>
+            </div>
+            
+            <div className="icon-selection-section">
+              <h3 className="icon-selection-title">Escolher Cor</h3>
+              <div className="icon-colors-grid">
+                {availableColors.map((colorOption) => (
+                  <button
+                    key={colorOption}
+                    className={`color-option ${selectedColor === colorOption ? 'selected' : ''}`}
+                    onClick={() => setSelectedColor(colorOption)}
+                    style={{ backgroundColor: colorOption }}
+                  />
+                ))}
+              </div>
+            </div>
+            
+            <div className="icon-selection-section">
+              <h3 className="icon-selection-title">Escolher Ícone</h3>
+              <div className="icon-icons-grid">
+                {availableIcons.map((iconName) => (
+                  <button
+                    key={iconName}
+                    className={`icon-icon-option ${selectedIcon === iconName ? 'selected' : ''}`}
+                    onClick={() => setSelectedIcon(iconName)}
+                  >
+                    <i className={`bi bi-${iconName}`}></i>
+                  </button>
+                ))}
+              </div>
+            </div>
+            
+            <button className="icon-save-btn" onClick={handleIconSave}>
+              Salvar Ícone
+            </button>
           </div>
         </div>
       )}

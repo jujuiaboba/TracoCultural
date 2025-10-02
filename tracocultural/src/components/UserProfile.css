@@ -356,7 +356,7 @@
 /* === EDIÇÃO DE AVATAR === */
 .avatar-section {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
 }
 
 .avatar-preview {
@@ -375,17 +375,17 @@
 .icons-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-  max-height: 150px;
+  gap: 0.9rem;
+  margin-bottom: 2rem;
+  max-height: 160px;
   overflow-y: auto;
 }
 
 .icon-option {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border: 2px solid #E5D5D0;
-  border-radius: 8px;
+  border-radius: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -408,16 +408,179 @@
 }
 
 .color-option {
-  width: 30px;
-  height: 30px;
-  border: 2px solid #E5D5D0;
+  width: 40px;
+  height: 40px;
+  min-width: 30px;
+  min-height: 30px;
+  border: 2px solid #e5d5d000;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .color-option:hover,
 .color-option.selected {
   border-color: #3C2321;
   transform: scale(1.1);
+}
+
+/* === MODAL DE ÍCONE === */
+.icon-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.icon-modal {
+  background: white;
+  border-radius: 24px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border: 1px solid #E5D5D0;
+  position: relative;
+}
+
+.icon-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(147, 98, 83, 0.1);
+  color: #3C2321;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.icon-modal h2 {
+  color: #3C2321;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+}
+
+.icon-preview-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.icon-preview {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.icon-preview i {
+  font-size: 1.8rem;
+  color: white;
+}
+
+.icon-preview-text {
+  color: #6B453E;
+  font-size: 14px;
+}
+
+.icon-selection-section {
+  margin-bottom: 2rem;
+}
+
+.icon-selection-title {
+  color: #3C2321;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.icon-colors-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.5rem;
+  justify-items: center;
+}
+
+.icon-colors-grid .color-option {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.icon-icons-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+  justify-items: center;
+}
+
+.icon-icon-option {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(147, 98, 83, 0.1);
+  border: 2px solid #E5D5D0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  padding: 0;
+  outline: none;
+}
+
+.icon-icon-option.selected {
+  background: #8E5E56;
+  border-color: #3C2321;
+}
+
+.icon-icon-option i {
+  font-size: 1.2rem;
+  color: #3C2321;
+}
+
+.icon-icon-option.selected i {
+  color: white;
+}
+
+.icon-save-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  color: white;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.icon-save-btn:hover {
+  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
+  transform: translateY(-2px);
 }
