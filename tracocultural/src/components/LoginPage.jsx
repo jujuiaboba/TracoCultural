@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AnimatedWaves from './AnimatedWaves'
+
 import './AuthPages.css'
 
 const LoginPage = ({ onBack, onRegister, onLogin }) => {
@@ -28,7 +28,7 @@ const LoginPage = ({ onBack, onRegister, onLogin }) => {
     <main className="auth-container">
       {/* Fundo com gradiente e animações */}
       <div className="background-gradient">
-        <AnimatedWaves />
+
       </div>
       
       {/* Formulário de login */}

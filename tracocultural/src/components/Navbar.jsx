@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Navbar = ({ onLogout, onProfileClick }) => {
+const Navbar = ({ onLogout, onProfileClick, onFavoritesClick, onSettingsClick, onHomeClick, showHomeButton = false }) => {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
   const toggleTheme = () => {
@@ -14,8 +14,21 @@ const Navbar = ({ onLogout, onProfileClick }) => {
         <img src="/src/assets/TRAÇO.png" alt="TracoCultural" className="logo-image" />
       </div>
       
-      <div className="navbar-right">        <button 
+      <div className="navbar-right">
+        {showHomeButton && (
+          <button 
+            className="nav-icon-btn" 
+            onClick={onHomeClick}
+            aria-label="Início"
+            title="Início"
+          >
+            <i className="bi bi-house"></i>
+            <span>Início</span>
+          </button>
+        )}
+        <button 
           className="nav-icon-btn" 
+          onClick={onFavoritesClick}
           aria-label="Eventos Favoritos"
           title="Eventos Favoritos"
         >
@@ -33,6 +46,7 @@ const Navbar = ({ onLogout, onProfileClick }) => {
         </button>
         <button 
           className="nav-icon-btn" 
+          onClick={onSettingsClick}
           aria-label="Configurações"
           title="Configurações"
         >

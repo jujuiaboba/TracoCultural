@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import AnimatedWaves from './AnimatedWaves'
+
 import './AuthPages.css'
 
 const CreatorRegisterPage = ({ onBack }) => {
@@ -68,7 +68,7 @@ const CreatorRegisterPage = ({ onBack }) => {
   return (
     <main className="auth-container creator-form">
       <div className="background-gradient">
-        <AnimatedWaves />
+
       </div>
       
       <div className="auth-content">

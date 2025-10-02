@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
-import AnimatedWaves from './AnimatedWaves'
 import Navbar from './Navbar'
+import StarfieldBackground from './StarfieldBackground'
+import FavoritesPage from './FavoritesPage'
+import SettingsPage from './SettingsPage'
 import './UserProfile.css'
 
+// Ícones disponíveis para personalização
 const availableIcons = [
-  'airplane-engines-fill', 'backpack3-fill', 'balloon-heart-fill', 'balloon-fill',
-  'camera2', 'car-front-fill', 'cup-hot-fill', 'emoji-smile-fill', 'emoji-heart-eyes-fill',
-  'emoji-laughing-fill', 'heart-fill', 'incognito', 'lightbulb-fill', 'mouse3-fill',
-  'palette-fill', 'peace-fill', 'person-arms-up', 'piggy-bank-fill', 'plugin',
-  'rocket-takeoff-fill', 'snow2', 'star-fill', 'suit-club-fill', 'suit-diamond-fill',
-  'suit-heart-fill', 'suit-spade-fill', 'suitcase-fill', 'sun-fill', 'sunglasses',
-  'tsunami', 'umbrella-fill', 'yin-yang'
+  'airplane-engines-fill', 'backpack3-fill', 'balloon-heart-fill', 'balloon-fill', 'camera2',
+  'car-front-fill', 'cup-hot-fill', 'emoji-smile-fill', 'emoji-heart-eyes-fill', 'emoji-laughing-fill',
+  'heart-fill', 'incognito', 'lightbulb-fill', 'mouse3-fill', 'palette-fill', 'peace-fill', 
+  'person-arms-up', 'piggy-bank-fill', 'plugin', 'rocket-takeoff-fill', 'snow2', 'star-fill', 
+  'suit-club-fill', 'suit-diamond-fill', 'suit-heart-fill', 'suit-spade-fill', 'suitcase-fill', 
+  'sun-fill', 'sunglasses', 'tsunami', 'umbrella-fill', 'yin-yang'
 ]
 
+// Cores disponíveis para personalização
 const availableColors = [
   '#936253', '#f8b6c4ff', '#AF897A', '#e74c3c', '#3498db', '#2ecc71', '#f39c12',
   '#9b59b6', '#1abc9c', '#34495e', '#e67e22', '#95a5a6', '#f1c40f', '#8e44ad',
@@ -20,10 +23,13 @@ const availableColors = [
 ]
 
 const UserProfile = ({ onBack, onLogout }) => {
+  // Estados do componente
   const [icon, setIcon] = useState('person-arms-up')
   const [color, setColor] = useState('#936253')
   const [editProfile, setEditProfile] = useState(false)
   const [showIconModal, setShowIconModal] = useState(false)
+  const [showFavorites, setShowFavorites] = useState(false)
+  const [showSettings, setShowSettings] = useState(false)
   const [selectedIcon, setSelectedIcon] = useState('person-arms-up')
   const [selectedColor, setSelectedColor] = useState('#936253')
   const [editData, setEditData] = useState({
@@ -32,6 +38,7 @@ const UserProfile = ({ onBack, onLogout }) => {
     location: 'MG, Brasil'
   })
 
+  // Handlers
   const handleEditClick = () => {
     setSelectedIcon(icon)
     setSelectedColor(color)
@@ -44,68 +51,86 @@ const UserProfile = ({ onBack, onLogout }) => {
     setShowIconModal(false)
   }
 
-  const handleEditProfile = () => {
-    setEditProfile(true)
-  }
-
-  const handleSaveProfile = () => {
-    // Aqui você salvaria os dados
-    setEditProfile(false)
-  }
-
-  const handleCancelEdit = () => {
-    setEditProfile(false)
-  }
+  const handleEditProfile = () => setEditProfile(true)
+  const handleSaveProfile = () => setEditProfile(false)
+  const handleCancelEdit = () => setEditProfile(false)
 
   const handleInputChange = (field, value) => {
     setEditData(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleIconSelect = (selectedIcon) => {
-    setIcon(selectedIcon)
+  const handleIconSelect = (selectedIcon) => setIcon(selectedIcon)
+  const handleColorSelect = (selectedColor) => setColor(selectedColor)
+  const handleViewFavorites = () => setShowFavorites(true)
+  const handleSettingsClick = () => setShowSettings(true)
+
+  // Handler para voltar ao início
+  const handleHomeClick = () => {
+    setShowFavorites(false)
+    setShowSettings(false)
+    onBack()
   }
 
-  const handleColorSelect = (selectedColor) => {
-    setColor(selectedColor)
+  // Renderização condicional para página de favoritos
+  if (showFavorites) {
+    return (
+      <FavoritesPage 
+        onBack={() => setShowFavorites(false)} 
+        onLogout={onLogout}
+        onExploreEvents={onBack}
+        onHomeClick={onBack}
+      />
+    )
+  }
+
+  // Renderização condicional para página de configurações
+  if (showSettings) {
+    return (
+      <SettingsPage 
+        onBack={() => setShowSettings(false)} 
+        onLogout={onLogout}
+        onEditProfile={() => {
+          setShowSettings(false)
+          setEditProfile(true)
+        }}
+        onHomeClick={onBack}
+      />
+    )
   }
 
   return (
     <div className="user-profile">
-      <Navbar onLogout={onLogout} onProfileClick={onBack} />
-      {/* Fundo animado com ondas */}
-      <div className="profile-background">
-        <AnimatedWaves />
-      </div>
+      <Navbar 
+        onLogout={onLogout} 
+        onProfileClick={() => {}}
+        onFavoritesClick={() => {}}
+        onSettingsClick={() => {}}
+        onHomeClick={onBack}
+        showHomeButton={true}
+      />
       
-      {/* ========== CARD 1: PERFIL PRINCIPAL ========== */}
-      {/* Card principal com informações do usuário, avatar e estatísticas */}
+      {/* Fundo animado com estrelas */}
+      <StarfieldBackground />
+      
+      {/* ========== CARD PRINCIPAL ========== */}
       <div className="profile-card">
         
-        {/* --- SEÇÃO: AVATAR E EDIÇÃO --- */}
+        {/* Avatar e botão de edição */}
         <div className="avatar-container">
-          <div 
-            className="avatar"
-            style={{ backgroundColor: color }}
-            onClick={handleEditClick}
-          >
+          <div className="avatar" style={{ backgroundColor: color }} onClick={handleEditClick}>
             <i className={`bi bi-${icon}`}></i>
           </div>
-          <button 
-            className="edit-avatar-btn"
-            onClick={handleEditClick}
-          >
+          <button className="edit-avatar-btn" onClick={handleEditClick}>
             <i className="bi bi-pencil"></i>
           </button>
         </div>
 
-        {/* --- SEÇÃO: INFORMAÇÕES DO USUÁRIO --- */}
+        {/* Informações do usuário */}
         <div className="user-info">
-          {/* Nome, username e localização */}
           <h2 className="display-name">{editData.name}</h2>
-
           <p className="location">{editData.location}</p>
 
-          {/* --- SUBSEÇÃO: ESTATÍSTICAS --- */}
+          {/* Estatísticas */}
           <div className="user-stats">
             <div className="stat">
               <span className="stat-number">24</span>
@@ -117,25 +142,22 @@ const UserProfile = ({ onBack, onLogout }) => {
             </div>
           </div>
 
-          {/* --- SUBSEÇÃO: AÇÕES DO PERFIL --- */}
+          {/* Ações do perfil */}
           <div className="profile-actions">
-            <button 
-              className="btn-secondary"
-              onClick={handleEditProfile}
-            >
+            <button className="btn-secondary" onClick={handleEditProfile}>
               Editar Perfil
             </button>
           </div>
         </div>
 
-        {/* ========== CARD FAVORITOS ========== */}
+        {/* Card de favoritos */}
         <div className="action-card">
           <div className="action-icon">
             <i className="bi bi-heart-fill"></i>
           </div>
           <h4 className="action-title">Meus Favoritos</h4>
           <p className="action-description">Gerenciar lista de favoritos</p>
-          <button className="action-btn">
+          <button className="action-btn" onClick={handleViewFavorites}>
             <i className="bi bi-eye"></i>
             Ver
           </button>
@@ -148,13 +170,10 @@ const UserProfile = ({ onBack, onLogout }) => {
           <div className="edit-modal" onClick={(e) => e.stopPropagation()}>
             <h3>Editar Perfil</h3>
             
-            {/* === SEÇÃO AVATAR === */}
+            {/* Seção Avatar */}
             <div className="avatar-section">
               <label>Avatar</label>
-              <div 
-                className="avatar-preview"
-                style={{ backgroundColor: color }}
-              >
+              <div className="avatar-preview" style={{ backgroundColor: color }}>
                 <i className={`bi bi-${icon}`}></i>
               </div>
               
@@ -165,6 +184,7 @@ const UserProfile = ({ onBack, onLogout }) => {
                     key={iconName}
                     className={`icon-option ${icon === iconName ? 'selected' : ''}`}
                     onClick={() => handleIconSelect(iconName)}
+                    aria-label={`Ícone ${iconName.replace('-', ' ')}`}
                   >
                     <i className={`bi bi-${iconName}`}></i>
                   </button>
@@ -184,8 +204,9 @@ const UserProfile = ({ onBack, onLogout }) => {
               </div>
             </div>
             
+            {/* Campos de texto */}
             <div className="form-group">
-              <label>Nome Completo</label>
+              <label>Seu nome</label>
               <input
                 type="text"
                 value={editData.name}
@@ -204,59 +225,61 @@ const UserProfile = ({ onBack, onLogout }) => {
               />
             </div>
             
+            {/* Ações do modal */}
             <div className="modal-actions">
-              <button className="btn-cancel" onClick={handleCancelEdit}>
-                Cancelar
-              </button>
-              <button className="btn-save" onClick={handleSaveProfile}>
-                Salvar
-              </button>
+              <button className="btn-cancel" onClick={handleCancelEdit}>Cancelar</button>
+              <button className="btn-save" onClick={handleSaveProfile}>Salvar</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* ========== MODAL DE ÍCONE ========== */}
+      {/* ========== MODAL DE SELEÇÃO DE ÍCONE ========== */}
       {showIconModal && (
         <div className="icon-modal-overlay" onClick={() => setShowIconModal(false)}>
           <div className="icon-modal" onClick={(e) => e.stopPropagation()}>
+            
+            {/* Botão fechar */}
             <button className="icon-modal-close" onClick={() => setShowIconModal(false)}>
               ✕
             </button>
             
             <h2>Escolher Ícone do Perfil</h2>
             
+            {/* Preview */}
             <div className="icon-preview-section">
-              <div className="icon-preview" style={{ backgroundColor: selectedColor }}>
+              <div className="icon-preview" style={{ background: selectedColor }}>
                 <i className={`bi bi-${selectedIcon}`}></i>
               </div>
-              <p className="icon-preview-text">Preview do seu ícone</p>
+              <p>Preview do seu ícone</p>
             </div>
             
+            {/* Seleção de cor */}
             <div className="icon-selection-section">
-              <h3 className="icon-selection-title">Escolher Cor</h3>
+              <h3>Escolher Cor</h3>
               <div className="icon-colors-grid">
-                {availableColors.map((colorOption) => (
+                {availableColors.map((color) => (
                   <button
-                    key={colorOption}
-                    className={`color-option ${selectedColor === colorOption ? 'selected' : ''}`}
-                    onClick={() => setSelectedColor(colorOption)}
-                    style={{ backgroundColor: colorOption }}
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`color-option ${selectedColor === color ? 'selected' : ''}`}
+                    style={{ background: color }}
                   />
                 ))}
               </div>
             </div>
             
+            {/* Seleção de ícone */}
             <div className="icon-selection-section">
-              <h3 className="icon-selection-title">Escolher Ícone</h3>
+              <h3>Escolher Ícone</h3>
               <div className="icon-icons-grid">
-                {availableIcons.map((iconName) => (
+                {availableIcons.map((icon) => (
                   <button
-                    key={iconName}
-                    className={`icon-icon-option ${selectedIcon === iconName ? 'selected' : ''}`}
-                    onClick={() => setSelectedIcon(iconName)}
+                    key={icon}
+                    onClick={() => setSelectedIcon(icon)}
+                    className={`icon-icon-option ${selectedIcon === icon ? 'selected' : ''}`}
                   >
-                    <i className={`bi bi-${iconName}`}></i>
+                    <i className={`bi bi-${icon}`}></i>
                   </button>
                 ))}
               </div>
@@ -268,7 +291,6 @@ const UserProfile = ({ onBack, onLogout }) => {
           </div>
         </div>
       )}
-
     </div>
   )
 }

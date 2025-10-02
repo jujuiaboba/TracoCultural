@@ -1,36 +1,31 @@
 import React, { useState } from 'react'
-import AnimatedWaves from './AnimatedWaves'
+import StarfieldBackground from './StarfieldBackground'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
-import CreatorRegisterPage from './CreatorRegisterPage'
-import HomePage from './HomePage'
 import './WelcomePage.css'
 
 const WelcomePage = ({ onLogin }) => {
   const [currentPage, setCurrentPage] = useState('welcome')
   
+  // Renderização condicional das páginas
   if (currentPage === 'login') {
-    return <LoginPage 
-      onBack={() => setCurrentPage('welcome')} 
-      onRegister={() => setCurrentPage('register')}
-      onLogin={onLogin}
-    />
+    return (
+      <LoginPage 
+        onBack={() => setCurrentPage('welcome')} 
+        onRegister={() => setCurrentPage('register')}
+        onLogin={onLogin}
+      />
+    )
   }
   
   if (currentPage === 'register') {
     return <RegisterPage onBack={() => setCurrentPage('welcome')} />
   }
-  
-  if (currentPage === 'creator-register') {
-    return <CreatorRegisterPage onBack={() => setCurrentPage('welcome')} />
-  }
 
   return (
     <main className="welcome-container">
-      {/* Fundo com gradiente e ondas animadas cobrindo tela inteira */}
-      <div className="background-gradient">
-        <AnimatedWaves />
-      </div>
+      {/* Fundo com estrelas cadentes */}
+      <StarfieldBackground />
       
       {/* Conteúdo principal centralizado */}
       <div className="content">
@@ -47,13 +42,6 @@ const WelcomePage = ({ onLogin }) => {
             aria-label="Entrar ou cadastrar-se na plataforma"
           >
             Entrar ou Cadastrar-se
-          </button>
-          <button 
-            className="btn btn-secondary"
-            onClick={() => setCurrentPage('creator-register')}
-            aria-label="Cadastrar-se como Criador"
-          >
-            Cadastrar como Criador
           </button>
         </nav>
       </div>

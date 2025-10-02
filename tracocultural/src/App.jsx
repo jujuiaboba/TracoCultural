@@ -22,14 +22,18 @@ function App() {
     setCurrentPage('profile')
   }
 
+  const handleHomeClick = () => {
+    setCurrentPage('home')
+  }
+
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'welcome':
         return <WelcomePage onLogin={handleLogin} />
       case 'home':
-        return <HomePage onLogout={handleLogout} onProfileClick={handleProfileClick} />
+        return <HomePage onLogout={handleLogout} onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} />
       case 'profile':
-        return <UserProfile onBack={() => setCurrentPage('home')} />
+        return <UserProfile onBack={handleHomeClick} onLogout={handleLogout} />
       default:
         return <WelcomePage onLogin={handleLogin} />
     }

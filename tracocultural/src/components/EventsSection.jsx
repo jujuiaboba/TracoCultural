@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import EventCard from './EventCard'
 
 const EventsSection = ({ title, selectedState, setSelectedState, showLocationIcon, layout, onEventClick }) => {
@@ -10,7 +10,19 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
     'SP', 'SE', 'TO'
   ]
 
-  // Eventos fictícios para demonstração
+  // Imagens otimizadas (tamanhos menores)
+  const eventImages = [
+    'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=180&fit=crop',
+    'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=300&h=180&fit=crop',
+    'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=300&h=180&fit=crop',
+    'https://images.unsplash.com/photo-1507924538820-ede94a04019d?w=300&h=180&fit=crop',
+    'https://images.unsplash.com/photo-1489599904472-84978f312f2e?w=300&h=180&fit=crop',
+    'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&h=180&fit=crop',
+    'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=300&h=180&fit=crop',
+    'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=180&fit=crop'
+  ]
+
+  // Eventos otimizados
   const mockEvents = [
     {
       id: 1,
@@ -18,7 +30,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'SP',
       type: 'Show',
       date: 'Hoje',
-      image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=180&fit=crop'
+      image: eventImages[0]
     },
     {
       id: 2,
@@ -26,7 +38,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'RJ',
       type: 'Exposição',
       date: 'Daqui 3 dias',
-      image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=180&fit=crop'
+      image: eventImages[7]
     },
     {
       id: 3,
@@ -34,7 +46,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'MG',
       type: 'Teatro',
       date: '15/12/2024',
-      image: 'https://images.unsplash.com/photo-1507924538820-ede94a04019d?w=300&h=180&fit=crop'
+      image: eventImages[3]
     },
     {
       id: 4,
@@ -42,7 +54,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'RS',
       type: 'Workshop',
       date: 'Fim de semana',
-      image: 'https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=300&h=180&fit=crop'
+      image: eventImages[1]
     },
     {
       id: 5,
@@ -50,7 +62,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'PR',
       type: 'Cinema',
       date: 'Daqui 7 dias',
-      image: 'https://images.unsplash.com/photo-1489599904472-84978f312f2e?w=300&h=180&fit=crop'
+      image: eventImages[4]
     },
     {
       id: 6,
@@ -58,7 +70,7 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       state: 'SC',
       type: 'Festival',
       date: '20/12/2024',
-      image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&h=180&fit=crop'
+      image: eventImages[5]
     }
   ]
 
