@@ -3,8 +3,9 @@ import Navbar from './Navbar'
 import StarfieldBackground from './StarfieldBackground'
 import EventModal from './EventModal'
 import './HomePage.css'
+import './FavoritesPage.css'
 
-const FavoritesPage = ({ onBack, onLogout, onExploreEvents, onHomeClick }) => {
+const FavoritesPage = ({ onBack, onLogout, onExploreEvents, onHomeClick, onProfileClick, onSettingsClick }) => {
   // Estados do componente
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -66,11 +67,11 @@ const FavoritesPage = ({ onBack, onLogout, onExploreEvents, onHomeClick }) => {
     <div className="favorites-page">
       <Navbar 
         onLogout={onLogout} 
-        onProfileClick={() => {}} 
+        onProfileClick={onProfileClick}
         onFavoritesClick={() => {}}
-        onSettingsClick={() => {}}
+        onSettingsClick={onSettingsClick}
         onHomeClick={onHomeClick}
-        showHomeButton={true}
+        currentPage="favorites"
       />
       
       {/* Fundo animado com estrelas */}

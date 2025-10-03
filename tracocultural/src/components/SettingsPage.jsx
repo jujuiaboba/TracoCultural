@@ -3,7 +3,7 @@ import Navbar from './Navbar'
 import StarfieldBackground from './StarfieldBackground'
 import './SettingsPage.css'
 
-const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick }) => {
+const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick, onProfileClick, onFavoritesClick }) => {
   // Estados dos switches
   const [pushNotifications, setPushNotifications] = useState(true)
   const [emailNotifications, setEmailNotifications] = useState(false)
@@ -39,11 +39,11 @@ const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick }) => {
     <div className="settings-page">
       <Navbar 
         onLogout={onLogout} 
-        onProfileClick={() => {}}
-        onFavoritesClick={() => {}}
+        onProfileClick={onProfileClick}
+        onFavoritesClick={onFavoritesClick}
         onSettingsClick={() => {}}
         onHomeClick={onHomeClick}
-        showHomeButton={true}
+        currentPage="settings"
       />
       
       {/* Fundo animado com estrelas */}

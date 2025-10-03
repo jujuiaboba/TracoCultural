@@ -79,6 +79,8 @@ const UserProfile = ({ onBack, onLogout }) => {
         onLogout={onLogout}
         onExploreEvents={onBack}
         onHomeClick={onBack}
+        onProfileClick={() => setShowFavorites(false)}
+        onSettingsClick={handleSettingsClick}
       />
     )
   }
@@ -94,6 +96,8 @@ const UserProfile = ({ onBack, onLogout }) => {
           setEditProfile(true)
         }}
         onHomeClick={onBack}
+        onProfileClick={() => setShowSettings(false)}
+        onFavoritesClick={handleViewFavorites}
       />
     )
   }
@@ -103,10 +107,10 @@ const UserProfile = ({ onBack, onLogout }) => {
       <Navbar 
         onLogout={onLogout} 
         onProfileClick={() => {}}
-        onFavoritesClick={() => {}}
-        onSettingsClick={() => {}}
+        onFavoritesClick={handleViewFavorites}
+        onSettingsClick={handleSettingsClick}
         onHomeClick={onBack}
-        showHomeButton={true}
+        currentPage="profile"
       />
       
       {/* Fundo animado com estrelas */}
@@ -170,39 +174,7 @@ const UserProfile = ({ onBack, onLogout }) => {
           <div className="edit-modal" onClick={(e) => e.stopPropagation()}>
             <h3>Editar Perfil</h3>
             
-            {/* Seção Avatar */}
-            <div className="avatar-section">
-              <label>Avatar</label>
-              <div className="avatar-preview" style={{ backgroundColor: color }}>
-                <i className={`bi bi-${icon}`}></i>
-              </div>
-              
-              <label>Escolha um ícone:</label>
-              <div className="icons-grid">
-                {availableIcons.map(iconName => (
-                  <button
-                    key={iconName}
-                    className={`icon-option ${icon === iconName ? 'selected' : ''}`}
-                    onClick={() => handleIconSelect(iconName)}
-                    aria-label={`Ícone ${iconName.replace('-', ' ')}`}
-                  >
-                    <i className={`bi bi-${iconName}`}></i>
-                  </button>
-                ))}
-              </div>
-              
-              <label>Escolha uma cor:</label>
-              <div className="colors-grid">
-                {availableColors.map(colorOption => (
-                  <button
-                    key={colorOption}
-                    className={`color-option ${color === colorOption ? 'selected' : ''}`}
-                    style={{ backgroundColor: colorOption }}
-                    onClick={() => handleColorSelect(colorOption)}
-                  />
-                ))}
-              </div>
-            </div>
+
             
             {/* Campos de texto */}
             <div className="form-group">

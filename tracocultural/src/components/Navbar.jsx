@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const Navbar = ({ onLogout, onProfileClick, onFavoritesClick, onSettingsClick, onHomeClick, showHomeButton = false }) => {
+const Navbar = ({ onLogout, onProfileClick, onFavoritesClick, onSettingsClick, onHomeClick, currentPage = 'home' }) => {
   const [isDarkMode, setIsDarkMode] = useState(false)
 
   const toggleTheme = () => {
@@ -15,7 +15,7 @@ const Navbar = ({ onLogout, onProfileClick, onFavoritesClick, onSettingsClick, o
       </div>
       
       <div className="navbar-right">
-        {showHomeButton && (
+        {currentPage !== 'home' && (
           <button 
             className="nav-icon-btn" 
             onClick={onHomeClick}
@@ -26,32 +26,38 @@ const Navbar = ({ onLogout, onProfileClick, onFavoritesClick, onSettingsClick, o
             <span>Início</span>
           </button>
         )}
-        <button 
-          className="nav-icon-btn" 
-          onClick={onFavoritesClick}
-          aria-label="Eventos Favoritos"
-          title="Eventos Favoritos"
-        >
-          <i className="bi bi-heart"></i>
-          <span>Eventos Favoritos</span>
-        </button>
-        <button 
-          className="nav-icon-btn" 
-          onClick={onProfileClick}
-          aria-label="Meu Perfil"
-          title="Meu Perfil"
-        >
-          <i className="bi bi-person"></i>
-          <span>Meu Perfil</span>
-        </button>
-        <button 
-          className="nav-icon-btn" 
-          onClick={onSettingsClick}
-          aria-label="Configurações"
-          title="Configurações"
-        >
-          <i className="bi bi-gear"></i>
-        </button>
+        {currentPage !== 'favorites' && (
+          <button 
+            className="nav-icon-btn" 
+            onClick={onFavoritesClick}
+            aria-label="Eventos Favoritos"
+            title="Eventos Favoritos"
+          >
+            <i className="bi bi-heart"></i>
+            <span>Eventos Favoritos</span>
+          </button>
+        )}
+        {currentPage !== 'profile' && (
+          <button 
+            className="nav-icon-btn" 
+            onClick={onProfileClick}
+            aria-label="Meu Perfil"
+            title="Meu Perfil"
+          >
+            <i className="bi bi-person"></i>
+            <span>Meu Perfil</span>
+          </button>
+        )}
+        {currentPage !== 'settings' && (
+          <button 
+            className="nav-icon-btn" 
+            onClick={onSettingsClick}
+            aria-label="Configurações"
+            title="Configurações"
+          >
+            <i className="bi bi-gear"></i>
+          </button>
+        )}
         <button 
           className="nav-icon-btn" 
           onClick={onLogout}

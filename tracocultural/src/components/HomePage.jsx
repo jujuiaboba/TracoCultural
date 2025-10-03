@@ -57,7 +57,9 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
         onBack={() => setShowFavorites(false)} 
         onLogout={onLogout}
         onExploreEvents={() => setShowFavorites(false)}
-        onHomeClick={onHomeClick}
+        onHomeClick={handleHomeClick}
+        onProfileClick={onProfileClick}
+        onSettingsClick={handleSettingsClick}
       />
     )
   }
@@ -68,7 +70,9 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
       <SettingsPage 
         onBack={() => setShowSettings(false)} 
         onLogout={onLogout}
-        onHomeClick={onHomeClick}
+        onHomeClick={handleHomeClick}
+        onProfileClick={onProfileClick}
+        onFavoritesClick={handleFavoritesClick}
       />
     )
   }
@@ -84,7 +88,8 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
         onProfileClick={onProfileClick} 
         onFavoritesClick={handleFavoritesClick}
         onSettingsClick={handleSettingsClick}
-        showHomeButton={false}
+        onHomeClick={handleHomeClick}
+        currentPage="home"
       />
       
       {/* Conteúdo principal */}

@@ -41,7 +41,7 @@ const WelcomePage = ({ onLogin }) => {
             onClick={() => setCurrentPage('login')}
             aria-label="Entrar ou cadastrar-se na plataforma"
           >
-            Entrar ou Cadastrar-se
+            Entre ou Cadastre-se
           </button>
         </nav>
       </div>
