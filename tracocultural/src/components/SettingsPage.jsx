@@ -23,9 +23,7 @@ const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick, onProfileC
     }
   }
 
-  const handleHelpCenter = () => {
-    window.open('https://help.example.com', '_blank')
-  }
+
 
   const handlePrivacyPolicy = () => {
     window.open('https://privacy.example.com', '_blank')
@@ -63,12 +61,10 @@ const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick, onProfileC
 
         {/* Cards de configurações */}
         <div className="settings-cards">
-          
-          {/* Seção Conta */}
           <div className="settings-card">
             <h2 className="card-title">
-              <i className="bi bi-person-gear"></i>
-              Conta
+              <i className="bi bi-gear"></i>
+              Configurações
             </h2>
             
             <div className="setting-item">
@@ -90,39 +86,7 @@ const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick, onProfileC
                 <i className="bi bi-chevron-right"></i>
               </button>
             </div>
-            
-            <div className="setting-item">
-              <div className="setting-info">
-                <h3>Excluir Conta</h3>
-                <p>Remover permanentemente sua conta</p>
-              </div>
-              <button className="setting-btn danger" onClick={handleDeleteAccount}>
-                <i className="bi bi-trash"></i>
-              </button>
-            </div>
-          </div>
-
-          {/* Seção Notificações */}
-          <div className="settings-card">
-            <h2 className="card-title">
-              <i className="bi bi-bell"></i>
-              Notificações
-            </h2>
-            
-            <div className="setting-item">
-              <div className="setting-info">
-                <h3>Notificações Push</h3>
-                <p>Receba alertas no seu dispositivo</p>
-              </div>
-              <label className="switch">
-                <input 
-                  type="checkbox" 
-                  checked={pushNotifications}
-                  onChange={(e) => setPushNotifications(e.target.checked)}
-                />
-                <span className="slider"></span>
-              </label>
-            </div>
+          
             
             <div className="setting-item">
               <div className="setting-info">
@@ -137,24 +101,6 @@ const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick, onProfileC
                 />
                 <span className="slider"></span>
               </label>
-            </div>
-          </div>
-
-          {/* Seção Ajuda */}
-          <div className="settings-card">
-            <h2 className="card-title">
-              <i className="bi bi-question-circle"></i>
-              Ajuda
-            </h2>
-            
-            <div className="setting-item">
-              <div className="setting-info">
-                <h3>Central de Ajuda</h3>
-                <p>Encontre respostas para suas dúvidas</p>
-              </div>
-              <button className="setting-btn" onClick={handleHelpCenter}>
-                <i className="bi bi-box-arrow-up-right"></i>
-              </button>
             </div>
             
             <div className="setting-item">
@@ -174,6 +120,16 @@ const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick, onProfileC
               </div>
               <button className="setting-btn" onClick={handleTermsOfUse}>
                 <i className="bi bi-box-arrow-up-right"></i>
+              </button>
+            </div>
+            
+            <div className="setting-item">
+              <div className="setting-info">
+                <h3>Excluir Conta</h3>
+                <p>Remover permanentemente sua conta</p>
+              </div>
+              <button className="setting-btn danger" onClick={handleDeleteAccount}>
+                <i className="bi bi-trash"></i>
               </button>
             </div>
           </div>
