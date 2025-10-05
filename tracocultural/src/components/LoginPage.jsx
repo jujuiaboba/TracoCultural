@@ -2,12 +2,22 @@ import React, { useState } from 'react'
 
 import './AuthPages.css'
 
-const LoginPage = ({ onBack, onRegister, onLogin }) => {
+const LoginPage = ({ onLogin }) => {
+  const [activeTab, setActiveTab] = useState('login')
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    name: '',
+    confirmPassword: '',
     rememberMe: false
   })
+
+  // Lista de emails de administradores
+  const adminEmails = [
+    'admin@tracocultural.com',
+    'administrador@tracocultural.com',
+    'admin@admin.com'
+  ]
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target
@@ -19,9 +29,13 @@ const LoginPage = ({ onBack, onRegister, onLogin }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log('Login:', formData)
-    // Simular login bem-sucedido
-    onLogin()
+    
+    // Verificar se é admin
+    const isAdmin = adminEmails.includes(formData.email.toLowerCase())
+    const role = isAdmin ? 'admin' : 'user'
+    
+    console.log('Login:', formData, 'Role:', role)
+    onLogin(formData.email, role)
   }
 
   return (
@@ -34,12 +48,42 @@ const LoginPage = ({ onBack, onRegister, onLogin }) => {
       {/* Formulário de login */}
       <div className="auth-content">
         <div className="auth-form">
+          <div className="auth-tabs">
+            <button 
+              className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
+              onClick={() => setActiveTab('login')}
+            >
+              Entrar
+            </button>
+            <button 
+              className={`tab-btn ${activeTab === 'register' ? 'active' : ''}`}
+              onClick={() => setActiveTab('register')}
+            >
+              Cadastrar
+            </button>
+          </div>
+          
           <header className="auth-header">
-            <h1>Entrar</h1>
-            <p>Acesse sua conta</p>
+            <h1>{activeTab === 'login' ? 'Entrar' : 'Cadastrar'}</h1>
+            <p>{activeTab === 'login' ? 'Acesse sua conta' : 'Crie sua conta'}</p>
           </header>
           
           <form onSubmit={handleSubmit}>
+            {activeTab === 'register' && (
+              <div className="form-group">
+                <label htmlFor="name">Nome completo</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required={activeTab === 'register'}
+                  placeholder="Seu nome completo"
+                />
+              </div>
+            )}
+            
             <div className="form-group">
               <label htmlFor="email">E-mail</label>
               <input
@@ -66,31 +110,44 @@ const LoginPage = ({ onBack, onRegister, onLogin }) => {
               />
             </div>
             
-            <div className="form-group checkbox-group">
-              <label className="checkbox-label">
+            {activeTab === 'register' && (
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirmar senha</label>
                 <input
-                  type="checkbox"
-                  name="rememberMe"
-                  checked={formData.rememberMe}
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
                   onChange={handleChange}
+                  required={activeTab === 'register'}
+                  placeholder="Confirme sua senha"
                 />
-                <span>Lembrar-me</span>
-              </label>
-            </div>
+              </div>
+            )}
+            
+            {activeTab === 'login' && (
+              <div className="form-group checkbox-group">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="rememberMe"
+                    checked={formData.rememberMe}
+                    onChange={handleChange}
+                  />
+                  <span>Lembrar-me</span>
+                </label>
+              </div>
+            )}
             
             <button type="submit" className="auth-btn primary">
-              Entrar
+              {activeTab === 'login' ? 'Entrar' : 'Cadastrar'}
             </button>
           </form>
           
-          <div className="auth-links">
-            <button onClick={onBack} className="link-btn">
-              ← Voltar ao início
-            </button>
-            <div className="register-link">
-              <span>Não tem uma conta? </span>
-              <button onClick={onRegister} className="link-btn underline">Crie uma aqui!</button>
-            </div>
+          <div className="auth-footer">
+            <p className="admin-hint">
+              💡 Para acessar como administrador, use: admin@admin.com
+            </p>
           </div>
         </div>
       </div>
