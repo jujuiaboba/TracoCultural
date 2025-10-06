@@ -101,11 +101,10 @@
 
 /* Informações do usuário */
 .user-profile .user-info {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  text-align: left !important;
+  text-align: right;
 }
 
 .user-profile .user-info .display-name {
@@ -114,24 +113,23 @@
   color: #3C2321;
   margin: 0;
   line-height: 0.7;
-  text-align: left !important;
-  direction: ltr !important;
+  text-align: right !important;
 }
 
 .user-profile .user-info .username {
   font-size: 1.2rem;
   color: #8E5E56;
   margin: 0;
-  text-align: left !important;
-  direction: ltr !important;
+  text-align: right;
 }
 
 .user-profile .user-info .location {
   font-size: 1rem;
-  color: #6B453E;
-  margin: 0 0 0.5rem 0;
-  text-align: left !important;
-  direction: ltr !important;
+  font-weight: 200;
+  color: #3c232185;
+  margin: 0;
+  display: flex;
+  text-align: right !important;
 }
 
 /* Estatísticas */
@@ -141,7 +139,7 @@
   margin: 0.5rem 0;
   padding: 1rem 0;
   border-top: 1px solid #E5D5D0;
-  border-bottom: 1px solid #E5D5D0;
+  justify-content: right;
 }
 
 .stat {
@@ -164,7 +162,7 @@
 .profile-actions {
   margin-top: 1rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: right;
 }
 
 .btn-secondary {
@@ -459,7 +457,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(135deg, rgba(142, 94, 86, 0.8) 0%, rgba(60, 35, 33, 0.8) 100%);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
