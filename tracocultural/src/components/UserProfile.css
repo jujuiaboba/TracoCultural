@@ -100,31 +100,38 @@
 }
 
 /* Informações do usuário */
-.user-info {
+.user-profile .user-info {
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  text-align: left !important;
 }
 
-.display-name {
+.user-profile .user-info .display-name {
   font-size: 3rem;
   font-weight: 900;
   color: #3C2321;
   margin: 0;
   line-height: 0.7;
+  text-align: left !important;
+  direction: ltr !important;
 }
 
-.username {
+.user-profile .user-info .username {
   font-size: 1.2rem;
   color: #8E5E56;
   margin: 0;
+  text-align: left !important;
+  direction: ltr !important;
 }
 
-.location {
+.user-profile .user-info .location {
   font-size: 1rem;
   color: #6B453E;
   margin: 0 0 0.5rem 0;
+  text-align: left !important;
+  direction: ltr !important;
 }
 
 /* Estatísticas */
@@ -237,7 +244,7 @@
   background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
   border: none ;
   color: white;
-  padding: 1rem;
+  padding: 0.1rem 2.0rem;
   border-radius: 12px;
   font-weight: 700;
   cursor: pointer;
@@ -245,9 +252,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
+  gap: 1.3rem;
   font-size: 1rem;
   width: 100%;
+  min-height: 20px;
 }
 
 .action-btn:hover {

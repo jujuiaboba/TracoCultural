@@ -8,33 +8,42 @@ const LoginPage = ({ onLogin }) => {
     email: '',
     password: '',
     name: '',
-    confirmPassword: '',
-    rememberMe: false
+    confirmPassword: ''
   })
 
   // Lista de emails de administradores
   const adminEmails = [
     'admin@tracocultural.com',
-    'administrador@tracocultural.com',
+    'administrador@tracocultural.com', 
     'admin@admin.com'
   ]
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target
+    const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: value
     }))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    e.stopPropagation()
     
-    // Verificar se é admin
+    if (activeTab === 'register') {
+      // Validação básica para cadastro
+      if (formData.password !== formData.confirmPassword) {
+        alert('Senhas não coincidem')
+        return
+      }
+      console.log('Cadastro:', formData)
+    }
+    
+    // Verificar se é admin (tanto login quanto cadastro)
     const isAdmin = adminEmails.includes(formData.email.toLowerCase())
     const role = isAdmin ? 'admin' : 'user'
     
-    console.log('Login:', formData, 'Role:', role)
+    console.log('Fazendo login...', { email: formData.email, role })
     onLogin(formData.email, role)
   }
 
@@ -50,12 +59,14 @@ const LoginPage = ({ onLogin }) => {
         <div className="auth-form">
           <div className="auth-tabs">
             <button 
+              type="button"
               className={`tab-btn ${activeTab === 'login' ? 'active' : ''}`}
               onClick={() => setActiveTab('login')}
             >
               Entrar
             </button>
             <button 
+              type="button"
               className={`tab-btn ${activeTab === 'register' ? 'active' : ''}`}
               onClick={() => setActiveTab('register')}
             >
@@ -71,7 +82,7 @@ const LoginPage = ({ onLogin }) => {
           <form onSubmit={handleSubmit}>
             {activeTab === 'register' && (
               <div className="form-group">
-                <label htmlFor="name">Nome completo</label>
+                <label htmlFor="name">Nome</label>
                 <input
                   type="text"
                   id="name"
@@ -79,7 +90,7 @@ const LoginPage = ({ onLogin }) => {
                   value={formData.name}
                   onChange={handleChange}
                   required={activeTab === 'register'}
-                  placeholder="Seu nome completo"
+                  placeholder="Seu nome"
                 />
               </div>
             )}
@@ -125,30 +136,14 @@ const LoginPage = ({ onLogin }) => {
               </div>
             )}
             
-            {activeTab === 'login' && (
-              <div className="form-group checkbox-group">
-                <label className="checkbox-label">
-                  <input
-                    type="checkbox"
-                    name="rememberMe"
-                    checked={formData.rememberMe}
-                    onChange={handleChange}
-                  />
-                  <span>Lembrar-me</span>
-                </label>
-              </div>
-            )}
+
             
             <button type="submit" className="auth-btn primary">
               {activeTab === 'login' ? 'Entrar' : 'Cadastrar'}
             </button>
           </form>
           
-          <div className="auth-footer">
-            <p className="admin-hint">
-              💡 Para acessar como administrador, use: admin@admin.com
-            </p>
-          </div>
+
         </div>
       </div>
     </main>

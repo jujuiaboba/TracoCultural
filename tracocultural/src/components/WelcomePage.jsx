@@ -1,26 +1,9 @@
 import React, { useState } from 'react'
 import StarfieldBackground from './StarfieldBackground'
 import LoginPage from './LoginPage'
-import RegisterPage from './RegisterPage'
 import './WelcomePage.css'
 
 const WelcomePage = ({ onLogin }) => {
-  const [currentPage, setCurrentPage] = useState('welcome')
-  
-  // Renderização condicional das páginas
-  if (currentPage === 'login') {
-    return (
-      <LoginPage 
-        onBack={() => setCurrentPage('welcome')} 
-        onRegister={() => setCurrentPage('register')}
-        onLogin={onLogin}
-      />
-    )
-  }
-  
-  if (currentPage === 'register') {
-    return <RegisterPage onBack={() => setCurrentPage('welcome')} />
-  }
 
   return (
     <main className="welcome-container">
@@ -38,7 +21,7 @@ const WelcomePage = ({ onLogin }) => {
         <nav className="action-buttons">
           <button 
             className="btn btn-primary"
-            onClick={() => setCurrentPage('login')}
+            onClick={() => onLogin('', 'redirect')}
             aria-label="Entrar ou cadastrar-se na plataforma"
           >
             Entre ou Cadastre-se

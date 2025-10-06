@@ -11,6 +11,11 @@ function App() {
   const [userRole, setUserRole] = useState(null)
 
   const handleLogin = (email, role) => {
+    if (role === 'redirect') {
+      setCurrentPage('login')
+      return
+    }
+    
     setUserRole(role)
     if (role === 'admin') {
       setCurrentPage('admin')
@@ -39,7 +44,7 @@ function App() {
   const renderCurrentPage = () => {
     switch (currentPage) {
       case 'welcome':
-        return <WelcomePage onLogin={handleLoginPageClick} />
+        return <WelcomePage onLogin={handleLogin} />
       case 'login':
         return <LoginPage onLogin={handleLogin} />
       case 'home':

@@ -130,19 +130,15 @@ const UserProfile = ({ onBack, onLogout }) => {
         </div>
 
         {/* Informações do usuário */}
-        <div className="user-info">
-          <h2 className="display-name">{editData.name}</h2>
-          <p className="location">{editData.location}</p>
+        <div className="user-info" style={{ textAlign: 'left' }}>
+          <h2 className="display-name" style={{ textAlign: 'left' }}>{editData.name}</h2>
+          <p className="location" style={{ textAlign: 'left' }}>{editData.location}</p>
 
           {/* Estatísticas */}
           <div className="user-stats">
             <div className="stat">
               <span className="stat-number">24</span>
               <span className="stat-label">Favoritos</span>
-            </div>
-            <div className="stat">
-              <span className="stat-number">8</span>
-              <span className="stat-label">Feedbacks</span>
             </div>
           </div>
 

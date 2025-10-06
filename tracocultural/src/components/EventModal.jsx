@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import ImageGallery from './ImageGallery'
+import CommentsSection from './CommentsSection'
 import './EventModal.css'
 
 /**
@@ -42,16 +43,28 @@ const EventModal = ({ event, isOpen, onClose }) => {
         closeButtonRef.current?.focus()
       }, 100)
       
-      // Previne scroll do body
+      // Previne scroll do body e esconde estrelas
       document.body.style.overflow = 'hidden'
+      const starfield = document.querySelector('.starfield-background')
+      if (starfield) {
+        starfield.style.display = 'none'
+      }
     } else {
-      // Restaura foco ao elemento anterior
+      // Restaura foco ao elemento anterior e mostra estrelas
       previousFocusRef.current?.focus()
       document.body.style.overflow = 'unset'
+      const starfield = document.querySelector('.starfield-background')
+      if (starfield) {
+        starfield.style.display = 'block'
+      }
     }
 
     return () => {
       document.body.style.overflow = 'unset'
+      const starfield = document.querySelector('.starfield-background')
+      if (starfield) {
+        starfield.style.display = 'block'
+      }
     }
   }, [isOpen])
 
@@ -289,6 +302,9 @@ const EventModal = ({ event, isOpen, onClose }) => {
             </div>
           )}
         </div>
+
+        {/* Seção de comentários/feedbacks */}
+        <CommentsSection eventId={event.id} />
       </div>
     </div>
   )

@@ -19,10 +19,12 @@
 /* Conteúdo principal */
 .settings-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   padding: 120px 2rem 2rem;
-  max-width: 1700px;
-  margin: 0 auto;
-  width: 100%;
   box-sizing: border-box;
 }
 
@@ -63,17 +65,18 @@
 /* === CARDS DE CONFIGURAÇÕES === */
 .settings-cards {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 10%;
 }
 
 .settings-card {
-  min-width: 1600px;
-  max-width: 1800px;
+  min-width: 1200px;
+  max-width: 1500px;
   background: rgba(255, 255, 255, 0.863);
-  border-radius: 30px;
-  box-shadow: 0 0.5px 2px rgba(0, 0, 0, 0.05);
-  padding: 30px 80px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  padding: 1rem 2rem;
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -100,7 +103,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2.5rem 0;
+  padding: 0.4rem 0;
   border-bottom: 1px solid rgba(229, 213, 208, 0.3);
 }
 
