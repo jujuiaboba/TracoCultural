@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-// TODO: CONFIGURAR URL DO SEU BACKEND AQUI
-const API_BASE_URL = 'http://localhost:3001/api' // <- ALTERE PARA SUA URL
+// CONFIGURADO PARA SPRING BOOT
+const API_BASE_URL = 'http://localhost:8080/api'
 
 class ApiService {
   constructor() {
