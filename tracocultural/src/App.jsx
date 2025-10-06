@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { AuthProvider, useAuth } from './context/AuthContext'
 import WelcomePage from './components/WelcomePage'
 import LoginPage from './components/LoginPage'
 import HomePage from './components/HomePage'
@@ -6,26 +7,24 @@ import UserProfile from './components/UserProfile'
 import AdminPanel from './components/AdminPanel/AdminPanel'
 import './App.css'
 
-function App() {
+const AppContent = () => {
+  const { user, loading, isAuthenticated, isAdmin, logout } = useAuth()
   const [currentPage, setCurrentPage] = useState('welcome')
-  const [userRole, setUserRole] = useState(null)
 
-  const handleLogin = (email, role) => {
-    if (role === 'redirect') {
-      setCurrentPage('login')
-      return
-    }
-    
-    setUserRole(role)
-    if (role === 'admin') {
+  if (loading) {
+    return <div>Carregando...</div>
+  }
+
+  const handleLoginSuccess = () => {
+    if (isAdmin) {
       setCurrentPage('admin')
     } else {
       setCurrentPage('home')
     }
   }
 
-  const handleLogout = () => {
-    setUserRole(null)
+  const handleLogout = async () => {
+    await logout()
     setCurrentPage('welcome')
   }
 
@@ -42,19 +41,24 @@ function App() {
   }
 
   const renderCurrentPage = () => {
+    if (!isAuthenticated) {
+      switch (currentPage) {
+        case 'login':
+          return <LoginPage onLoginSuccess={handleLoginSuccess} />
+        default:
+          return <WelcomePage onLogin={handleLoginPageClick} />
+      }
+    }
+
     switch (currentPage) {
-      case 'welcome':
-        return <WelcomePage onLogin={handleLogin} />
-      case 'login':
-        return <LoginPage onLogin={handleLogin} />
       case 'home':
         return <HomePage onLogout={handleLogout} onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} />
       case 'profile':
         return <UserProfile onBack={handleHomeClick} onLogout={handleLogout} />
       case 'admin':
-        return <AdminPanel onLogout={handleLogout} />
+        return isAdmin ? <AdminPanel onLogout={handleLogout} /> : <HomePage onLogout={handleLogout} onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} />
       default:
-        return <WelcomePage onLogin={handleLoginPageClick} />
+        return isAdmin ? <AdminPanel onLogout={handleLogout} /> : <HomePage onLogout={handleLogout} onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} />
     }
   }
 
@@ -62,6 +66,14 @@ function App() {
     <div className="App">
       {renderCurrentPage()}
     </div>
+  )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
   )
 }
 

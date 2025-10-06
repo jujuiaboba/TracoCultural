@@ -11,7 +11,7 @@
   width: 280px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-right: 1px solid rgba(142, 94, 86, 0.1);
+  border-right: 1px solid rgba(142, 94, 86, 0);
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -67,7 +67,6 @@
 .nav-item.active {
   background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
   color: white;
-  border-right: 4px solid #3C2321;
 }
 
 .nav-item i {
@@ -333,6 +332,12 @@
   justify-content: center;
 }
 
+.action-btn i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .action-btn.edit {
   background: rgba(52, 152, 219, 0.1);
   color: #3498db;
@@ -467,107 +472,7 @@
   color: #A67C6A;
 }
 
-/* === CONFIGURAÇÕES === */
-.settings-content {
-  max-width: 800px;
-}
 
-.settings-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.settings-card h2 {
-  color: #3C2321;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin: 0 0 2rem 0;
-}
-
-.settings-card .setting-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem 0;
-  border-bottom: 1px solid rgba(142, 94, 86, 0.1);
-}
-
-.settings-card .setting-item:last-child {
-  border-bottom: none;
-}
-
-.settings-card input[type="text"] {
-  padding: 0.75rem;
-  border: 2px solid rgba(142, 94, 86, 0.2);
-  border-radius: 8px;
-  font-family: 'Poppins', sans-serif;
-  min-width: 200px;
-}
-
-.save-btn {
-  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
-  border: none;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
-}
-
-/* === SWITCHES === */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #D4C4BF;
-  transition: 0.3s;
-  border-radius: 24px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.3s;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-input:checked + .slider {
-  background-color: #8E5E56;
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
 
 /* === RESPONSIVIDADE === */
 @media (max-width: 768px) {

@@ -5,8 +5,7 @@ const AdminSidebar = ({ activeSection, onSectionChange, onLogout }) => {
     { id: 'dashboard', label: 'Dashboard', icon: 'bi-speedometer2' },
     { id: 'users', label: 'Usuários', icon: 'bi-people-fill' },
     { id: 'events', label: 'Eventos', icon: 'bi-calendar-event' },
-    { id: 'feedbacks', label: 'Feedbacks', icon: 'bi-chat-dots-fill' },
-    { id: 'settings', label: 'Configurações', icon: 'bi-gear-fill' }
+    { id: 'feedbacks', label: 'Feedbacks', icon: 'bi-chat-dots-fill' }
   ]
 
   return (

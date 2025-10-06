@@ -5,7 +5,7 @@ import AdminUsers from './AdminUsers'
 import AdminEvents from './AdminEvents'
 import AdminRegistrations from './AdminRegistrations'
 import AdminFeedbacks from './AdminFeedbacks'
-import AdminSettings from './AdminSettings'
+
 import StarfieldBackground from '../StarfieldBackground'
 import './AdminPanel.css'
 
@@ -24,8 +24,7 @@ const AdminPanel = ({ onLogout }) => {
         return <AdminRegistrations />
       case 'feedbacks':
         return <AdminFeedbacks />
-      case 'settings':
-        return <AdminSettings />
+
       default:
         return <AdminDashboard />
     }

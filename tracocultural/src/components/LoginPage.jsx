@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-
+import { useAuth } from '../context/AuthContext'
 import './AuthPages.css'
 
-const LoginPage = ({ onLogin }) => {
+const LoginPage = ({ onLoginSuccess }) => {
+  const { login, register } = useAuth()
   const [activeTab, setActiveTab] = useState('login')
   const [formData, setFormData] = useState({
     email: '',
@@ -10,13 +11,8 @@ const LoginPage = ({ onLogin }) => {
     name: '',
     confirmPassword: ''
   })
-
-  // Lista de emails de administradores
-  const adminEmails = [
-    'admin@tracocultural.com',
-    'administrador@tracocultural.com', 
-    'admin@admin.com'
-  ]
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -26,25 +22,33 @@ const LoginPage = ({ onLogin }) => {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    e.stopPropagation()
+    setLoading(true)
+    setError('')
     
-    if (activeTab === 'register') {
-      // Validação básica para cadastro
-      if (formData.password !== formData.confirmPassword) {
-        alert('Senhas não coincidem')
-        return
+    try {
+      if (activeTab === 'register') {
+        if (formData.password !== formData.confirmPassword) {
+          setError('Senhas não coincidem')
+          return
+        }
+        
+        await register({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        })
+      } else {
+        await login(formData.email, formData.password)
       }
-      console.log('Cadastro:', formData)
+      
+      onLoginSuccess()
+    } catch (error) {
+      setError(error.message || 'Erro ao fazer login/cadastro')
+    } finally {
+      setLoading(false)
     }
-    
-    // Verificar se é admin (tanto login quanto cadastro)
-    const isAdmin = adminEmails.includes(formData.email.toLowerCase())
-    const role = isAdmin ? 'admin' : 'user'
-    
-    console.log('Fazendo login...', { email: formData.email, role })
-    onLogin(formData.email, role)
   }
 
   return (
@@ -78,6 +82,12 @@ const LoginPage = ({ onLogin }) => {
             <h1>{activeTab === 'login' ? 'Entrar' : 'Cadastrar'}</h1>
             <p>{activeTab === 'login' ? 'Acesse sua conta' : 'Crie sua conta'}</p>
           </header>
+          
+          {error && (
+            <div className="error-message">
+              {error}
+            </div>
+          )}
           
           <form onSubmit={handleSubmit}>
             {activeTab === 'register' && (
@@ -138,8 +148,8 @@ const LoginPage = ({ onLogin }) => {
             
 
             
-            <button type="submit" className="auth-btn primary">
-              {activeTab === 'login' ? 'Entrar' : 'Cadastrar'}
+            <button type="submit" className="auth-btn primary" disabled={loading}>
+              {loading ? 'Carregando...' : (activeTab === 'login' ? 'Entrar' : 'Cadastrar')}
             </button>
           </form>
           

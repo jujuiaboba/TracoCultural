@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import Navbar from './Navbar'
 import StarfieldBackground from './StarfieldBackground'
+import PrivacyPolicy from './PrivacyPolicy'
+import TermsOfService from './TermsOfService'
 import './SettingsPage.css'
 
 const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick, onProfileClick, onFavoritesClick }) => {
   // Estados dos switches
   const [pushNotifications, setPushNotifications] = useState(true)
   const [emailNotifications, setEmailNotifications] = useState(false)
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
+  const [showTermsOfService, setShowTermsOfService] = useState(false)
 
   // Handlers
   const handleEditProfile = () => {
@@ -26,11 +30,24 @@ const SettingsPage = ({ onBack, onLogout, onEditProfile, onHomeClick, onProfileC
 
 
   const handlePrivacyPolicy = () => {
-    window.open('https://privacy.example.com', '_blank')
+    setShowPrivacyPolicy(true)
   }
 
   const handleTermsOfUse = () => {
-    window.open('https://terms.example.com', '_blank')
+    setShowTermsOfService(true)
+  }
+
+  const handleBackToSettings = () => {
+    setShowPrivacyPolicy(false)
+    setShowTermsOfService(false)
+  }
+
+  if (showPrivacyPolicy) {
+    return <PrivacyPolicy onBack={handleBackToSettings} />
+  }
+
+  if (showTermsOfService) {
+    return <TermsOfService onBack={handleBackToSettings} />
   }
 
   return (
