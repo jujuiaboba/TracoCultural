@@ -69,8 +69,6 @@ const LoginPage = ({ onLoginSuccess }) => {
             >
               Entrar
             </button>
-
-
             <button 
               type="button"
               className={`tab-btn ${activeTab === 'register' ? 'active' : ''}`}
@@ -78,9 +76,6 @@ const LoginPage = ({ onLoginSuccess }) => {
             >
               Cadastrar
             </button>
-
-
-            
           </div>
           
           <header className="auth-header">
@@ -150,9 +145,6 @@ const LoginPage = ({ onLoginSuccess }) => {
                 />
               </div>
             )}
-            
-            
-            <buttontype="submit">
             
             <button type="submit" className="auth-btn primary" disabled={loading}>
               {loading ? 'Carregando...' : (activeTab === 'login' ? 'Entrar' : 'Cadastrar')}

@@ -25,12 +25,10 @@ public class ComentarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // GET /api/events/:id/comments - Listar comentários do evento
     @GetMapping("/events/{eventId}/comments")
     public ResponseEntity<Object> listarComentarios(@PathVariable Long eventId) {
         
         try {
-            // Por enquanto, vamos usar Compartilhamento como comentários
             List<Compartilhamento> compartilhamentos = compartilhamentoRepository.findAll().stream()
                 .filter(c -> c.getIdEventoFk().equals(eventId))
                 .toList();
@@ -64,7 +62,6 @@ public class ComentarioController {
         }
     }
 
-    // POST /api/events/:id/comments - Adicionar comentário
     @PostMapping("/events/{eventId}/comments")
     public ResponseEntity<Object> adicionarComentario(@PathVariable Long eventId,
                                                     @RequestBody Map<String, Object> dados,
@@ -77,14 +74,12 @@ public class ComentarioController {
         String userId = token.replace("Bearer fake-jwt-token-", "");
         
         try {
-            // Criar novo compartilhamento (usando como comentário)
             Compartilhamento novoComentario = new Compartilhamento();
             novoComentario.setIdUsuarioFk(Long.parseLong(userId));
             novoComentario.setIdEventoFk(eventId);
             
             Compartilhamento salvo = compartilhamentoRepository.save(novoComentario);
             
-            // Buscar dados do usuário
             Optional<Usuario> usuario = usuarioRepository.findById(Long.parseLong(userId));
             
             if (usuario.isPresent()) {
@@ -108,75 +103,6 @@ public class ComentarioController {
         } catch (Exception e) {
             return ResponseEntity.status(500).body(Map.of(
                 "message", "Erro ao adicionar comentário: " + e.getMessage()
-            ));
-        }
-    }
-
-    // GET /api/feedbacks - Listar todos os feedbacks (Admin only)
-    @GetMapping("/feedbacks")
-    public ResponseEntity<Object> listarTodosFeedbacks(@RequestHeader(value = "Authorization", required = false) String token) {
-        
-        if (token == null || !token.startsWith("Bearer fake-jwt-token-")) {
-            return ResponseEntity.status(401).body(Map.of("message", "Token não fornecido"));
-        }
-        
-        try {
-            List<Compartilhamento> todos = compartilhamentoRepository.findAll();
-            
-            List<Map<String, Object>> feedbacks = new ArrayList<>();
-            
-            for (Compartilhamento comp : todos) {
-                Optional<Usuario> usuario = usuarioRepository.findById(comp.getIdUsuarioFk());
-                
-                if (usuario.isPresent()) {
-                    Usuario u = usuario.get();
-                    feedbacks.add(Map.of(
-                        "id", comp.getId(),
-                        "userId", comp.getIdUsuarioFk(),
-                        "eventId", comp.getIdEventoFk(),
-                        "user", Map.of(
-                            "name", u.getNome()
-                        ),
-                        "comment", "Feedback do usuário " + u.getNome(),
-                        "rating", 5,
-                        "date", "2024-01-01T10:00:00Z"
-                    ));
-                }
-            }
-            
-            return ResponseEntity.ok(feedbacks);
-            
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(Map.of(
-                "message", "Erro ao buscar feedbacks: " + e.getMessage()
-            ));
-        }
-    }
-
-    // DELETE /api/feedbacks/:id - Deletar feedback (Admin only)
-    @DeleteMapping("/feedbacks/{id}")
-    public ResponseEntity<Object> deletarFeedback(@PathVariable Long id,
-                                                @RequestHeader(value = "Authorization", required = false) String token) {
-        
-        if (token == null || !token.startsWith("Bearer fake-jwt-token-")) {
-            return ResponseEntity.status(401).body(Map.of("message", "Token não fornecido"));
-        }
-        
-        try {
-            if (compartilhamentoRepository.existsById(id)) {
-                compartilhamentoRepository.deleteById(id);
-                return ResponseEntity.ok(Map.of(
-                    "message", "Feedback deletado com sucesso"
-                ));
-            }
-            
-            return ResponseEntity.status(404).body(Map.of(
-                "message", "Feedback não encontrado"
-            ));
-            
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(Map.of(
-                "message", "Erro ao deletar feedback: " + e.getMessage()
             ));
         }
     }
