@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 // CONFIGURADO PARA SPRING BOOT
-const API_BASE_URL = 'http://localhost:8080/api'
-
+const API_BASE_URL = 'http://localhost:8080/api/v1'
+  
 class ApiService {
   constructor() {
     this.api = axios.create({
@@ -40,7 +40,7 @@ class ApiService {
   }
 
   async register(userData) {
-    // Endpoint: POST /api/auth/register
+    // Endpoint: POST /api/v1/auth/register
     // Deve retornar: { token, user: { id, name, email, role } }
     return this.api.post('/auth/register', userData)
   }

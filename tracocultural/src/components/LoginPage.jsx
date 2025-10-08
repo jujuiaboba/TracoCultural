@@ -8,8 +8,8 @@ const LoginPage = ({ onLoginSuccess }) => {
   const [formData, setFormData] = useState({
     email: '',
     senha: '',
-    Nome: '',
-    ConfirmeSenha: ''
+    nome: '',
+    confirmeSenha: ''
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -29,18 +29,18 @@ const LoginPage = ({ onLoginSuccess }) => {
     
     try {
       if (activeTab === 'register') {
-        if (formData.password !== formData.confirmPassword) {
+        if (formData.senha !== formData.confirmeSenha) {
           setError('Senhas não coincidem')
           return
         }
         
         await register({
-          name: formData.name,
+          nome: formData.nome,
           email: formData.email,
-          password: formData.password
+          senha: formData.senha
         })
       } else {
-        await login(formData.email, formData.password)
+        await login(formData.email, formData.senha)
       }
       
       onLoginSuccess()
@@ -96,8 +96,8 @@ const LoginPage = ({ onLoginSuccess }) => {
                 <input
                   type="text"
                   id="name"
-                  name="name"
-                  value={formData.name}
+                  name="nome"
+                  value={formData.nome}
                   onChange={handleChange}
                   required={activeTab === 'register'}
                   placeholder="Seu nome"
@@ -123,8 +123,8 @@ const LoginPage = ({ onLoginSuccess }) => {
               <input
                 type="password"
                 id="password"
-                name="password"
-                value={formData.password}
+                name="senha"
+                value={formData.senha}
                 onChange={handleChange}
                 required
                 placeholder="Digite sua senha"
@@ -136,9 +136,9 @@ const LoginPage = ({ onLoginSuccess }) => {
                 <label htmlFor="confirmPassword">Confirmar senha</label>
                 <input
                   type="password"
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
+                  id="confirmeSenha"
+                  name="confirmeSenha"
+                  value={formData.confirmeSenha}
                   onChange={handleChange}
                   required={activeTab === 'register'}
                   placeholder="Confirme sua senha"
