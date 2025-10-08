@@ -7,9 +7,9 @@ const LoginPage = ({ onLoginSuccess }) => {
   const [activeTab, setActiveTab] = useState('login')
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    name: '',
-    confirmPassword: ''
+    senha: '',
+    Nome: '',
+    ConfirmeSenha: ''
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
