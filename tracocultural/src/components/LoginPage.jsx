@@ -1,6 +1,16 @@
 import React, { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import './AuthPages.css'
+import axios from 'axios'
+
+function postUsuario(){
+  axios.post('http://localhost:8080/api/v1/usuario/auth/register', {
+    nome: formData.nome,
+    email: formData.email,
+    senha: formData.senha
+    
+  })
+
 
 const LoginPage = ({ onLoginSuccess }) => {
   const { login, register } = useAuth()
@@ -157,5 +167,5 @@ const LoginPage = ({ onLoginSuccess }) => {
     </main>
   )
 }
-
+}
 export default LoginPage
