@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters }) => {
+const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters, onSearch }) => {
   const [showFilters, setShowFilters] = useState(false)
 
   const eventTypes = ['Show', 'Exposição', 'Teatro', 'Cinema', 'Festival', 'Workshop']
@@ -13,8 +13,15 @@ const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters }) => 
 
   const handleApplyFilters = () => {
     setShowFilters(false)
-    // Implementar lógica de filtros
-    console.log('Filtros aplicados:', filters)
+    if (onSearch) {
+      onSearch(searchQuery)
+    }
+  }
+
+  const handleSearch = () => {
+    if (onSearch) {
+      onSearch(searchQuery)
+    }
   }
 
   return (
@@ -29,7 +36,7 @@ const SearchSection = ({ searchQuery, setSearchQuery, filters, setFilters }) => 
             onChange={(e) => setSearchQuery(e.target.value)}
             className="search-input"
           />
-          <button className="search-btn" aria-label="Buscar">
+          <button className="search-btn" aria-label="Buscar" onClick={handleSearch}>
             <i className="bi bi-search"></i>
           </button>
         </div>

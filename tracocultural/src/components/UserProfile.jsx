@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { userService } from '../services/userService'
 import Navbar from './Navbar'
 import StarfieldBackground from './StarfieldBackground'
 import FavoritesPage from './FavoritesPage'
@@ -22,7 +25,9 @@ const availableColors = [
   '#27ae60', '#2980b9'
 ]
 
-const UserProfile = ({ onBack, onLogout }) => {
+const UserProfile = () => {
+  const { user } = useAuth()
+  
   // Estados do componente
   const [icon, setIcon] = useState('person-arms-up')
   const [color, setColor] = useState('#936253')
@@ -33,10 +38,32 @@ const UserProfile = ({ onBack, onLogout }) => {
   const [selectedIcon, setSelectedIcon] = useState('person-arms-up')
   const [selectedColor, setSelectedColor] = useState('#936253')
   const [editData, setEditData] = useState({
-    name: 'Flora Silva',
-    username: 'florinha',
-    location: 'MG, Brasil'
+    name: user?.nome || 'Usuário',
+    username: user?.email || '',
+    location: 'Brasil'
   })
+  const [favorites, setFavorites] = useState([])
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (user) {
+      setEditData({
+        name: user.nome || 'Usuário',
+        username: user.email || '',
+        location: 'Brasil'
+      })
+      loadFavorites()
+    }
+  }, [user])
+
+  const loadFavorites = async () => {
+    try {
+      const favoritesData = await userService.getFavorites()
+      setFavorites(favoritesData)
+    } catch (error) {
+      console.error('Erro ao carregar favoritos:', error)
+    }
+  }
 
   // Handlers
   const handleEditClick = () => {
@@ -52,7 +79,20 @@ const UserProfile = ({ onBack, onLogout }) => {
   }
 
   const handleEditProfile = () => setEditProfile(true)
-  const handleSaveProfile = () => setEditProfile(false)
+  const handleSaveProfile = async () => {
+    setLoading(true)
+    try {
+      await userService.updateProfile({
+        nome: editData.name,
+        location: editData.location
+      })
+      setEditProfile(false)
+    } catch (error) {
+      console.error('Erro ao salvar perfil:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
   const handleCancelEdit = () => setEditProfile(false)
 
   const handleInputChange = (field, value) => {
@@ -61,15 +101,8 @@ const UserProfile = ({ onBack, onLogout }) => {
 
   const handleIconSelect = (selectedIcon) => setIcon(selectedIcon)
   const handleColorSelect = (selectedColor) => setColor(selectedColor)
-  const handleViewFavorites = () => setShowFavorites(true)
-  const handleSettingsClick = () => setShowSettings(true)
-
-  // Handler para voltar ao início
-  const handleHomeClick = () => {
-    setShowFavorites(false)
-    setShowSettings(false)
-    onBack()
-  }
+  const handleViewFavorites = () => {}
+  const handleSettingsClick = () => {}
 
   // Renderização condicional para página de favoritos
   if (showFavorites) {
@@ -104,14 +137,7 @@ const UserProfile = ({ onBack, onLogout }) => {
 
   return (
     <div className="user-profile">
-      <Navbar 
-        onLogout={onLogout} 
-        onProfileClick={() => {}}
-        onFavoritesClick={handleViewFavorites}
-        onSettingsClick={handleSettingsClick}
-        onHomeClick={onBack}
-        currentPage="profile"
-      />
+      <Navbar currentPage="profile" />
       
       {/* Fundo animado com estrelas */}
       <StarfieldBackground />
@@ -137,7 +163,7 @@ const UserProfile = ({ onBack, onLogout }) => {
           {/* Estatísticas */}
           <div className="user-stats">
             <div className="stat">
-              <span className="stat-number">24</span>
+              <span className="stat-number">{favorites.length}</span>
               <span className="stat-label">Favoritos</span>
             </div>
           </div>
@@ -157,10 +183,10 @@ const UserProfile = ({ onBack, onLogout }) => {
           </div>
           <h4 className="action-title">Meus Favoritos</h4>
           <p className="action-description">Gerenciar lista de favoritos</p>
-          <button className="action-btn" onClick={handleViewFavorites}>
+          <Link to="/favorites" className="action-btn">
             <i className="bi bi-eye"></i>
             Ver
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -196,7 +222,9 @@ const UserProfile = ({ onBack, onLogout }) => {
             {/* Ações do modal */}
             <div className="modal-actions">
               <button className="btn-cancel" onClick={handleCancelEdit}>Cancelar</button>
-              <button className="btn-save" onClick={handleSaveProfile}>Salvar</button>
+              <button className="btn-save" onClick={handleSaveProfile} disabled={loading}>
+                {loading ? 'Salvando...' : 'Salvar'}
+              </button>
             </div>
           </div>
         </div>

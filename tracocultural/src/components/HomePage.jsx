@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { useEvents } from '../context/EventContext'
 import Navbar from './Navbar'
 import SearchSection from './SearchSection'
 import EventsSection from './EventsSection'
@@ -8,7 +11,11 @@ import FavoritesPage from './FavoritesPage'
 import SettingsPage from './SettingsPage'
 import './HomePage.css'
 
-const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
+const HomePage = () => {
+  const navigate = useNavigate()
+  const { logout } = useAuth()
+  const { events, loading, error, searchEvents } = useEvents()
+  
   // Estados do componente
   const [selectedState, setSelectedState] = useState('SP')
   const [searchQuery, setSearchQuery] = useState('')
@@ -47,7 +54,15 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
   const handleHomeClick = () => {
     setShowFavorites(false)
     setShowSettings(false)
-    if (onHomeClick) onHomeClick()
+  }
+
+  const handleLogout = async () => {
+    await logout()
+    navigate('/')
+  }
+
+  const handleProfileClick = () => {
+    navigate('/profile')
   }
 
   // Renderização condicional para página de favoritos
@@ -55,10 +70,10 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
     return (
       <FavoritesPage 
         onBack={() => setShowFavorites(false)} 
-        onLogout={onLogout}
+        onLogout={handleLogout}
         onExploreEvents={() => setShowFavorites(false)}
         onHomeClick={handleHomeClick}
-        onProfileClick={onProfileClick}
+        onProfileClick={handleProfileClick}
         onSettingsClick={handleSettingsClick}
       />
     )
@@ -69,9 +84,9 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
     return (
       <SettingsPage 
         onBack={() => setShowSettings(false)} 
-        onLogout={onLogout}
+        onLogout={handleLogout}
         onHomeClick={handleHomeClick}
-        onProfileClick={onProfileClick}
+        onProfileClick={handleProfileClick}
         onFavoritesClick={handleFavoritesClick}
       />
     )
@@ -83,14 +98,7 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
       <StarfieldBackground />
       
       {/* Navbar fixa no topo */}
-      <Navbar 
-        onLogout={onLogout} 
-        onProfileClick={onProfileClick} 
-        onFavoritesClick={handleFavoritesClick}
-        onSettingsClick={handleSettingsClick}
-        onHomeClick={handleHomeClick}
-        currentPage="home"
-      />
+      <Navbar currentPage="home" />
       
       {/* Conteúdo principal */}
       <main className="home-content">
@@ -100,11 +108,16 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
           setSearchQuery={setSearchQuery}
           filters={filters}
           setFilters={setFilters}
+          onSearch={searchEvents}
         />
+        
+        {loading && <div className="loading">Carregando eventos...</div>}
+        {error && <div className="error">{error}</div>}
         
         {/* Seção "O que vamos fazer?" */}
         <EventsSection 
           title="O que vamos fazer?"
+          events={events}
           selectedState={selectedState}
           setSelectedState={setSelectedState}
           showLocationIcon={true}
@@ -115,6 +128,7 @@ const HomePage = ({ onLogout, onProfileClick, onHomeClick }) => {
         {/* Seção "Mais pelo Brasil!" */}
         <EventsSection 
           title="Mais pelo Brasil."
+          events={events}
           layout="grid"
           onEventClick={handleEventClick}
         />

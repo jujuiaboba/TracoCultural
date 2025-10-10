@@ -1,101 +1,87 @@
-import React, { createContext, useContext, useState, useEffect } from 'react'
-import apiService from '../services/api'
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { authService } from '../services/authService';
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 export const useAuth = () => {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
+    throw new Error('useAuth deve ser usado dentro de um AuthProvider');
   }
-  return context
-}
+  return context;
+};
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkAuthStatus()
-  }, [])
-
-  const checkAuthStatus = async () => {
-    try {
-      const token = localStorage.getItem('token')
-      if (token) {
-        // TODO: VERIFICAR SE O BACKEND RETORNA OS DADOS DO USUÁRIO CORRETAMENTE
-        const userData = await apiService.getProfile()
-        setUser(userData)
+    const initAuth = async () => {
+      const token = localStorage.getItem('token');
+      const savedUser = localStorage.getItem('user');
+      
+      if (token && savedUser) {
+        try {
+          setUser(JSON.parse(savedUser));
+        } catch (error) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('user');
+        }
       }
-    } catch (error) {
-      // TODO: TOKEN INVÁLIDO - LIMPAR E REDIRECIONAR
-      localStorage.removeItem('token')
-    } finally {
-      setLoading(false)
-    }
-  }
+      setLoading(false);
+    };
+
+    initAuth();
+  }, []);
 
   const login = async (email, password) => {
     try {
-      // TODO: BACKEND DEVE RETORNAR { token, user: { id, name, email, role } }
-      const response = await apiService.login(email, password)
-      localStorage.setItem('token', response.token)
-      setUser(response.user)
-      return response
+      const response = await authService.login(email, password);
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      setUser(response.user);
+      return response;
     } catch (error) {
-      // TODO: TRATAR ERROS DE LOGIN (credenciais inválidas, etc)
-      throw error
+      throw error;
     }
-  }
+  };
 
   const register = async (userData) => {
     try {
-      // TODO: BACKEND DEVE RETORNAR { token, user: { id, name, email, role } }
-      const response = await apiService.register(userData)
-      localStorage.setItem('token', response.token)
-      setUser(response.user)
-      return response
+      const response = await authService.register(userData);
+      localStorage.setItem('token', response.token);
+      setUser(response.user);
+      return response;
     } catch (error) {
-      // TODO: TRATAR ERROS DE CADASTRO (email já existe, etc)
-      throw error
+      throw error;
     }
-  }
+  };
 
   const logout = async () => {
     try {
-      await apiService.logout()
+      await authService.logout();
     } catch (error) {
-      console.error('Logout error:', error)
+      console.error('Erro ao fazer logout:', error);
     } finally {
-      localStorage.removeItem('token')
-      setUser(null)
+      setUser(null);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
     }
-  }
-
-  const updateProfile = async (userData) => {
-    try {
-      const updatedUser = await apiService.updateProfile(userData)
-      setUser(updatedUser)
-      return updatedUser
-    } catch (error) {
-      throw error
-    }
-  }
+  };
 
   const value = {
-    user, // TODO: DADOS DO USUÁRIO LOGADO
-    login,
-    register,
-    logout,
-    updateProfile,
+    user,
     loading,
     isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin' // TODO: VERIFICAR SE O BACKEND DEFINE ROLE CORRETAMENTE
-  }
+    isAdmin: user?.isAdm === true,
+    login,
+    register,
+    logout
+  };
 
   return (
     <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import EventCard from './EventCard'
 
-const EventsSection = ({ title, selectedState, setSelectedState, showLocationIcon, layout, onEventClick }) => {
+const EventsSection = ({ title, events = [], selectedState, setSelectedState, showLocationIcon, layout, onEventClick }) => {
   const [showStateModal, setShowStateModal] = useState(false)
   
   const states = [
@@ -100,9 +100,15 @@ const EventsSection = ({ title, selectedState, setSelectedState, showLocationIco
       
       {/* Lista de eventos */}
       <div className="events-container">
-        {mockEvents.map(event => (
-          <EventCard key={event.id} event={event} onEventClick={onEventClick} />
-        ))}
+        {events.length > 0 ? (
+          events.map(event => (
+            <EventCard key={event.id} event={event} onEventClick={onEventClick} />
+          ))
+        ) : (
+          mockEvents.map(event => (
+            <EventCard key={event.id} event={event} onEventClick={onEventClick} />
+          ))
+        )}
       </div>
       
       {/* Modal de seleção de estado */}

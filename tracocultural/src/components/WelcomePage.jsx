@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import StarfieldBackground from './StarfieldBackground'
-import LoginPage from './LoginPage'
 import './WelcomePage.css'
 
-const WelcomePage = ({ onLogin }) => {
+const WelcomePage = () => {
 
   return (
     <main className="welcome-container">
@@ -19,13 +19,13 @@ const WelcomePage = ({ onLogin }) => {
         
         {/* Navegação com botões de ação */}
         <nav className="action-buttons">
-          <button 
+          <Link 
+            to="/login"
             className="btn btn-primary"
-            onClick={() => onLogin('', 'redirect')}
             aria-label="Entrar ou cadastrar-se na plataforma"
           >
             Entre ou Cadastre-se
-          </button>
+          </Link>
         </nav>
       </div>
     </main>

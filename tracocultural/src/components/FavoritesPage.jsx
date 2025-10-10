@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { userService } from '../services/userService'
 import Navbar from './Navbar'
 import StarfieldBackground from './StarfieldBackground'
 import EventModal from './EventModal'
@@ -9,38 +10,35 @@ const FavoritesPage = ({ onBack, onLogout, onExploreEvents, onHomeClick, onProfi
   // Estados do componente
   const [selectedEvent, setSelectedEvent] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  
-  // Eventos favoritados (simulação - em produção viria de um contexto/API)
-  const [favoriteEvents, setFavoriteEvents] = useState([
-    {
-      id: 1,
-      title: 'Festival de Jazz',
-      state: 'SP',
-      type: 'Show',
-      date: 'Hoje',
-      image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=300&h=180&fit=crop'
-    },
-    {
-      id: 2,
-      title: 'Exposição de Arte Moderna',
-      state: 'RJ',
-      type: 'Exposição',
-      date: 'Daqui 3 dias',
-      image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=300&h=180&fit=crop'
-    },
-    {
-      id: 3,
-      title: 'Peça Teatral Clássica',
-      state: 'MG',
-      type: 'Teatro',
-      date: '15/12/2024',
-      image: 'https://images.unsplash.com/photo-1507924538820-ede94a04019d?w=300&h=180&fit=crop'
+  const [favoriteEvents, setFavoriteEvents] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+
+  useEffect(() => {
+    loadFavorites()
+  }, [])
+
+  const loadFavorites = async () => {
+    try {
+      setLoading(true)
+      const favorites = await userService.getFavorites()
+      setFavoriteEvents(favorites)
+    } catch (err) {
+      setError('Erro ao carregar favoritos')
+      console.error('Erro ao carregar favoritos:', err)
+    } finally {
+      setLoading(false)
     }
-  ])
+  }
 
   // Handler para remover evento dos favoritos
-  const handleRemoveFavorite = (eventId) => {
-    setFavoriteEvents(prev => prev.filter(event => event.id !== eventId))
+  const handleRemoveFavorite = async (eventId) => {
+    try {
+      await userService.removeFromFavorites(eventId)
+      setFavoriteEvents(prev => prev.filter(event => event.id !== eventId))
+    } catch (error) {
+      console.error('Erro ao remover favorito:', error)
+    }
   }
 
   // Handler para ver evento
@@ -90,7 +88,11 @@ const FavoritesPage = ({ onBack, onLogout, onExploreEvents, onHomeClick, onProfi
         </header>
 
         {/* Área principal com cards */}
-        {favoriteEvents.length > 0 ? (
+        {loading ? (
+          <div className="loading">Carregando favoritos...</div>
+        ) : error ? (
+          <div className="error">{error}</div>
+        ) : favoriteEvents.length > 0 ? (
           <div className="favorites-grid">
             {favoriteEvents.map(event => (
               <div key={event.id} className="event-card">

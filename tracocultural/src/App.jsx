@@ -1,79 +1,71 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { EventProvider } from './context/EventContext'
 import WelcomePage from './components/WelcomePage'
 import LoginPage from './components/LoginPage'
 import HomePage from './components/HomePage'
 import UserProfile from './components/UserProfile'
+import FavoritesPage from './components/FavoritesPage'
+import SettingsPage from './components/SettingsPage'
 import AdminPanel from './components/AdminPanel/AdminPanel'
 import './App.css'
 
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth()
+  
+  if (loading) return <div>Carregando...</div>
+  
+  return isAuthenticated ? children : <Navigate to="/login" />
+}
+
 const AppContent = () => {
-  const { user, loading, isAuthenticated, isAdmin, logout } = useAuth()
-  const [currentPage, setCurrentPage] = useState('welcome')
-
-  if (loading) {
-    return <div>Carregando...</div>
-  }
-
-  const handleLoginSuccess = () => {
-    if (isAdmin) {
-      setCurrentPage('admin')
-    } else {
-      setCurrentPage('home')
-    }
-  }
-
-  const handleLogout = async () => {
-    await logout()
-    setCurrentPage('welcome')
-  }
-
-  const handleProfileClick = () => {
-    setCurrentPage('profile')
-  }
-
-  const handleHomeClick = () => {
-    setCurrentPage('home')
-  }
-
-  const handleLoginPageClick = () => {
-    setCurrentPage('login')
-  }
-
-  const renderCurrentPage = () => {
-    if (!isAuthenticated) {
-      switch (currentPage) {
-        case 'login':
-          return <LoginPage onLoginSuccess={handleLoginSuccess} />
-        default:
-          return <WelcomePage onLogin={handleLoginPageClick} />
-      }
-    }
-
-    switch (currentPage) {
-      case 'home':
-        return <HomePage onLogout={handleLogout} onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} />
-      case 'profile':
-        return <UserProfile onBack={handleHomeClick} onLogout={handleLogout} />
-      case 'admin':
-        return isAdmin ? <AdminPanel onLogout={handleLogout} /> : <HomePage onLogout={handleLogout} onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} />
-      default:
-        return isAdmin ? <AdminPanel onLogout={handleLogout} /> : <HomePage onLogout={handleLogout} onProfileClick={handleProfileClick} onHomeClick={handleHomeClick} />
-    }
-  }
-
+  const { isAuthenticated } = useAuth()
+  
   return (
     <div className="App">
-      {renderCurrentPage()}
+      <Routes>
+        <Route path="/" element={isAuthenticated ? <Navigate to="/home" /> : <WelcomePage />} />
+        <Route path="/login" element={isAuthenticated ? <Navigate to="/home" /> : <LoginPage />} />
+        <Route path="/home" element={
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
+        } />
+        <Route path="/favorites" element={
+          <ProtectedRoute>
+            <FavoritesPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/settings" element={
+          <ProtectedRoute>
+            <SettingsPage />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminPanel />
+          </ProtectedRoute>
+        } />
+      </Routes>
     </div>
   )
 }
 
 function App() {
   return (
-    <AuthProvider>
-      <AppContent />
-    </AuthProvider>
+    <Router future={{ v7_relativeSplatPath: true, v7_startTransition: true }}>
+      <AuthProvider>
+        <EventProvider>
+          <AppContent />
+        </EventProvider>
+      </AuthProvider>
+    </Router>
   )
 }
 

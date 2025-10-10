@@ -1,25 +1,18 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import './AuthPages.css'
-import axios from 'axios'
 
-function postUsuario(){
-  axios.post('http://localhost:8080/api/v1/usuario/auth/register', {
-    nome: formData.nome,
-    email: formData.email,
-    senha: formData.senha
-    
-  })
-
-
-const LoginPage = ({ onLoginSuccess }) => {
+const LoginPage = () => {
   const { login, register } = useAuth()
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('login')
   const [formData, setFormData] = useState({
     email: '',
     senha: '',
     nome: '',
-    confirmeSenha: ''
+    confirmeSenha: '',
+    isAdm: false
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -47,15 +40,16 @@ const LoginPage = ({ onLoginSuccess }) => {
         await register({
           nome: formData.nome,
           email: formData.email,
-          senha: formData.senha
+          senha: formData.senha,
+          isAdm: formData.isAdm
         })
       } else {
         await login(formData.email, formData.senha)
       }
       
-      onLoginSuccess()
+      navigate('/home')
     } catch (error) {
-      setError(error.message || 'Erro ao fazer login/cadastro')
+      setError('Email ou senha inválidos')
     } finally {
       setLoading(false)
     }
@@ -142,18 +136,31 @@ const LoginPage = ({ onLoginSuccess }) => {
             </div>
             
             {activeTab === 'register' && (
-              <div className="form-group">
-                <label htmlFor="confirmPassword">Confirmar senha</label>
-                <input
-                  type="password"
-                  id="confirmeSenha"
-                  name="confirmeSenha"
-                  value={formData.confirmeSenha}
-                  onChange={handleChange}
-                  required={activeTab === 'register'}
-                  placeholder="Confirme sua senha"
-                />
-              </div>
+              <>
+                <div className="form-group">
+                  <label htmlFor="confirmPassword">Confirmar senha</label>
+                  <input
+                    type="password"
+                    id="confirmeSenha"
+                    name="confirmeSenha"
+                    value={formData.confirmeSenha}
+                    onChange={handleChange}
+                    required={activeTab === 'register'}
+                    placeholder="Confirme sua senha"
+                  />
+                </div>
+                <div className="form-group">
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      name="isAdm"
+                      checked={formData.isAdm}
+                      onChange={(e) => setFormData(prev => ({...prev, isAdm: e.target.checked}))}
+                    />
+                    Cadastrar como administrador
+                  </label>
+                </div>
+              </>
             )}
             
             <button type="submit" className="auth-btn primary" disabled={loading}>
@@ -166,6 +173,5 @@ const LoginPage = ({ onLoginSuccess }) => {
       </div>
     </main>
   )
-}
 }
 export default LoginPage

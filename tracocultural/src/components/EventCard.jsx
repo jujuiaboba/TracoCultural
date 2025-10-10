@@ -1,11 +1,25 @@
 import React, { useState } from 'react'
+import { useFavorites } from '../hooks/useFavorites'
 
 const EventCard = ({ event, onEventClick }) => {
-  const [isFavorited, setIsFavorited] = useState(false)
+  const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites()
+  const [loading, setLoading] = useState(false)
+  
+  const isFavorited = isFavorite(event.id)
 
-  const handleFavorite = () => {
-    setIsFavorited(!isFavorited)
-    console.log(`Evento ${event.title} ${isFavorited ? 'removido dos' : 'adicionado aos'} favoritos`)
+  const handleFavorite = async () => {
+    try {
+      setLoading(true)
+      if (isFavorited) {
+        await removeFromFavorites(event.id)
+      } else {
+        await addToFavorites(event.id)
+      }
+    } catch (error) {
+      console.error('Erro ao alterar favorito:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const handleViewInfo = () => {
@@ -36,6 +50,7 @@ const EventCard = ({ event, onEventClick }) => {
           <button 
             className={`favorite-btn ${isFavorited ? 'favorited' : ''}`}
             onClick={handleFavorite}
+            disabled={loading}
             aria-label={isFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
             title={isFavorited ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
           >
