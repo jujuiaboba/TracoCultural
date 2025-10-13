@@ -1,9 +1,16 @@
 import React, { useState } from 'react'
 import StarfieldBackground from './StarfieldBackground'
-import LoginPage from './LoginPage'
+//import LoginPage from './LoginPage'
 import './WelcomePage.css'
+import { useNavigate } from 'react-router-dom';
 
-const WelcomePage = ({ onLogin }) => {
+const WelcomePage = () => {
+
+   const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/login'); // Substitua '/destino' pela rota desejada
+  };
 
   return (
     <main className="welcome-container">
@@ -21,7 +28,7 @@ const WelcomePage = ({ onLogin }) => {
         <nav className="action-buttons">
           <button 
             className="btn btn-primary"
-            onClick={() => onLogin('', 'redirect')}
+            onClick={handleClick}
             aria-label="Entrar ou cadastrar-se na plataforma"
           >
             Entre ou Cadastre-se

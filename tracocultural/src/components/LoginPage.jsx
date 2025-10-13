@@ -1,6 +1,7 @@
+
 import React, { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
-import './AuthPages.css'
+//import { useAuth } from '../context/AuthContext'
+//import './AuthPages.css'
 import axios from 'axios'
 
 function postUsuario(){
@@ -10,10 +11,10 @@ function postUsuario(){
     senha: formData.senha
     
   })
+}
 
-
-const LoginPage = ({ onLoginSuccess }) => {
-  const { login, register } = useAuth()
+const LoginPage = ({onLoginSuccess}) => {
+  //const { login, register } = useAuth()
   const [activeTab, setActiveTab] = useState('login')
   const [formData, setFormData] = useState({
     email: '',
@@ -167,5 +168,5 @@ const LoginPage = ({ onLoginSuccess }) => {
     </main>
   )
 }
-}
+
 export default LoginPage

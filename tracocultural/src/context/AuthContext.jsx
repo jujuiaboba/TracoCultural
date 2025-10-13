@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import apiService from '../services/api'
+import apiService from '../services/api.js'
 
 const AuthContext = createContext()
 
@@ -23,12 +23,10 @@ export const AuthProvider = ({ children }) => {
     try {
       const token = localStorage.getItem('token')
       if (token) {
-        // TODO: VERIFICAR SE O BACKEND RETORNA OS DADOS DO USUÁRIO CORRETAMENTE
         const userData = await apiService.getProfile()
         setUser(userData)
       }
     } catch (error) {
-      // TODO: TOKEN INVÁLIDO - LIMPAR E REDIRECIONAR
       localStorage.removeItem('token')
     } finally {
       setLoading(false)
@@ -37,26 +35,22 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      // TODO: BACKEND DEVE RETORNAR { token, user: { id, name, email, role } }
       const response = await apiService.login(email, password)
       localStorage.setItem('token', response.token)
       setUser(response.user)
       return response
     } catch (error) {
-      // TODO: TRATAR ERROS DE LOGIN (credenciais inválidas, etc)
       throw error
     }
   }
 
   const register = async (userData) => {
     try {
-      // TODO: BACKEND DEVE RETORNAR { token, user: { id, name, email, role } }
       const response = await apiService.register(userData)
       localStorage.setItem('token', response.token)
       setUser(response.user)
       return response
     } catch (error) {
-      // TODO: TRATAR ERROS DE CADASTRO (email já existe, etc)
       throw error
     }
   }
@@ -83,14 +77,14 @@ export const AuthProvider = ({ children }) => {
   }
 
   const value = {
-    user, // TODO: DADOS DO USUÁRIO LOGADO
+    user,
     login,
     register,
     logout,
     updateProfile,
     loading,
     isAuthenticated: !!user,
-    isAdmin: user?.role === 'admin' // TODO: VERIFICAR SE O BACKEND DEFINE ROLE CORRETAMENTE
+    isAdmin: user?.isAdmin || false
   }
 
   return (
