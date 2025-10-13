@@ -1,5 +1,5 @@
 import React from 'react'
-import './StarfieldBackground.css'
+import '../estilos/StarfieldBackground.css'
 
 const StarfieldBackground = () => {
   const stars = Array.from({ length: 150 }, (_, i) => (

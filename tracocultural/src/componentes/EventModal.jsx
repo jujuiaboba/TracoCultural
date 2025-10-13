@@ -3,20 +3,8 @@ import ImageGallery from './ImageGallery'
 import CommentsSection from './CommentsSection'
 import './EventModal.css'
 
-/**
- * Modal de detalhes do evento - Componente principal
- * 
- * Props esperadas:
- * - event: objeto com dados do evento (ver schema no final do arquivo)
- * - isOpen: boolean para controlar visibilidade
- * - onClose: função callback para fechar modal
- * 
- * Funcionalidades:
- * - Focus trap (tab cycle dentro do modal)
- * - Fecha com Esc, clique no overlay ou botão X
- * - Responsivo (grid 2-col desktop, empilhado mobile)
- * - Acessibilidade completa (ARIA, focus management)
- */
+
+  
 const EventModal = ({ event, isOpen, onClose }) => {
   const [isFavorited, setIsFavorited] = useState(false)
   const [showShareMenu, setShowShareMenu] = useState(false)
