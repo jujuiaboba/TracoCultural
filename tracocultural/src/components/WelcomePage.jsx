@@ -17,7 +17,7 @@ const WelcomePage = () => {
       {/* Fundo com estrelas cadentes */}
       <StarfieldBackground />
       
-      {/* Conteúdo principal centralizado */}
+      {/* Conteúdo principal centralizado oi */}
       <div className="content">
         <header>
           <img src="/src/assets/TRAÇO.png" alt="TracoCultural" className="welcome-logo" />
