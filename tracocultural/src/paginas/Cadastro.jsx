@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { register } from '../servicos/api'
 import '../estilos/AuthPages.css'
  
  
@@ -27,29 +28,17 @@ const Cadastro = () => {
     }
     
     try {
-      const response = await fetch('http://localhost:8080/api/usuario', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: nome,
-          email: email,
-          password: senha
-        })
+      const data = await register({
+        name: nome,
+        email: email,
+        password: senha
       })
       
-      const data = await response.json()
-      
-      if (response.ok) {
-        localStorage.setItem('token', data.token)
-        localStorage.setItem('user', JSON.stringify(data.user))
-        navigate('/home')
-      } else {
-        setError(data.message || 'Erro ao criar conta')
-      }
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('user', JSON.stringify(data.user))
+      navigate('/home')
     } catch (error) {
-      setError('Erro de conexão')
+      setError(error.message || 'Erro de conexão')
     } finally {
       setLoading(false)
     }
