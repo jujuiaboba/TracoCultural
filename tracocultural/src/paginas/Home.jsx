@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../estilos/HomePage.css'
 
 const Home = ({ user, onLogout }) => {
   const [eventos, setEventos] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Simulação de dados de eventos
@@ -26,22 +27,22 @@ const Home = ({ user, onLogout }) => {
     setEventos(eventosSimulados)
   }, [])
 
-  if (!user) {
-    return (
-      <div className="home-page">
-        <p>Você precisa estar logado para ver esta página.</p>
-        <Link to="/logar">Fazer login</Link>
-      </div>
-    )
+  const handleLogout = () => {
+    if (window.confirm('Tem certeza que deseja sair?')) {
+      onLogout()
+      navigate('/')
+    }
   }
+
+
 
   return (
     <div className="home-page">
       <header className="home-header">
-        <h1>Bem-vindo, {user.nome}!</h1>
+        <h1>Bem-vindo, {user?.nome || 'Usuário'}!</h1>
         <nav>
           <Link to="/favoritos">Favoritos</Link>
-          <button onClick={onLogout}>Sair</button>
+          <button onClick={handleLogout}>Sair</button>
         </nav>
       </header>
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../estilos/FavoritesPage.css'
 
 const Favoritos = ({ user, onLogout }) => {
@@ -11,19 +11,20 @@ const Favoritos = ({ user, onLogout }) => {
       local: 'Centro Cultural'
     }
   ])
+  const navigate = useNavigate()
 
   const removerFavorito = (id) => {
     setFavoritos(favoritos.filter(evento => evento.id !== id))
   }
 
-  if (!user) {
-    return (
-      <div className="favorites-page">
-        <p>Você precisa estar logado para ver esta página.</p>
-        <Link to="/logar">Fazer login</Link>
-      </div>
-    )
+  const handleLogout = () => {
+    if (window.confirm('Tem certeza que deseja sair?')) {
+      onLogout()
+      navigate('/')
+    }
   }
+
+
 
   return (
     <div className="favorites-page">
@@ -31,7 +32,7 @@ const Favoritos = ({ user, onLogout }) => {
         <h1>Meus Favoritos</h1>
         <nav>
           <Link to="/home">Home</Link>
-          <button onClick={onLogout}>Sair</button>
+          <button onClick={handleLogout}>Sair</button>
         </nav>
       </header>
 
