@@ -1,6 +1,34 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import '../estilos/AuthPages.css'
+import api from '../servicos/services/api'
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  if (senha !== confirmarSenha) {
+    alert('Senhas não coincidem')
+    return;
+
+  }
+
+  try {
+    const novoUsuario = {
+      nome: nome,
+      email: email,
+      senha: senha
+    }
+
+    const resposta = await api.post('/usuarios', novoUsuario);
+    console.log('Usuario cadastrado:', resposta.data);
+0
+    onLogin(resposta.data);
+    navigate('/home');
+  } catch (erro) {
+    console.error('Erro ao se cadastrar:', erro);
+    alert('Erro ao cadastrar-se. Tente novamente.');
+  }
+}
 
 const Cadastrar = ({ onLogin }) => {
   const [nome, setNome] = useState('')
@@ -18,7 +46,6 @@ const Cadastrar = ({ onLogin }) => {
       return
     }
     
-    // cadastro
     const userData = {
       nome: nome,
       email: email

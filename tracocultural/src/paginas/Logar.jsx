@@ -1,6 +1,23 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import '../estilos/AuthPages.css'
+import api from '../servicos/services/api'
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  try {
+    const credenciais = { email, senha }
+    const resposta = await api.post('/usuarios/login', credenciais)
+
+    console.log('Login FEITO!!:', resposta.data)
+    onLogin(resposta.data)
+    navigate('/home')
+  } catch (erro) {
+    console.error('Erro ao fazer login:', erro)
+    alert(':( Erro ao entrar. Verifique as credenciais e tente novamente.')
+  }
+}
 
 const Logar = ({ onLogin }) => {
   const [email, setEmail] = useState('')
