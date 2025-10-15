@@ -7,7 +7,7 @@ const Home = ({ user, onLogout }) => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Simulação de dados de eventos
+    
     const eventosSimulados = [
       {
         id: 1,
