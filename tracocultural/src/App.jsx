@@ -1,45 +1,39 @@
-import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Login from './paginas/Login'
-import Cadastro from './paginas/Cadastro'
-import Home from './paginas/Home'
-import Favoritos from './paginas/Favoritos'
-import WelcomePage from './componentes/WelcomePage'
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 
-// Componente para proteger rotas que precisam de autenticação
-const RotaProtegida = ({ children }) => {
-  const token = localStorage.getItem('token')
-  return token ? children : <Navigate to="/login" />
-}
+// Importações dos componentes
+import WelcomePage from './componentes/WelcomePage'
+import Home from './paginas/Home'
+import Logar from './paginas/Logar'
+import Cadastrar from './paginas/Cadastrar'
+import Favoritos from './paginas/Favoritos'
 
 function App() {
+  const [user, setUser] = useState(null)
+
+  const handleLogin = (userData) => {
+    setUser(userData)
+    localStorage.setItem('user', JSON.stringify(userData))
+  }
+
+  const handleLogout = () => {
+    setUser(null)
+    localStorage.removeItem('user')
+  }
+
   return (
-    <BrowserRouter>
+    <Router>
       <div className="App">
         <Routes>
           <Route path="/" element={<WelcomePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-          <Route 
-            path="/home" 
-            element={
-              <RotaProtegida>
-                <Home />
-              </RotaProtegida>
-            } 
-          />
-          <Route 
-            path="/favoritos" 
-            element={
-              <RotaProtegida>
-                <Favoritos />
-              </RotaProtegida>
-            } 
-          />
+          <Route path="/logar" element={<Logar onLogin={handleLogin} />} />
+          <Route path="/cadastrar" element={<Cadastrar onLogin={handleLogin} />} />
+          <Route path="/home" element={<Home user={user} onLogout={handleLogout} />} />
+          <Route path="/favoritos" element={<Favoritos user={user} onLogout={handleLogout} />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </Router>
   )
 }
 

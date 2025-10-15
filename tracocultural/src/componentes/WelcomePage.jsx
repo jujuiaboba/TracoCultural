@@ -1,36 +1,25 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import StarfieldBackground from './StarfieldBackground'
+import { Link } from 'react-router-dom'
 import '../estilos/WelcomePage.css'
 
 const WelcomePage = () => {
-  const navigate = useNavigate()
-
-  const handleLoginClick = () => {
-    navigate('/login')
-  }
-
   return (
-    <main className="welcome-container">
-      <StarfieldBackground />
-      
-      <div className="content">
-        <header>
-          <img src="/src/assets/TRAÇO.png" alt="TracoCultural" className="welcome-logo" />
-          <h1 className="main-title">Para onde vamos hoje?</h1>
-        </header>
+    <div className="welcome-page">
+      <div className="welcome-content">
         
-        <nav className="action-buttons">
-          <button 
-            className="btn btn-primary"
-            onClick={handleLoginClick}
-            aria-label="Entrar ou cadastrar-se na plataforma"
-          >
-            Entre ou Cadastre-se
-          </button>
-        </nav>
+        <h1 className="welcome-title">Para onde nós vamos hoje?</h1>
+        <p className="welcome-subtitle">— Traço Cultural —</p>
+        
+        <div className="welcome-buttons">
+          <Link to="/logar" className="btn-primary">
+            Entrar
+          </Link>
+          <Link to="/cadastrar" className="btn-secondary">
+            Cadastrar
+          </Link>
+        </div>
       </div>
-    </main>
+    </div>
   )
 }
 

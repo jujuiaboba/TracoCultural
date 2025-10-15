@@ -1,197 +1,88 @@
-/* Importação da fonte Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-/* Container principal cobrindo tela inteira */
-.welcome-container {
-  position: relative;
+.welcome-page {
+  min-height: 100vh;
   width: 100vw;
-  height: 100vh;
-  font-family: 'Poppins', 'Montserrat', sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  background: linear-gradient(135deg, #8E5E56 0%, #3C2321 100%);
+  position: relative;
 }
 
-/* Gradiente de fundo com ondas animadas cobrindo tela inteira */
-.background-gradient {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: linear-gradient(135deg, #8E5E56 0%, #3C2321 100%);
+.welcome-content {
+  text-align: center;
+  color: white;
+  width: 100%;
+  max-width: 600px;
+  padding: 2rem;
   z-index: 1;
 }
 
 
-
-
-
-/* Conteúdo principal centralizado sobre o fundo */
-.content {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  color: white;
-  padding: 2rem;
-  max-width: 600px;
+.welcome-title {
+  font-size: 5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Logo da página de boas-vindas */
-.welcome-logo {
-  height: 80px;
-  width: auto;
-  margin-bottom: 1.5rem;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  opacity: 0.7;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+.welcome-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  line-height: 1.5;
 }
 
-/* Título principal grande e destacado */
-.main-title {
-  font-size: 5.5rem;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 2.5rem;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
-
-/* Container dos botões de ação */
-.action-buttons {
+.welcome-buttons {
   display: flex;
-  flex-direction: column;
   gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
 }
 
-/* Estilos base dos botões arredondados */
-.btn {
-  padding: 1.2rem 2.5rem;
-  border: none;
-  border-radius: 28px;
-  font-family: inherit;
-  font-weight: 600;
+.btn-primary, .btn-secondary {
+  display: inline-block;
+  padding: 12px 30px;
   font-size: 1.1rem;
+  border: none;
+  border-radius: 25px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  min-width: 120px;
+  text-decoration: none;
   text-align: center;
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Botão primário com gradiente mais claro */
-.btn-primary {
-  background: linear-gradient(135deg, #8E5E56 0%, #6B453E 100%);
-  color: white;
+.btn-primary, .btn-secondary {
+  background-color: white;
+  color: #8E5E56;
 }
 
-/* Botão secundário com gradiente harmonioso */
-.btn-secondary {
-  background: linear-gradient(135deg, #6B453E 0%, #8E5E56 100%);
-  color: white;
-}
-
-/* Animações de hover para os botões */
-.btn:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 8px 25px rgba(156, 97, 57, 0.3);
-}
-
-.btn-primary:hover {
-  background: linear-gradient(135deg, #A67C6A 0%, #8E5E56 100%);
-}
-
-.btn-secondary:hover {
-  background: linear-gradient(135deg, #B8897A 0%, #A67C6A 100%);
-}
-
-/* Foco de teclado visível para acessibilidade */
-.btn:focus {
-  outline: 3px solid rgba(255, 255, 255, 0.5);
-  outline-offset: 2px;
+.btn-primary:hover, .btn-secondary:hover {
+  background-color: #f0f0f0;
+  color: #8E5E56;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 
 
-/* Responsividade para tablet */
-@media (max-width: 1024px) {
-  .main-title {
-    font-size: 3rem;
-  }
-}
-
-/* Responsividade para mobile */
 @media (max-width: 768px) {
-  .content {
-    padding: 1.5rem;
-  }
-  
-  .welcome-logo {
-    height: 80px;
-    margin-bottom: 1.5rem;
-  }
-  
-  .main-title {
+  .welcome-title {
     font-size: 2.5rem;
-    margin-bottom: 2rem;
   }
   
-  .action-buttons {
-    max-width: 300px;
-    margin: 0 auto;
+  .welcome-subtitle {
+    font-size: 1.1rem;
   }
   
-  .btn {
-    font-size: 0.9rem;
-    padding: 0.875rem 1.5rem;
-  }
-}
-
-/* Responsividade para mobile pequeno */
-@media (max-width: 480px) {
-  .welcome-logo {
-    height: 60px;
-    margin-bottom: 1rem;
+  .welcome-buttons {
+    flex-direction: column;
+    align-items: center;
   }
   
-  .main-title {
-    font-size: 2rem;
+  .btn-primary, .btn-secondary {
+    width: 200px;
   }
-  
-  .content {
-    padding: 1rem;
-  }
-  
-  .btn {
-    font-size: 0.85rem;
-    padding: 0.75rem 1.25rem;
-  }
-}
-
-/* Link secundário para cadastro de usuário */
-.secondary-link {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
-.secondary-link .link-btn {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.8);
-  font-family: inherit;
-  font-weight: 400;
-  font-size: 0.9rem;
-  cursor: pointer;
-  text-decoration: underline;
-  transition: color 0.3s ease;
-}
-
-.secondary-link .link-btn:hover {
-  color: white;
 }

@@ -1,87 +1,53 @@
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import '../estilos/FavoritesPage.css'
 
-const Favoritos = () => {
-  const navigate = useNavigate()
-  const [favoritos, setFavoritos] = useState([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    carregarFavoritos()
-  }, [])
-
-  const carregarFavoritos = async () => {
-    try {
-      const token = localStorage.getItem('token')
-      const response = await fetch('http://localhost:8080/api/favorito', {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      
-      if (response.ok) {
-        const data = await response.json()
-        setFavoritos(data)
-      }
-    } catch (error) {
-      console.error('Erro ao carregar favoritos:', error)
-    } finally {
-      setLoading(false)
+const Favoritos = ({ user, onLogout }) => {
+  const [favoritos, setFavoritos] = useState([
+    {
+      id: 1,
+      titulo: 'Festival de Música',
+      data: '2024-02-15',
+      local: 'Centro Cultural'
     }
+  ])
+
+  const removerFavorito = (id) => {
+    setFavoritos(favoritos.filter(evento => evento.id !== id))
   }
 
-  const removerFavorito = async (eventId) => {
-    try {
-      const token = localStorage.getItem('token')
-      const response = await fetch(`http://localhost:8080/api/favorito/${eventId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      
-      if (response.ok) {
-        carregarFavoritos()
-      }
-    } catch (error) {
-      console.error('Erro ao remover favorito:', error)
-    }
-  }
-
-  if (loading) {
-    return <div className="loading">Carregando...</div>
+  if (!user) {
+    return (
+      <div className="favorites-page">
+        <p>Você precisa estar logado para ver esta página.</p>
+        <Link to="/logar">Fazer login</Link>
+      </div>
+    )
   }
 
   return (
-    <div className="favorites-container">
+    <div className="favorites-page">
       <header className="favorites-header">
-        <button onClick={() => navigate('/home')} className="back-btn">← Voltar</button>
         <h1>Meus Favoritos</h1>
+        <nav>
+          <Link to="/home">Home</Link>
+          <button onClick={onLogout}>Sair</button>
+        </nav>
       </header>
 
       <main className="favorites-content">
         {favoritos.length === 0 ? (
-          <p className="empty-message">Você ainda não tem eventos favoritos.</p>
+          <p>Você ainda não tem eventos favoritos.</p>
         ) : (
-          <div className="favorites-grid">
-            {favoritos.map(event => (
-              <div key={event.id} className="favorite-card">
-                <img src={event.image} alt={event.title} />
-                <div className="favorite-info">
-                  <h3>{event.title}</h3>
-                  <p>{event.description}</p>
-                  <p><strong>Data:</strong> {new Date(event.date).toLocaleDateString()}</p>
-                  <p><strong>Local:</strong> {event.location}</p>
-                  <button 
-                    onClick={() => removerFavorito(event.id)}
-                    className="remove-favorite-btn"
-                  >
-                    Remover dos Favoritos
-                  </button>
-                </div>
+          <div className="favoritos-lista">
+            {favoritos.map(evento => (
+              <div key={evento.id} className="favorito-card">
+                <h3>{evento.titulo}</h3>
+                <p><strong>Data:</strong> {evento.data}</p>
+                <p><strong>Local:</strong> {evento.local}</p>
+                <button onClick={() => removerFavorito(evento.id)}>
+                  Remover dos Favoritos
+                </button>
               </div>
             ))}
           </div>
