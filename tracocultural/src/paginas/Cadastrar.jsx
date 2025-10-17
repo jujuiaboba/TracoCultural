@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import '../estilos/AuthPages.css'
 import api from '../servicos/services/api'
+import axios from 'axios'
+
+
 
 const handleSubmit = async (e) => {
   e.preventDefault()
@@ -12,22 +15,22 @@ const handleSubmit = async (e) => {
 
   }
 
-  try {
-    const novoUsuario = {
-      nome: nome,
-      email: email,
-      senha: senha
-    }
 
-    const resposta = await api.post('/usuarios', novoUsuario);
-    console.log('Usuario cadastrado:', resposta.data);
+    Post()
+
+    // const resposta = await api.post('http://localhost:8080/api/v1/usuario/auth/register', novoUsuario);
+    // console.log('Usuario cadastrado:', resposta.data);
 0
     onLogin(resposta.data);
     navigate('/home');
-  } catch (erro) {
-    console.error('Erro ao se cadastrar:', erro);
-    alert('Erro ao cadastrar-se. Tente novamente.');
-  }
+
+}
+
+
+const novoUsuario = {
+  nome: nome,
+  email: email,
+  senha: senha
 }
 
 const Cadastrar = ({ onLogin }) => {
@@ -54,6 +57,17 @@ const Cadastrar = ({ onLogin }) => {
     onLogin(userData)
     navigate('/home')
   }
+
+
+
+    function Post() {
+    axios.post("http://localhost:8080/api/v1/usuario/auth/register", {
+      title: "Novo Usuario",
+      body: novoUsuario
+    })
+    .then(response => console.log(response.data))
+    .catch(error => console.error("Erro:", error));
+    }
 
   return (
     <div className="auth-page">
@@ -109,7 +123,7 @@ const Cadastrar = ({ onLogin }) => {
               />
             </div>
 
-            <button type="submit" className="btn-submit">
+            <button onClick={Post} type="submit" className="btn-submit">
               Cadastrar
             </button>
           </form>
