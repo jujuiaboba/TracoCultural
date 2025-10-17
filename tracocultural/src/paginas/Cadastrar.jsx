@@ -1,37 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import '../estilos/AuthPages.css'
-import api from '../servicos/services/api'
 import axios from 'axios'
-
-
-
-const handleSubmit = async (e) => {
-  e.preventDefault()
-
-  if (senha !== confirmarSenha) {
-    alert('Senhas não coincidem')
-    return;
-
-  }
-
-
-    Post()
-
-    // const resposta = await api.post('http://localhost:8080/api/v1/usuario/auth/register', novoUsuario);
-    // console.log('Usuario cadastrado:', resposta.data);
-0
-    onLogin(resposta.data);
-    navigate('/home');
-
-}
-
-
-const novoUsuario = {
-  nome: nome,
-  email: email,
-  senha: senha
-}
 
 const Cadastrar = ({ onLogin }) => {
   const [nome, setNome] = useState('')
@@ -41,7 +11,7 @@ const Cadastrar = ({ onLogin }) => {
   
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     
     if (senha !== confirmarSenha) {
@@ -49,25 +19,27 @@ const Cadastrar = ({ onLogin }) => {
       return
     }
     
-    const userData = {
-      nome: nome,
-      email: email
+    try {
+      const novoUsuario = {
+        nome: nome,
+        email: email,
+        senha: senha
+      }
+      
+      const response = await axios.post('http://localhost:8080/api/v1/usuario/auth/register', novoUsuario)
+      
+      const userData = {
+        nome: nome,
+        email: email
+      }
+      
+      onLogin(userData)
+      navigate('/home')
+    } catch (error) {
+      console.error('Erro ao cadastrar:', error)
+      alert('Erro ao criar conta. Tente novamente.')
     }
-    
-    onLogin(userData)
-    navigate('/home')
   }
-
-
-
-    function Post() {
-    axios.post("http://localhost:8080/api/v1/usuario/auth/register", {
-      title: "Novo Usuario",
-      body: novoUsuario
-    })
-    .then(response => console.log(response.data))
-    .catch(error => console.error("Erro:", error));
-    }
 
   return (
     <div className="auth-page">
@@ -75,17 +47,17 @@ const Cadastrar = ({ onLogin }) => {
         <div className="auth-card">
           <div className="auth-header">
             <h2>Cadastrar</h2>
-            <p>Crie sua conta.</p>
+            <p>Crie sua conta TracoCultural</p>
           </div>
 
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-group">
-              <label>Nome</label>
+              <label>Nome completo</label>
               <input
                 type="text"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
-                placeholder="Digite seu nome"
+                placeholder="Digite seu nome completo"
                 required
               />
             </div>
@@ -123,7 +95,7 @@ const Cadastrar = ({ onLogin }) => {
               />
             </div>
 
-            <button onClick={Post} type="submit" className="btn-submit">
+            <button type="submit" className="btn-submit">
               Cadastrar
             </button>
           </form>
