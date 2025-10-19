@@ -180,10 +180,10 @@
 /* Grade de Eventos */
 .events-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 0 2rem 2rem 4rem;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0;
   margin-right: auto;
 }
@@ -195,6 +195,9 @@
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .event-card:hover {
@@ -209,6 +212,9 @@
 
 .event-content {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .event-title {
@@ -224,14 +230,22 @@
 }
 
 .event-date {
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 0.5rem 0;
   font-weight: 500;
+}
+
+.event-location {
+  margin: 0 0 auto 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1.5rem;
 }
 
 .event-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
 }
 
 .btn-ver-mais {
@@ -254,7 +268,7 @@
 .btn-favoritar {
   background: transparent;
   color: white;
-  border: 2px solid white;
+  border: none;
   width: 40px;
   height: 40px;
   border-radius: 50%;

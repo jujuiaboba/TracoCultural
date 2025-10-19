@@ -54,11 +54,12 @@ const Home = () => {
       {/* Grade de Cards de Eventos */}
       <main className="events-grid">
         <div className="event-card">
-          <img src="https://via.placeholder.com/300x200" alt="Evento" className="event-image" />
+          <img src="src/assets/EVENTOCABELOS.jpg" alt="Beleza em Foco 2025" className="event-image" />
           <div className="event-content">
-            <h3 className="event-title">Festival de Música</h3>
-            <p className="event-type">Música</p>
-            <p className="event-date">15 de Fevereiro</p>
+            <h3 className="event-title">💇‍♀️ Beleza em Foco 2025</h3>
+            <p className="event-type">Beleza</p>
+            <p className="event-date">12 a 14 de março de 2025</p>
+            <p className="event-location">📍 São Paulo – SP</p>
             <div className="event-actions">
               <button className="btn-ver-mais">Ver mais</button>
               <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
@@ -67,11 +68,12 @@ const Home = () => {
         </div>
 
         <div className="event-card">
-          <img src="https://via.placeholder.com/300x200" alt="Evento" className="event-image" />
+          <img src="src/assets/EVENTOCARROS.jpg" alt="Car Date" className="event-image" />
           <div className="event-content">
-            <h3 className="event-title">Exposição de Arte</h3>
-            <p className="event-type">Arte</p>
-            <p className="event-date">20 de Fevereiro</p>
+            <h3 className="event-title">🚗 Car Date – Encontro Automotivo</h3>
+            <p className="event-type">Automotivo</p>
+            <p className="event-date">25 de abril de 2025</p>
+            <p className="event-location">📍 Curitiba – PR</p>
             <div className="event-actions">
               <button className="btn-ver-mais">Ver mais</button>
               <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
@@ -80,24 +82,110 @@ const Home = () => {
         </div>
 
         <div className="event-card">
-          <img src="https://via.placeholder.com/300x200" alt="Evento" className="event-image" />
+          <img src="src/assets/EVENTOCINEMA.jpg" alt="CinemaLivre" className="event-image" />
           <div className="event-content">
-            <h3 className="event-title">Teatro Contemporâneo</h3>
+            <h3 className="event-title">🎬 CinemaLivre</h3>
+            <p className="event-type">Cinema</p>
+            <p className="event-date">3 e 4 de maio de 2025</p>
+            <p className="event-location">📍 Belo Horizonte – MG</p>
+            <div className="event-actions">
+              <button className="btn-ver-mais">Ver mais</button>
+              <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div className="event-card">
+          <img src="src/assets/EVENTOCULTIVO.jpg" alt="Cultivo Coletivo 2025" className="event-image" />
+          <div className="event-content">
+            <h3 className="event-title">🌱 Cultivo Coletivo 2025</h3>
+            <p className="event-type">Sustentabilidade</p>
+            <p className="event-date">10 de junho de 2025</p>
+            <p className="event-location">📍 Florianópolis – SC</p>
+            <div className="event-actions">
+              <button className="btn-ver-mais">Ver mais</button>
+              <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div className="event-card">
+          <img src="src/assets/EVENTOEMPRESA.jpg" alt="BusiExpo 2025" className="event-image" />
+          <div className="event-content">
+            <h3 className="event-title">💼 BusiExpo 2025</h3>
+            <p className="event-type">Negócios</p>
+            <p className="event-date">22 a 24 de agosto de 2025</p>
+            <p className="event-location">📍 Brasília – DF</p>
+            <div className="event-actions">
+              <button className="btn-ver-mais">Ver mais</button>
+              <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div className="event-card">
+          <img src="src/assets/EVENTOFESTA.jpg" alt="Fresio Festival" className="event-image" />
+          <div className="event-content">
+            <h3 className="event-title">🎉 Fresio Festival</h3>
+            <p className="event-type">Festival</p>
+            <p className="event-date">7 e 8 de setembro de 2025</p>
+            <p className="event-location">📍 Recife – PE</p>
+            <div className="event-actions">
+              <button className="btn-ver-mais">Ver mais</button>
+              <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div className="event-card">
+          <img src="src/assets/EVENTOFESTIVAL.jpg" alt="Festival do Dia das Crianças" className="event-image" />
+          <div className="event-content">
+            <h3 className="event-title">🎠 Festival do Dia das Crianças</h3>
+            <p className="event-type">Infantil</p>
+            <p className="event-date">12 de outubro de 2025</p>
+            <p className="event-location">📍 Salvador – BA</p>
+            <div className="event-actions">
+              <button className="btn-ver-mais">Ver mais</button>
+              <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div className="event-card">
+          <img src="src/assets/EVENTOLIVROS.jpg" alt="Book Fair" className="event-image" />
+          <div className="event-content">
+            <h3 className="event-title">📚 Book Fair – Feira Literária</h3>
+            <p className="event-type">Literatura</p>
+            <p className="event-date">19 a 22 de outubro de 2025</p>
+            <p className="event-location">📍 Porto Alegre – RS</p>
+            <div className="event-actions">
+              <button className="btn-ver-mais">Ver mais</button>
+              <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div className="event-card">
+          <img src="src/assets/EVENTONATAL.jpg" alt="Natal Encantado de Gramado" className="event-image" />
+          <div className="event-content">
+            <h3 className="event-title">🎄 Natal Encantado de Gramado</h3>
+            <p className="event-type">Natal</p>
+            <p className="event-date">5 a 28 de dezembro de 2025</p>
+            <p className="event-location">📍 Gramado – RS</p>
+            <div className="event-actions">
+              <button className="btn-ver-mais">Ver mais</button>
+              <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div className="event-card">
+          <img src="src/assets/EVENTOTEATRO.jpg" alt="Os Quintessenciais" className="event-image" />
+          <div className="event-content">
+            <h3 className="event-title">🎭 Os Quintessenciais – A Comédia do Ano</h3>
             <p className="event-type">Teatro</p>
-            <p className="event-date">25 de Fevereiro</p>
-            <div className="event-actions">
-              <button className="btn-ver-mais">Ver mais</button>
-              <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
-            </div>
-          </div>
-        </div>
-
-        <div className="event-card">
-          <img src="https://via.placeholder.com/300x200" alt="Evento" className="event-image" />
-          <div className="event-content">
-            <h3 className="event-title">Dança Folclórica</h3>
-            <p className="event-type">Dança</p>
-            <p className="event-date">28 de Fevereiro</p>
+            <p className="event-date">15 de novembro de 2025</p>
+            <p className="event-location">📍 Rio de Janeiro – RJ</p>
             <div className="event-actions">
               <button className="btn-ver-mais">Ver mais</button>
               <button className="btn-favoritar"><i className="bi bi-heart"></i></button>
