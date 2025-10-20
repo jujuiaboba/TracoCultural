@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 
-// Importações dos componentes
+ 
 import WelcomePage from './componentes/WelcomePage'
 import Home from './paginas/Home'
 import Logar from './paginas/Logar'
 import Cadastrar from './paginas/Cadastrar'
 import Favoritos from './paginas/Favoritos'
+import Perfil from './paginas/Perfil'
+import Configuracoes from './paginas/Configuracoes'
 
 function App() {
   const [user, setUser] = useState(null)
@@ -31,6 +33,8 @@ function App() {
           <Route path="/cadastrar" element={<Cadastrar onLogin={handleLogin} />} />
           <Route path="/home" element={<Home user={user} onLogout={handleLogout} />} />
           <Route path="/favoritos" element={<Favoritos user={user} onLogout={handleLogout} />} />
+          <Route path="/perfil" element={<Perfil user={user} onLogout={handleLogout} />} />
+          <Route path="/configuracoes" element={<Configuracoes user={user} onLogout={handleLogout} />} />
         </Routes>
       </div>
     </Router>

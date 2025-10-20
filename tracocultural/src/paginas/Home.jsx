@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Navbar from '../componentes/Navbar'
 import '../estilos/HomePage.css'
 import '../estilos/Modal.css'
 
-const Home = () => {
+const Home = ({ user, onLogout }) => {
   const [showFilterModal, setShowFilterModal] = useState(false)
   const [showEventModal, setShowEventModal] = useState(false)
   const [selectedEvent, setSelectedEvent] = useState(null)
@@ -82,9 +83,7 @@ const Home = () => {
     }
   }
 
-  const handleSair = () => {
-    navigate('/')
-  }
+
 
   const handleVerMais = (eventTitle) => {
     setSelectedEvent(eventDetails[eventTitle])
@@ -94,17 +93,7 @@ const Home = () => {
   return (
     <div className="home-page">
       
-      <header className="navbar">
-        <div className="navbar-brand">
-          <img src="src/assets/TRAÇO.png" alt="TraçoCultural" className="navbar-logo" />
-        </div>
-        <nav className="navbar-nav">
-          <button className="nav-button"><i className="bi bi-heart"></i> Eventos Favoritos</button>
-          <button className="nav-button"><i className="bi bi-person"></i> Meu Perfil</button>
-          <button className="nav-button"><i className="bi bi-gear"></i> Configurações</button>
-          <button className="nav-button" onClick={handleSair}><i className="bi bi-box-arrow-right"></i> Sair</button>
-        </nav>
-      </header>
+      <Navbar onLogout={onLogout} />
 
       
       <section className="search-section">
