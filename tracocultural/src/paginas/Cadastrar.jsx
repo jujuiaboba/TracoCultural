@@ -19,27 +19,40 @@ const Cadastrar = ({ onLogin }) => {
       return
     }
     
+    
+    
     try {
-      const novoUsuario = {
-        nome: nome,
-        email: email,
-        senha: senha
-      }
-      
-      const response = await axios.post('http://localhost:8080/api/v1/usuario/auth/register', novoUsuario)
-      
       const userData = {
         nome: nome,
         email: email
       }
-      
+
+        const novoUsuario = {
+        nome: nome,
+        email: email,
+        senha: senha
+        
+      }
+      axios.post('http://localhost:8080/api/v1/usuario/auth/register', novoUsuario)
       onLogin(userData)
       navigate('/home')
-    } catch (error) {
+    } 
+    
+    catch (error) {
       console.error('Erro ao cadastrar:', error)
       alert('Erro ao criar conta. Tente novamente.')
     }
+
+
+
+
+
   }
+
+
+
+
+
 
   return (
     <div className="auth-page">
@@ -50,7 +63,9 @@ const Cadastrar = ({ onLogin }) => {
             <p>Crie sua conta TracoCultural</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="auth-form">
+          <form className="auth-form">
+
+
             <div className="form-group">
               <label>Nome completo</label>
               <input
@@ -95,9 +110,11 @@ const Cadastrar = ({ onLogin }) => {
               />
             </div>
 
-            <button type="submit" className="btn-submit">
+            <button onClick={Cadastrar} type="button" className="btn-submit">
               Cadastrar
             </button>
+
+
           </form>
 
           <div className="auth-links">
