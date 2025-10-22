@@ -1,17 +1,38 @@
-import React, { useState } from 'react'
-import Navbar from '../componentes/Navbar'
-import '../estilos/ProfilePage.css'
+import React, { useState, useEffect } from 'react';
+import Navbar from '../componentes/Navbar';
+import '../estilos/ProfilePage.css';
 
 const Perfil = ({ user, onLogout }) => {
+  // Se user não existir, usamos valores padrões
   const [profile, setProfile] = useState({
-    nome: 'Maria Silva',
+    nome: '',
+    email: '',
     estado: 'SP',
     icone: 'person-standing',
     corFundo: '#8E5E56'
-  })
-  
-  const [isEditing, setIsEditing] = useState(false)
-  const [editProfile, setEditProfile] = useState({ ...profile })
+  });
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [editProfile, setEditProfile] = useState({ ...profile });
+
+  useEffect(() => {
+    if (user) {
+      setProfile({
+        nome: user.nome,
+        email: user.email,
+        estado: 'SP',       // você pode salvar no backend depois
+        icone: 'person-standing',
+        corFundo: '#8E5E56'
+      });
+      setEditProfile({
+        nome: user.nome,
+        email: user.email,
+        estado: 'SP',
+        icone: 'person-standing',
+        corFundo: '#8E5E56'
+      });
+    }
+  }, [user]);
 
   const icones = [
     'airplane-fill', 'backpack2-fill', 'bag-heart-fill', 'balloon-fill', 'bank2',
@@ -22,7 +43,7 @@ const Perfil = ({ user, onLogout }) => {
     'eyeglasses', 'flower3', 'fork-knife', 'gear-wide-connected', 'hearts',
     'moon-stars-fill', 'person-arms-up', 'person-standing', 'person-standing-dress',
     'person-wheelchair', 'piggy-bank-fill', 'rocket-takeoff-fill'
-  ]
+  ];
 
   const cores = [
     '#8E5E56', '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6',
@@ -31,22 +52,27 @@ const Perfil = ({ user, onLogout }) => {
     '#54a0ff', '#5f27cd', '#00d2d3', '#ff9f43', '#ee5a24', '#0abde3',
     '#006ba6', '#8e44ad', '#27ae60', '#f39801', '#c0392b', '#2c3e50',
     '#16a085', '#d63031', '#74b9ff', '#a29bfe', '#fd79a8', '#fdcb6e'
-  ]
+  ];
 
   const estados = [
     'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
     'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
     'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
-  ]
+  ];
 
   const handleSave = () => {
-    setProfile({ ...editProfile })
-    setIsEditing(false)
-  }
+    setProfile({ ...editProfile });
+    setIsEditing(false);
+  };
 
   const handleCancel = () => {
-    setEditProfile({ ...profile })
-    setIsEditing(false)
+    setEditProfile({ ...profile });
+    setIsEditing(false);
+  };
+
+  // Se user não existe ainda, podemos mostrar "carregando" ou nada
+  if (!user) {
+    return <div>Carregando perfil...</div>;
   }
 
   return (
@@ -68,6 +94,7 @@ const Perfil = ({ user, onLogout }) => {
             </div>
             <div className="profile-info">
               <h3 className="profile-name">{profile.nome}</h3>
+              <p className="profile-email">{profile.email}</p>
               <p className="profile-location">📍 {profile.estado}</p>
             </div>
             <button 
@@ -90,6 +117,15 @@ const Perfil = ({ user, onLogout }) => {
                   type="text"
                   value={editProfile.nome}
                   onChange={(e) => setEditProfile({...editProfile, nome: e.target.value})}
+                />
+              </div>
+
+              <div className="edit-section">
+                <label>Email:</label>
+                <input
+                  type="email"
+                  value={editProfile.email}
+                  readOnly
                 />
               </div>
 
@@ -143,7 +179,7 @@ const Perfil = ({ user, onLogout }) => {
         )}
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default Perfil
+export default Perfil;

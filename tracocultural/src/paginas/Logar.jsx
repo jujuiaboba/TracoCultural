@@ -1,28 +1,36 @@
-import React, { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import '../estilos/AuthPages.css'
-import api from '../servicos/services/api'
-
-
+import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import '../estilos/AuthPages.css';
+import api from '../servicos/services/api';
 
 const Logar = ({ onLogin }) => {
-  const [email, setEmail] = useState('')
-  const [senha, setSenha] = useState('')
-  
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    
-    // Simulação de login
-    const userData = {
-      nome: 'Usuário Teste',
-      email: email
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Aqui simulamos login chamando o backend (você pode criar /auth/login no backend depois)
+      const response = await api.get(); // pega todos os usuários
+      const usuario = response.data.find(
+        (u) => u.email === email && u.senha === senha
+      );
+
+      if (!usuario) {
+        alert('Email ou senha incorretos');
+        return;
+      }
+
+      console.log('Usuário logado:', usuario);
+      onLogin(usuario);
+      navigate('/home');
+    } catch (error) {
+      console.error('Erro ao logar:', error);
+      alert('Erro ao logar. Veja o console para detalhes.');
     }
-    
-    onLogin(userData)
-    navigate('/home')
-  }
+  };
 
   return (
     <div className="auth-page">
@@ -75,7 +83,7 @@ const Logar = ({ onLogin }) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Logar
+export default Logar;
