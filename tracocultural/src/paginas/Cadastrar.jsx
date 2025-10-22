@@ -63,7 +63,7 @@ const Cadastrar = ({ onLogin }) => {
             <p>Crie sua conta TracoCultural</p>
           </div>
 
-          <form className="auth-form">
+          <form onSubmit={handleSubmit} className="auth-form">
 
 
             <div className="form-group">
@@ -110,7 +110,7 @@ const Cadastrar = ({ onLogin }) => {
               />
             </div>
 
-            <button onClick={Cadastrar} type="button" className="btn-submit">
+            <button type="submit" className="btn-submit">
               Cadastrar
             </button>
 
