@@ -141,7 +141,7 @@ const Configuracoes = ({ user, onLogout }) => {
           <div className="modal-overlay">
             <div className="delete-modal">
               <h3>Excluir conta</h3>
-              <p>Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.</p>
+              <p>Tem certeza que deseja excluir sua conta? Tal ação não pode ser desfeita.</p>
               <div className="modal-actions">
                 <button 
                   className="btn-confirm-delete" 
