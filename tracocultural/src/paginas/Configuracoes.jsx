@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Navbar from '../componentes/Navbar'
 import '../estilos/SettingsPage.css'
+import api from '../servicos/services/api'
 
 const Configuracoes = ({ user, onLogout }) => {
   const [settings, setSettings] = useState({
@@ -9,6 +10,7 @@ const Configuracoes = ({ user, onLogout }) => {
   })
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleToggle = (setting) => {
     setSettings(prev => ({
@@ -17,9 +19,30 @@ const Configuracoes = ({ user, onLogout }) => {
     }))
   }
 
-  const handleDeleteAccount = () => {
-    alert('Funcionalidade de exclusão de conta seria implementada aqui')
-    setShowDeleteModal(false)
+  // Função para excluir conta do usuário
+  const handleDeleteAccount = async () => {
+    if (!user?.id) {
+      alert('Usuário inválido. Faça login novamente.')
+      return
+    }
+
+    setLoading(true)
+
+    try {
+      const response = await api.delete(`/usuarios/${user.id}`)
+      console.log('Conta excluída com sucesso:', response.data)
+      alert('Conta excluída com sucesso!')
+
+      // Remove dados locais e desloga
+      localStorage.removeItem('user')
+      onLogout()
+    } catch (err) {
+      console.error('Erro ao excluir conta:', err)
+      alert('Não foi possível excluir a conta. Tente novamente mais tarde.')
+    } finally {
+      setShowDeleteModal(false)
+      setLoading(false)
+    }
   }
 
   return (
@@ -32,11 +55,11 @@ const Configuracoes = ({ user, onLogout }) => {
 
       <main className="settings-content">
         <div className="settings-card">
+          {/* Notificações */}
           <div className="settings-section">
             <h3 className="section-title">
               <i className="bi bi-bell"></i> Notificações
             </h3>
-            
             <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-name">Email marketing</span>
@@ -53,11 +76,11 @@ const Configuracoes = ({ user, onLogout }) => {
             </div>
           </div>
 
+          {/* Privacidade */}
           <div className="settings-section">
             <h3 className="section-title">
               <i className="bi bi-shield-check"></i> Privacidade
             </h3>
-            
             <div className="setting-item">
               <div className="setting-info">
                 <span className="setting-name">Compartilhar localização</span>
@@ -74,30 +97,27 @@ const Configuracoes = ({ user, onLogout }) => {
             </div>
           </div>
 
-
-
+          {/* Sobre */}
           <div className="settings-section">
             <h3 className="section-title">
               <i className="bi bi-info-circle"></i> Sobre
             </h3>
-            
-
             <div className="about-item">
               <span className="about-label">Termos de uso</span>
               <button className="link-button">Ver termos</button>
             </div>
-            
             <div className="about-item">
               <span className="about-label">Política de privacidade</span>
               <button className="link-button">Ver política</button>
             </div>
           </div>
 
+          {/* Zona de perigo */}
           <div className="settings-section danger-section">
             <h3 className="section-title">
               <i className="bi bi-exclamation-triangle"></i> Zona de perigo
             </h3>
-            
+
             <div className="danger-buttons">
               <button 
                 className="btn-danger"
@@ -105,7 +125,7 @@ const Configuracoes = ({ user, onLogout }) => {
               >
                 <i className="bi bi-box-arrow-right"></i> Sair temporariamente
               </button>
-              
+
               <button 
                 className="btn-danger"
                 onClick={() => setShowDeleteModal(true)}
@@ -116,16 +136,25 @@ const Configuracoes = ({ user, onLogout }) => {
           </div>
         </div>
 
+        {/* Modal de confirmação */}
         {showDeleteModal && (
           <div className="modal-overlay">
             <div className="delete-modal">
               <h3>Excluir conta</h3>
               <p>Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.</p>
               <div className="modal-actions">
-                <button className="btn-confirm-delete" onClick={handleDeleteAccount}>
-                  Sim, excluir
+                <button 
+                  className="btn-confirm-delete" 
+                  onClick={handleDeleteAccount}
+                  disabled={loading}
+                >
+                  {loading ? 'Excluindo...' : 'Sim, excluir'}
                 </button>
-                <button className="btn-cancel" onClick={() => setShowDeleteModal(false)}>
+                <button 
+                  className="btn-cancel" 
+                  onClick={() => setShowDeleteModal(false)}
+                  disabled={loading}
+                >
                   Cancelar
                 </button>
               </div>
