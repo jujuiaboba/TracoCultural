@@ -7,12 +7,20 @@ const Cadastrar = () => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [erro, setErro] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setErro('');
+    setLoading(true);
 
     try {
+      if (!nome || !email || !senha) {
+        throw new Error('Todos os campos são obrigatórios');
+      }
+
       const response = await api.post('/auth/register', {
         nome,
         email,
@@ -20,10 +28,16 @@ const Cadastrar = () => {
       });
 
       console.log('Usuário cadastrado:', response.data);
-      navigate('/logar'); // redireciona para login
+      navigate('/logar');
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
-      alert('Erro ao cadastrar. Veja o console para detalhes.');
+      setErro(
+        error.response?.data?.message || 
+        error.message || 
+        'Erro ao cadastrar usuário. Tente novamente.'
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -37,6 +51,8 @@ const Cadastrar = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="auth-form">
+            {erro && <div className="error-message" style={{color: 'red', marginBottom: '10px'}}>{erro}</div>}
+
             <div className="form-group">
               <label>Nome</label>
               <input
@@ -70,8 +86,12 @@ const Cadastrar = () => {
               />
             </div>
 
-            <button type="submit" className="btn-submit">
-              Cadastrar
+            <button 
+              type="submit" 
+              className="btn-submit" 
+              disabled={loading}
+            >
+              {loading ? 'Cadastrando...' : 'Cadastrar'}
             </button>
           </form>
 
