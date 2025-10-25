@@ -13,17 +13,18 @@ const Cadastrar = () => {
     e.preventDefault();
 
     try {
-      const response = await api.post('/auth/register', {
+      const response = await api.post('/usuarios/auth/register', {
         nome,
         email,
         senha
       });
 
       console.log('Usuário cadastrado:', response.data);
-      navigate('/logar'); // redireciona para login
+      alert('Usuário cadastrado com sucesso!');
+      navigate('/logar');
     } catch (error) {
       console.error('Erro ao cadastrar usuário:', error);
-      alert('Erro ao cadastrar. Veja o console para detalhes.');
+      alert('Erro ao cadastrar. Verifique os dados e tente novamente.');
     }
   };
 

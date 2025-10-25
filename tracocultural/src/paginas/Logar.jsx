@@ -12,23 +12,24 @@ const Logar = ({ onLogin }) => {
     e.preventDefault();
 
     try {
-      // Aqui simulamos login chamando o backend (você pode criar /auth/login no backend depois)
-      const response = await api.get(); // pega todos os usuários
-      const usuario = response.data.find(
+      const response = await api.get('/usuarios');
+      const usuarios = response.data;
+
+      const usuarioEncontrado = usuarios.find(
         (u) => u.email === email && u.senha === senha
       );
 
-      if (!usuario) {
-        alert('Email ou senha incorretos');
+      if (!usuarioEncontrado) {
+        alert('Email ou senha incorretos.');
         return;
       }
 
-      console.log('Usuário logado:', usuario);
-      onLogin(usuario);
+      console.log('Usuário logado:', usuarioEncontrado);
+      onLogin(usuarioEncontrado);
       navigate('/home');
     } catch (error) {
       console.error('Erro ao logar:', error);
-      alert('Erro ao logar. Veja o console para detalhes.');
+      alert('Erro ao logar. Veja o console para mais detalhes.');
     }
   };
 
